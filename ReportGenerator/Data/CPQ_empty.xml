@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QueryResult>
+    <records>
+        <Map_Location_Number/>
+        <Division__c/>
+        <MarketName__c/>
+        <MarketTypeName__c/>
+        <Package_Name/>
+        <Weekly_Total_18_Imps__c/>
+        <Target_In_Market_Imps__c/>
+        <Total_Imps__c/>
+        <Weekly_TRP_1d__c/>
+        <PlanTRP_1d__c/>
+        <Plan_Imps_Reach_Perc__c/>
+        <Frequency__c/>
+        <Planning_Rate_4_Wk_Rate_per_Panel__c/>
+        <X4_Wk_Proposed_Price__c/>
+        <Total_Price_0d__c/>
+        <TotalInMarketCPM__c/>
+        <CPP_0d__c/>
+        <UnitSize__c/>
+        <Illuminated__c/>
+    </records>
+</QueryResult>
