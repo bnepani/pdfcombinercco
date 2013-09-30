@@ -1,0 +1,12 @@
+@import helper._
+
+@form(action = routes.Application.upload, 'enctype -> "multipart/form-data") {
+    
+    <input type="file" name="picture">
+    <label for="requesterUserEmailAddressInput">Requester user email address:</label>
+    <input type="text" id="requesterUserEmailAddressInputText" name="requesterUserEmailAddressInputText"></input>
+    <p>
+        <input type="submit">
+    </p>
+    
+}

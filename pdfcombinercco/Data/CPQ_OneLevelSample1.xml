@@ -1,0 +1,435 @@
+<QueryResult>
+	<done>true</done>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/1">
+        <!-- descriptive -->
+        <Id>1</Id>
+        <Map_Location_Number>1</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Baltimore</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>102238</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1226856</Target_In_Market_Imps__c>
+        <Total_Imps__c>306714</Total_Imps__c>
+        <Weekly_TRP_1d__c>4.5</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>54.5</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.4</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>12.5</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>5130</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>12643</Total_Price_0d__c>
+        <TotalInMarketCPM__c>13.94</TotalInMarketCPM__c>
+        <CPP_0d__c>313.88</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/2">
+        <!-- descriptive -->
+        <Id>2</Id>
+        <Map_Location_Number>2</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Baltimore</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>129097</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1456848</Target_In_Market_Imps__c>
+        <Total_Imps__c>387291</Total_Imps__c>
+        <Weekly_TRP_1d__c>5.4</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>64.7</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.8</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>13.4</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>7500</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>15013</Total_Price_0d__c>
+        <TotalInMarketCPM__c>15.44</TotalInMarketCPM__c>
+        <CPP_0d__c>347.87</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/3">
+        <!-- descriptive -->
+        <Id>3</Id>
+        <Map_Location_Number>3</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Atlanta</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>129097</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1456848</Target_In_Market_Imps__c>
+        <Total_Imps__c>387291</Total_Imps__c>
+        <Weekly_TRP_1d__c>5.4</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>64.7</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.8</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>13.4</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>7500</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>15013</Total_Price_0d__c>
+        <TotalInMarketCPM__c>15.44</TotalInMarketCPM__c>
+        <CPP_0d__c>347.87</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/3">
+        <!-- descriptive -->
+        <Id>3</Id>
+        <Map_Location_Number>4</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Atlanta</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>129097</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1456848</Target_In_Market_Imps__c>
+        <Total_Imps__c>387291</Total_Imps__c>
+        <Weekly_TRP_1d__c>5.4</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>64.7</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.8</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>13.4</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>7500</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>15013</Total_Price_0d__c>
+        <TotalInMarketCPM__c>15.44</TotalInMarketCPM__c>
+        <CPP_0d__c>347.87</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/3">
+        <!-- descriptive -->
+        <Id>3</Id>
+        <Map_Location_Number>5</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Atlanta</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>129097</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1456848</Target_In_Market_Imps__c>
+        <Total_Imps__c>387291</Total_Imps__c>
+        <Weekly_TRP_1d__c>5.4</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>64.7</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.8</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>13.4</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>7500</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>15013</Total_Price_0d__c>
+        <TotalInMarketCPM__c>15.44</TotalInMarketCPM__c>
+        <CPP_0d__c>347.87</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/3">
+        <!-- descriptive -->
+        <Id>3</Id>
+        <Map_Location_Number>6</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Milwaukee</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>129097</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1456848</Target_In_Market_Imps__c>
+        <Total_Imps__c>387291</Total_Imps__c>
+        <Weekly_TRP_1d__c>5.4</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>64.7</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.8</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>13.4</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>7500</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>15013</Total_Price_0d__c>
+        <TotalInMarketCPM__c>15.44</TotalInMarketCPM__c>
+        <CPP_0d__c>347.87</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/3">
+        <!-- descriptive -->
+        <Id>3</Id>
+        <Map_Location_Number>7</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Milwaukee</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>129097</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1456848</Target_In_Market_Imps__c>
+        <Total_Imps__c>387291</Total_Imps__c>
+        <Weekly_TRP_1d__c>5.4</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>64.7</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.8</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>13.4</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>7500</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>15013</Total_Price_0d__c>
+        <TotalInMarketCPM__c>15.44</TotalInMarketCPM__c>
+        <CPP_0d__c>347.87</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/3">
+        <!-- descriptive -->
+        <Id>3</Id>
+        <Map_Location_Number>8</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Milwaukee</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>129097</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1456848</Target_In_Market_Imps__c>
+        <Total_Imps__c>387291</Total_Imps__c>
+        <Weekly_TRP_1d__c>5.4</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>64.7</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.8</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>13.4</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>7500</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>15013</Total_Price_0d__c>
+        <TotalInMarketCPM__c>15.44</TotalInMarketCPM__c>
+        <CPP_0d__c>347.87</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/3">
+        <!-- descriptive -->
+        <Id>3</Id>
+        <Map_Location_Number>9</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Milwaukee</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>129097</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1456848</Target_In_Market_Imps__c>
+        <Total_Imps__c>387291</Total_Imps__c>
+        <Weekly_TRP_1d__c>5.4</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>64.7</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.8</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>13.4</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>7500</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>15013</Total_Price_0d__c>
+        <TotalInMarketCPM__c>15.44</TotalInMarketCPM__c>
+        <CPP_0d__c>347.87</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/3">
+        <!-- descriptive -->
+        <Id>3</Id>
+        <Map_Location_Number>10</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Milwaukee</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>129097</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1456848</Target_In_Market_Imps__c>
+        <Total_Imps__c>387291</Total_Imps__c>
+        <Weekly_TRP_1d__c>5.4</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>64.7</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.8</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>13.4</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>7500</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>15013</Total_Price_0d__c>
+        <TotalInMarketCPM__c>15.44</TotalInMarketCPM__c>
+        <CPP_0d__c>347.87</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/3">
+        <!-- descriptive -->
+        <Id>3</Id>
+        <Map_Location_Number>11</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Milwaukee</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>129097</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1456848</Target_In_Market_Imps__c>
+        <Total_Imps__c>387291</Total_Imps__c>
+        <Weekly_TRP_1d__c>5.4</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>64.7</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.8</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>13.4</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>7500</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>15013</Total_Price_0d__c>
+        <TotalInMarketCPM__c>15.44</TotalInMarketCPM__c>
+        <CPP_0d__c>347.87</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/3">
+        <!-- descriptive -->
+        <Id>3</Id>
+        <Map_Location_Number>12</Map_Location_Number>
+        <Division__c>Washington DC / Baltimore</Division__c>
+        <MarketName__c>Milwaukee</MarketName__c>
+        <MarketTypeName__c>DMA</MarketTypeName__c>
+        <Package_Name>Pkg. Name</Package_Name>
+
+        <!-- group summary -->
+        <Weekly_Total_18_Imps__c>129097</Weekly_Total_18_Imps__c>
+        <Target_In_Market_Imps__c>1456848</Target_In_Market_Imps__c>
+        <Total_Imps__c>387291</Total_Imps__c>
+        <Weekly_TRP_1d__c>5.4</Weekly_TRP_1d__c>
+        <PlanTRP_1d__c>64.7</PlanTRP_1d__c>
+        <Plan_Imps_Reach_Perc__c>4.8</Plan_Imps_Reach_Perc__c>
+        <Frequency__c>13.4</Frequency__c>
+
+        <!-- descriptive -->
+        <Planning_Rate_4_Wk_Rate_per_Panel__c>7500</Planning_Rate_4_Wk_Rate_per_Panel__c>
+        <X4_Wk_Proposed_Price__c>7500</X4_Wk_Proposed_Price__c>
+
+        <!-- group summary -->
+        <Total_Price_0d__c>15013</Total_Price_0d__c>
+        <TotalInMarketCPM__c>15.44</TotalInMarketCPM__c>
+        <CPP_0d__c>347.87</CPP_0d__c>
+
+        <!-- descriptive -->
+        <UnitSize__c>14' x 48'</UnitSize__c>
+        <Illuminated__c>Y</Illuminated__c>
+        <Comments__c>Comments</Comments__c>
+        <!-- Flight Comments;NOT FOUND -->
+        <!-- Face Side;NOT FOUND -->
+        <!-- Timing;NOT FOUND -->
+    </records>
+</QueryResult>

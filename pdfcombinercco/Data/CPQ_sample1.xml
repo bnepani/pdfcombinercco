@@ -1,0 +1,3004 @@
+<QueryResult>
+	<done>true</done>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>1.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>Y</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAF</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>2.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>Y</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAF</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>3</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>Y</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAF</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>3</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAF</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>4</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAF</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>5</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAF</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>44</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>33</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKGIA4">
+        <Id>a1kW0000000SIKGIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+    <records type="Package_Flight_Line__c"
+        url="/services/data/v27.0/sobjects/Package_Flight_Line__c/a1kW0000000SIKHIA4">
+        <Id>a1kW0000000SIKHIA4</Id>
+        <Duration__c>12.0</Duration__c>
+        <Reach_1d__c>1.9</Reach_1d__c>
+        <Frequency_1d__c>31.5</Frequency_1d__c>
+        <X4_Wk_Proposed_Price_0d__c>0.0</X4_Wk_Proposed_Price_0d__c>
+        <Total_Price_0d__c>150000.0</Total_Price_0d__c>
+        <TotalInMarketCPM_0d__c>43.0</TotalInMarketCPM_0d__c>
+        <CPP_0d__c>0.0</CPP_0d__c>
+        <Unit_Size__c>0x0</Unit_Size__c>
+        <Illumination_yn__c>N</Illumination_yn__c>
+        <Additional_Cost__c>0.0</Additional_Cost__c>
+        <Tax_Amt__c>0.0</Tax_Amt__c>
+        <Package_Flight__r type="Package_Flight__c"
+            url="/services/data/v27.0/sobjects/Package_Flight__c/a1hW0000000AeeEIAS">
+            <Id>a1hW0000000AeeEIAS</Id>
+            <Package_Market__r type="Package_Market__c"
+                url="/services/data/v27.0/sobjects/Package_Market__c/a0uW0000000AFQVIA4">
+                <Id>a0uW0000000AFQVIA4</Id>
+                <Market_Name__c>Albuquerque</Market_Name__c>
+                <Package__r type="Sales_Plan_Package__c"
+                    url="/services/data/v27.0/sobjects/Sales_Plan_Package__c/a1gW0000000A1e0IAC">
+                    <Id>a1gW0000000A1e0IAC</Id>
+                    <Package_Name__c>Package Albaquerque</Package_Name__c>
+                    <Market_Type__c>DMA</Market_Type__c>
+                </Package__r>
+            </Package_Market__r>
+        </Package_Flight__r>
+    </records>
+	<totalSize>100</totalSize>
+</QueryResult>
