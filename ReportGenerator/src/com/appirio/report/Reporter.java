@@ -48,7 +48,6 @@ import net.sf.dynamicreports.report.builder.component.HorizontalListBuilder;
 import net.sf.dynamicreports.report.builder.component.SubreportBuilder;
 import net.sf.dynamicreports.report.builder.component.VerticalListBuilder;
 import net.sf.dynamicreports.report.builder.datatype.BigDecimalType;
-import net.sf.dynamicreports.report.builder.datatype.DateType;
 import net.sf.dynamicreports.report.builder.group.ColumnGroupBuilder;
 import net.sf.dynamicreports.report.builder.group.CustomGroupBuilder;
 import net.sf.dynamicreports.report.builder.style.PaddingBuilder;
@@ -1072,12 +1071,6 @@ public class Reporter {
 
 		private StyleBuilder columnStyle;
 
-		private boolean exportAsExcel;
-
-		private StyleBuilder flightHeaderStyle;
-
-		private StyleBuilder flightHeaderValueStyle;
-
 		public NetworkPackageSummarySubreportExpression(
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
@@ -1086,9 +1079,6 @@ public class Reporter {
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 			setColumnTitleStyle(columnTitleStyle);
 			setColumnStyle(columnStyle);
-			setExportAsExcel(exportAsExcel);
-			setFlightHeaderStyle(flightHeaderStyle);
-			setFlightHeaderValueStyle(flightHeaderValueStyle);
 		}
 
 		@Override
@@ -1117,69 +1107,73 @@ public class Reporter {
 					.setHorizontalAlignment(HorizontalAlignment.LEFT);
 			report.addColumn(summaryColumn);
 			for(String key : fieldMap.keySet()) {
-			if(key.equals("Network_Name__c")) {
+				/*if(key.equals("Network_Name__c")) {
 				report.addColumn(col.column("",	"Network_Name__c", type.stringType()));
-			}
-			if(key.equals("Number_of_Panels__c")) {
-				report.addColumn(col.column("",	"Number_of_Panels__c", type.integerType()).setPattern("#,###")
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("Weekly_Total_18_Imps__c")) {
-				report.addColumn(col.column("",	"Weekly_Total_18_Imps__c", type.integerType())
-						.setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("In_Mkt_Imps__c")) {
-				report.addColumn(col.column("", "In_Mkt_Imps__c", type.doubleType())
-						.setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("Total_Imps__c")) {
-				report.addColumn(col.column("", "Total_Imps__c", type.doubleType())
-						.setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("In_Mkt_TRP__c")) {
-				report.addColumn(col.column("", "In_Mkt_TRP__c", type.doubleType())
-						.setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("PlanTRP__c")) {
-				report.addColumn(col.column("", "PlanTRP__c", type.doubleType())
-						.setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("Plan_Imps_Reach_Perc__c")) {
-				report.addColumn(col.column("", "Plan_Imps_Reach_Perc__c", type.percentageType())
-						.setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("Plan_Imps_Avg_Frequency__c")) {
-				report.addColumn(col.column("", "Plan_Imps_Avg_Frequency__c", type.doubleType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("X4_Wk_Proposed_Price__c")) {
-				report.addColumn(col.column("", "X4_Wk_Proposed_Price__c", currencyWithoutFractionDecimalType)
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("Total_Price_0d__c")) {
-				report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"),	"Total_Price__c",
-						currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("TotalInMarketCPM_0d__c")) {
-				report.addColumn(col.column("", "TotalInMarketCPM_0d__c", currencyWithFractionDecimalType)
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("CPP_0d__c")) {
-				report.addColumn(col.column("", "CPP_0d__c", currencyWithoutFractionDecimalType)
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT));
-			}
-			if(key.equals("Network_Description__c")) {
-				report.addColumn(col.column("",	"Network_Description__c", type.stringType()).setWidth(Units.inch(2.5)));
-			}
-			if(key.equals("Network_Notes__c")) {
-				report.addColumn(col.column("",	"Network_Notes__c", type.stringType()));
-			}
-			if(getPackageMarketFlightPreviousRecordExpression().isDigitalMediaCategory()) {
-				if(key.equals("Average_Daily_Spots__c")) {
-					report.addColumn(col.column("",	"Average_Daily_Spots__c", type.stringType())
+			}*/
+				if(key.equals("Number_of_Panels__c")) {
+					report.addColumn(col.column("",	"Number_of_Panels__c", type.integerType()).setPattern("#,###")
 							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
 				}
-			}
+				if (key.equals("Package_Flight__r/Media_Category__c")) {
+					report.addColumn(col.column("", "Package_Flight__r/Media_Category__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT).setWidth(Units.inch(2.0)));
+				}
+				if(key.equals("Weekly_Total_18_Imps__c")) {
+					report.addColumn(col.column("",	"Weekly_Total_18_Imps__c", type.integerType())
+							.setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+				}
+				if(key.equals("In_Mkt_Imps__c")) {
+					report.addColumn(col.column("", "In_Mkt_Imps__c", type.doubleType())
+							.setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+				}
+				if(key.equals("Total_Imps__c")) {
+					report.addColumn(col.column("", "Total_Imps__c", type.doubleType())
+							.setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+				}
+				if(key.equals("In_Mkt_TRP__c")) {
+					report.addColumn(col.column("", "In_Mkt_TRP__c", type.doubleType())
+							.setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+				}
+				if(key.equals("PlanTRP__c")) {
+					report.addColumn(col.column("", "PlanTRP__c", type.doubleType())
+							.setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+				}
+				if(key.equals("Plan_Imps_Reach_Perc__c")) {
+					report.addColumn(col.column("", "Plan_Imps_Reach_Perc__c", type.percentageType())
+							.setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+				}
+				if(key.equals("Plan_Imps_Avg_Frequency__c")) {
+					report.addColumn(col.column("", "Plan_Imps_Avg_Frequency__c", type.doubleType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
+				}
+				if(key.equals("X4_Wk_Proposed_Price__c")) {
+					report.addColumn(col.column("", "X4_Wk_Proposed_Price__c", currencyWithoutFractionDecimalType)
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
+				}
+				if(key.equals("Total_Price_0d__c")) {
+					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"),	"Total_Price__c",
+							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT));
+				}
+				if(key.equals("TotalInMarketCPM_0d__c")) {
+					report.addColumn(col.column("", "TotalInMarketCPM_0d__c", currencyWithFractionDecimalType)
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
+				}
+				if(key.equals("CPP_0d__c")) {
+					report.addColumn(col.column("", "CPP_0d__c", currencyWithoutFractionDecimalType)
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
+				}
+				if(key.equals("Network_Description__c")) {
+					report.addColumn(col.column("",	"Network_Description__c", type.stringType()).setWidth(Units.inch(2.5)));
+				}
+				if(key.equals("Network_Notes__c")) {
+					report.addColumn(col.column("",	"Network_Notes__c", type.stringType()));
+				}
+				if(getPackageMarketFlightPreviousRecordExpression().isDigitalMediaCategory()) {
+					if(key.equals("Average_Daily_Spots__c")) {
+						report.addColumn(col.column("",	"Average_Daily_Spots__c", type.stringType())
+								.setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+				}
 			}
 			// ================================= add columns: end
 			return report;
@@ -1209,32 +1203,6 @@ public class Reporter {
 		public void setColumnStyle(StyleBuilder columnStyle) {
 			this.columnStyle = columnStyle;
 		}
-
-		public boolean isExportAsExcel() {
-			return exportAsExcel;
-		}
-
-		public void setExportAsExcel(boolean exportAsExcel) {
-			this.exportAsExcel = exportAsExcel;
-		}
-		
-		public StyleBuilder getFlightHeaderStyle() {
-			return flightHeaderStyle;
-		}
-
-		public void setFlightHeaderStyle(StyleBuilder flightHeaderStyle) {
-			this.flightHeaderStyle = flightHeaderStyle;
-		}
-
-		public StyleBuilder getFlightHeaderValueStyle() {
-			return flightHeaderValueStyle;
-		}
-
-		public void setFlightHeaderValueStyle(
-				StyleBuilder flightHeaderValueStyle) {
-			this.flightHeaderValueStyle = flightHeaderValueStyle;
-		}
-
 	}
 
 	private class AudiencePackageSummarySubreportExpression extends
@@ -1248,12 +1216,6 @@ public class Reporter {
 
 		private StyleBuilder columnStyle;
 
-		private boolean exportAsExcel;
-
-		private StyleBuilder flightHeaderStyle;
-
-		private StyleBuilder flightHeaderValueStyle;
-
 		public AudiencePackageSummarySubreportExpression(
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
@@ -1262,9 +1224,6 @@ public class Reporter {
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 			setColumnTitleStyle(columnTitleStyle);
 			setColumnStyle(columnStyle);
-			setExportAsExcel(exportAsExcel);
-			setFlightHeaderStyle(flightHeaderStyle);
-			setFlightHeaderValueStyle(flightHeaderValueStyle);
 		}
 
 		@Override
@@ -1290,147 +1249,147 @@ public class Reporter {
 
 			// types
 			CurrencyWithoutFractionDecimalType currencyWithoutFractionDecimalType = new CurrencyWithoutFractionDecimalType();
-			
-			// build columns that are to be summarized
-			TextColumnBuilder<Integer> weeklyTotal18ImpsColumn = col.column(
-					"",
-					"Weekly_Total_18_Imps__c", type.integerType())
-					.setHorizontalAlignment(HorizontalAlignment.CENTER);
-			weeklyTotal18ImpsColumn.setWidth(Units.inch(2.5));
-			report.addColumn(weeklyTotal18ImpsColumn);
 
-			TextColumnBuilder<Double> totalImpsColumn = col.column(
-					"", "Total_Imps__c",
-					type.doubleType()).setHorizontalAlignment(
-					HorizontalAlignment.CENTER);
-			totalImpsColumn.setWidth(Units.inch(2.5));
-			report.addColumn(totalImpsColumn);
-			TextColumnBuilder<Double> weekklyTRPColumn = col.column(
-					"", "In_Mkt_TRP__c",
-					type.doubleType()).setHorizontalAlignment(
-					HorizontalAlignment.CENTER);
-			TextColumnBuilder<Double> frequencyColumn = col.column(
-					"",
-					"Plan_Imps_Avg_Frequency__c", type.doubleType())
-					.setHorizontalAlignment(HorizontalAlignment.CENTER);
-			TextColumnBuilder<BigDecimal> totalPriceColumn = col.column(
-					"", "Total_Price__c",
-					currencyWithoutFractionDecimalType).setHorizontalAlignment(
-					HorizontalAlignment.CENTER);
-			totalPriceColumn.setWidth(Units.inch(2.5));
-			report.addColumn(totalPriceColumn);
-			TextColumnBuilder<BigDecimal> cppColumn = col.column(
-					"", "CPP_0d__c",
-					currencyWithoutFractionDecimalType).setHorizontalAlignment(
-					HorizontalAlignment.CENTER);
-
-			
-			TextColumnBuilder<String> summaryColumn = col.column("Summary",	"Package_Name__c", type.stringType())
-					.setHorizontalAlignment(HorizontalAlignment.LEFT);
-			// summaryColumn.setWidth(Units.inch(3.5));
-			report.addColumn(summaryColumn);
+			report.addColumn(col.column("Summary", "Package_Name__c", type.stringType()));
 			for(String key : fieldMap.keySet()) {
-			// add columns
-			if (key.equals(
-					"Package_Flight__r/Media_Category__c")) {
-				report.addColumn(
-						col.column(
-								"",
-								"Package_Flight__r/Media_Category__c", type.stringType()));
-			}
-			if (key.equals(
-					"Number_of_Panels__c")) {
-				report.addColumn(col.column(
-						"",
-						"Number_of_Panels__c", type.integerType())
-						.setHorizontalAlignment(HorizontalAlignment.CENTER));
-			}
-			// * ANJALI- 12 Aug added
-			if (key.equals(
-					"Package_Flight__r/Target__c")) {
-				report.addColumn(col.column(
-						"",
-						"Package_Flight__r/Target__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.CENTER));
-			}
-			if (key.equals(
-					"Weekly_Total_18_Imps__c")) {
-				weeklyTotal18ImpsColumn.setWidth(Units.inch(2.5));
-				report.addColumn(weeklyTotal18ImpsColumn);
-			}
-			if (key.equals("In_Mkt_Imps__c")) {
-				report.addColumn(col.column(
-						"", "In_Mkt_Imps__c",
-						type.doubleType()).setHorizontalAlignment(
-						HorizontalAlignment.CENTER));
-				// 23. {Jesus} "Target Total Imps" and "Sub Total" in Audience
-				// should not be rendered on the PDF detail output for Audience.
-				// report.addColumn(totalImpsColumn);
-			}
-			if (key.equals("In_Mkt_TRP__c")) {
-				report.addColumn(weekklyTRPColumn);
-			}
-			if (key.equals("PlanTRP__c")) {
-				report.addColumn(col.column(
-						"", "PlanTRP__c",
-						type.doubleType()).setHorizontalAlignment(
-						HorizontalAlignment.CENTER));
-			}
-			if (key.equals(
-					"Plan_Imps_Reach_Perc__c")) {
-				report.addColumn(col
-						.column("",
-								"Plan_Imps_Reach_Perc__c",
-								type.percentageType())
-						.setHorizontalAlignment(HorizontalAlignment.CENTER)
-						// .setPattern("#%"));
-						.setPattern("###.#"));
-			}
-			if (key.equals(
-					"Plan_Imps_Avg_Frequency__c")) {
-				report.addColumn(frequencyColumn);
-			}
-			if (key.equals(
-					"X4_Wk_Proposed_Price__c")) {
-				report.addColumn(col.column(
-						"",
-						"X4_Wk_Proposed_Price__c",
-						currencyWithoutFractionDecimalType)
-						.setHorizontalAlignment(HorizontalAlignment.CENTER));
-			}
-			
-			if (key.equals(
-					"Total_Price_0d__c")) {
-				report.addColumn(totalPriceColumn);
-			}
-			if (key.equals(
-					"TotalInMarketCPM_0d__c")) {
-				report.addColumn(col
-						.column("",
-								"TotalInMarketCPM_0d__c",
-								currencyWithoutFractionDecimalType)
-						.setHorizontalAlignment(HorizontalAlignment.CENTER));
-			}
-			if (key.equals("CPP_0d__c")) {
-				report.addColumn(cppColumn);
-			}
-			if (key.equals("Comments__c")) {
-				report.addColumn(col.column("",
-						"Comments__c", type.stringType()));
-			}
-			if (isExportAsExcel()) {
-				report.addColumn(col
-						.column("",
-								"Package_Flight__r/Flight_Comments__c",
-								type.stringType()).setHorizontalAlignment(
-								HorizontalAlignment.CENTER));
-				
-				report.addColumn(col
-						.column("",
-								"Package_Flight__r/Package_Comments__c",
-								type.stringType()).setHorizontalAlignment(
-								HorizontalAlignment.CENTER));
-			}
+				if(key.equals("Weekly_Total_18_Imps__c")) {
+					TextColumnBuilder<Integer> weeklyTotal18ImpsColumn = col.column("", "Weekly_Total_18_Imps__c", type.integerType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(2.5));
+					report.addColumn(weeklyTotal18ImpsColumn);
+				}
+				if(key.equals("Total_Imps__c")) {
+					TextColumnBuilder<Double> totalImpsColumn = col.column("",	"Total_Imps__c", type.doubleType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(2.5));
+					report.addColumn(totalImpsColumn);
+				}
+				if(key.equals("Total_Price_0d__c")) {
+					TextColumnBuilder<BigDecimal> totalPriceColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"),	"Total_Price__c", currencyWithoutFractionDecimalType)
+							.setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(2.5));
+					report.addColumn(totalPriceColumn);
+				}
+				/*if(key.equals("MarketName__c")) {
+					report.addColumn(col.column(marketNameLabel, "MarketName__c", type.stringType())).setColumnTitleStyle(getColumnTitleStyle());
+				}*/
+				if(key.equals("Media_Category__c")) {
+					report.addColumn(col.column("",	"Media_Category__c", type.stringType()));
+				}
+				if(key.equals("Number_of_Panels__c")) {
+					report.addColumn(col.column("",	"Number_of_Panels__c", type.integerType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER));
+				}
+				if(key.equals("Package_Flight__r/Target__c")) {
+					report.addColumn(col.column("", "Package_Flight__r/Target__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER));
+				}
+				if(key.equals("In_Mkt_Imps__c")) {
+					report.addColumn(col.column("",	"In_Mkt_Imps__c", type.doubleType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER));
+				}
+				if(key.equals("In_Mkt_TRP__c")) {
+					TextColumnBuilder<Double> weekklyTRPColumn = col.column("",	"In_Mkt_TRP__c", type.doubleType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER);
+					report.addColumn(weekklyTRPColumn);
+				}
+				if(key.equals("PlanTRP__c")) {
+					report.addColumn(col.column("",	"PlanTRP__c", type.doubleType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER));
+				}
+				if(key.equals("Plan_Imps_Reach_Perc__c")) {
+					report.addColumn(col.column("",	"Plan_Imps_Reach_Perc__c", type.percentageType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER).setPattern("###.#"));
+				}
+				if(key.equals("Plan_Imps_Avg_Frequency__c")) {
+					TextColumnBuilder<Double> frequencyColumn = col.column("",	"Plan_Imps_Avg_Frequency__c", type.doubleType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER);
+					report.addColumn(frequencyColumn);
+				}
+				if(key.equals("X4_Wk_Proposed_Price__c")) {
+					report.addColumn(col.column("",	"X4_Wk_Proposed_Price__c", currencyWithoutFractionDecimalType)
+							.setHorizontalAlignment(HorizontalAlignment.CENTER));
+				}
+				if(key.equals("TotalInMarketCPM_0d__c")) {
+					report.addColumn(col.column("", "TotalInMarketCPM_0d__c", currencyWithoutFractionDecimalType)
+							.setHorizontalAlignment(HorizontalAlignment.CENTER));
+				}
+				if(key.equals("CPP_0d__c")) {
+					TextColumnBuilder<BigDecimal> cppColumn = col.column("", "CPP_0d__c", currencyWithoutFractionDecimalType)
+							.setHorizontalAlignment(HorizontalAlignment.CENTER);
+					report.addColumn(cppColumn);
+				}
+				if(key.equals("Comments__c")) {
+					report.addColumn(col.column("",	"Comments__c", type.stringType()));
+				}
+
+				if (key.equals("Package_Flight__r/Market_Type__c")) {
+					report.addColumn(col.column("", "Package_Flight__r/Market_Type__c",	type.stringType()));
+				}
+				if (key.equals("Timing__c")) {
+					TextColumnBuilder<String> timingColumn = col.column("", "Timing__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					timingColumn.setWidth(Units.inch(3));
+					report.addColumn(timingColumn);
+				}
+				if (key.equals("Weekly_Total_18_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotal18Imps000Column = col.column("", "Weekly_Total_18_Imps_000__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					weeklyTotal18Imps000Column.setWidth(Units.inch(3));
+					report.addColumn(weeklyTotal18Imps000Column);
+				}
+				if (key.equals("WeeklyMarketImps__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotalTargetImpsColumn = col.column("", "WeeklyMarketImps__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					weeklyTotalTargetImpsColumn.setWidth(Units.inch(3));
+					report.addColumn(weeklyTotalTargetImpsColumn);
+				}
+				if (key.equals("Weekly_Total_Target_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotalTargetImps000Column = col.column("", "Weekly_Total_Target_Imps_000__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					weeklyTotalTargetImps000Column.setWidth(Units.inch(3));
+					report.addColumn(weeklyTotalTargetImps000Column);
+				}
+				if (key.equals("WeeklyInMarketImps__c")) {
+					TextColumnBuilder<BigDecimal> weeklyInMarketTargetImpsColumn = col.column("", "WeeklyInMarketImps__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					weeklyInMarketTargetImpsColumn.setWidth(Units.inch(3));
+					report.addColumn(weeklyInMarketTargetImpsColumn);
+				}
+				if (key.equals("Weekly_In_Market_Target_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyInMarketTargetImps000Column = col.column("", "Weekly_In_Market_Target_Imps_000__c",	type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					weeklyInMarketTargetImps000Column.setWidth(Units.inch(3));
+					report.addColumn(weeklyInMarketTargetImps000Column);
+				}
+				if (key.equals("Target_In_Market_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> targetInMarketImps000Column = col.column("", "Target_In_Market_Imps_000__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					targetInMarketImps000Column.setWidth(Units.inch(3));
+					report.addColumn(targetInMarketImps000Column);
+				}
+				if (key.equals("Target_Total_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> totalImps000Column = col.column("", "Target_Total_Imps_000__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					totalImps000Column.setWidth(Units.inch(3));
+					report.addColumn(totalImps000Column);
+				}
+				if (key.equals("X4_Wk_Avg_Rate_per_Panel__c")) {
+					TextColumnBuilder<String> x4WkAverageRatePanelColumn = col.column("", "X4_Wk_Avg_Rate_per_Panel__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					x4WkAverageRatePanelColumn.setWidth(Units.inch(1.5));
+					report.addColumn(x4WkAverageRatePanelColumn);
+				}
+				if (key.equals("Net_Amount_Value__c")) {
+					TextColumnBuilder<BigDecimal> subTotalPriceColumn = col.column("", "Net_Amount_Value__c", currencyWithoutFractionDecimalType)
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					subTotalPriceColumn.setWidth(Units.inch(2.5));
+					report.addColumn(subTotalPriceColumn);
+				}
+				if (key.equals("In_Mkt_Perc_Comp__c")) {
+					TextColumnBuilder<BigDecimal> inMktPercCompColumn = col.column("", "In_Mkt_Perc_Comp__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT).setPattern("#,##0.00");
+					inMktPercCompColumn.setWidth(Units.inch(1.5));
+					report.addColumn(inMktPercCompColumn);
+				}
 			}
 			// return report
 			return report;
@@ -1460,32 +1419,6 @@ public class Reporter {
 		public void setColumnStyle(StyleBuilder columnStyle) {
 			this.columnStyle = columnStyle;
 		}
-
-		public boolean isExportAsExcel() {
-			return exportAsExcel;
-		}
-
-		public void setExportAsExcel(boolean exportAsExcel) {
-			this.exportAsExcel = exportAsExcel;
-		}
-		
-		public StyleBuilder getFlightHeaderStyle() {
-			return flightHeaderStyle;
-		}
-
-		public void setFlightHeaderStyle(StyleBuilder flightHeaderStyle) {
-			this.flightHeaderStyle = flightHeaderStyle;
-		}
-
-		public StyleBuilder getFlightHeaderValueStyle() {
-			return flightHeaderValueStyle;
-		}
-
-		public void setFlightHeaderValueStyle(
-				StyleBuilder flightHeaderValueStyle) {
-			this.flightHeaderValueStyle = flightHeaderValueStyle;
-		}
-
 	}
 
 	private class LocationPackageSummarySubreportExpression extends
@@ -1499,12 +1432,6 @@ public class Reporter {
 
 		private StyleBuilder columnStyle;
 
-		private boolean exportAsExcel;
-
-		private StyleBuilder flightHeaderStyle;
-
-		private StyleBuilder flightHeaderValueStyle;
-
 		public LocationPackageSummarySubreportExpression(
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
@@ -1513,9 +1440,6 @@ public class Reporter {
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 			setColumnTitleStyle(columnTitleStyle);
 			setColumnStyle(columnStyle);
-			setExportAsExcel(exportAsExcel);
-			setFlightHeaderStyle(flightHeaderStyle);
-			setFlightHeaderValueStyle(flightHeaderValueStyle);
 		}
 
 		@Override
@@ -1524,9 +1448,8 @@ public class Reporter {
 			// add columns
 			addColumns(report, getFlightLineColumnLabelHashMap());
 			// style
-			if (!isExportAsExcel()) {
-				report.highlightDetailEvenRows();
-			}
+			report.highlightDetailEvenRows();
+
 			report.setColumnStyle(getColumnStyle());
 			report.setColumnTitleStyle(getColumnTitleStyle());
 			
@@ -1547,564 +1470,283 @@ public class Reporter {
 			summaryColumn.setWidth(Units.inch(2.0));
 			report.addColumn(summaryColumn);
 			System.out.println("Package Summary");
-			TextColumnBuilder<BigDecimal> weeklyTotal18ImpsColumn = col.column("", "Weekly_Total_18_Imps__c",
-					type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-
-			TextColumnBuilder<BigDecimal> weeklyTotal18Imps000Column = col.column("", "Weekly_Total_18_Imps_000__c",
-					type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-
-			TextColumnBuilder<BigDecimal> totalImpsColumn = col.column("", "Total_Imps__c",
-					type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-
-			TextColumnBuilder<BigDecimal> totalImps000Column = col.column("", "Target_Total_Imps_000__c",
-					type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-
-			TextColumnBuilder<Double> weekklyTRPColumn = col.column("", "In_Mkt_TRP__c",
-					type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
-			
-			TextColumnBuilder<Double> frequencyColumn = col.column("", "Plan_Imps_Avg_Frequency__c",
-					type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
-			
-			TextColumnBuilder<BigDecimal> totalPriceColumn = col.column(
-					getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"),	"Total_Price__c",
-					currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-			
-			TextColumnBuilder<BigDecimal> cppColumn = col.column("", "CPP_0d__c",
-					currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
 			for(String key : fieldMap.keySet()) {
-			if (isExportAsExcel()) {
-				report.setIgnorePageWidth(true);
-				if (key.equals("Package_Flight__r/Division__c")) {
-					report.addColumn(col.column("", "Package_Flight__r/Division__c", type.stringType()).setWidth(Units.inch(1.32)));
+				if (key.equals("Package_Flight__r/Media_Category__c")) {
+					TextColumnBuilder<String> mediaTypeColumn = col.column("", "Package_Flight__r/Media_Category__c",	type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT).setWidth(Units.inch(2.0));
+					report.addColumn(mediaTypeColumn);
 				}
-				if (key.equals("Package_Flight__r/Market_Name__c")) {
-					report.addColumn(col.column("",	"Package_Flight__r/Market_Name__c",	type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if (key.equals("Package_Flight__r/Market_Type__c")) {
-					report.addColumn(col.column("",	"Package_Flight__r/Market_Type__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if (key.equals("Package_Flight__r/Package_Name__c")) {
-					report.addColumn(col.column("", "Package_Flight__r/Package_Name__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if (key.equals("Package_Flight__r/Name")) {
-					report.addColumn(col.column("", "Package_Flight__r/Name", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if (key.equals("Package_Flight__r/Type__c")) {
-					report.addColumn(col.column("", "Package_Flight__r/Type__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-
-				if (key.equals("Package_Flight__r/Campaign_Start_Date__c")) {
-					report.addColumn(col.column("", "Package_Flight__r/Campaign_Start_Date__c",	type.stringType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)).setValueFormatter(new ValueFormatter()));
-				}
-				if (key.equals("Package_Flight__r/Campaign_End_Date__c")) {
-					report.addColumn(col.column("", "Package_Flight__r/Campaign_End_Date__c", type.stringType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)).setValueFormatter(new ValueFormatter()));
-				}
-				if (key.equals("Package_Flight__r/Duration_And_Type__c")) {
-					report.addColumn(col.column("", "Package_Flight__r/Duration_And_Type__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if (key.equals("Package_Flight__r/Target__c")) {
-					report.addColumn(col.column("", "Package_Flight__r/Target__c", type.stringType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Package_Flight__r/Target_Population__c")) {
-					report.addColumn(col.column("", "Package_Flight__r/Target_Population__c", type.integerType()).setWidth(Units.inch(1.32)));
-				} 
-			}
-			if (key.equals("Package_Flight__r/Media_Category__c")) {
-				TextColumnBuilder<String> mediaTypeColumn = col.column("", "Package_Flight__r/Media_Category__c",	type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT).setWidth(Units.inch(2.0));
-				report.addColumn(mediaTypeColumn);
-			}
-			if (key.equals("Panel_Id_Label__c")) {
-				TextColumnBuilder<String> panelIdColumn = col.column("", "Panel_Id_Label__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					panelIdColumn.setWidth(Units.inch(1.32));
-				} else {
-					panelIdColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(panelIdColumn);
-			}
-			if (key.equals("TAB_Id__c")) {
-				TextColumnBuilder<String> tabIdColumn = col.column("", "TAB_Id__c",	type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					tabIdColumn.setWidth(Units.inch(1.32));
-				} else {
-					tabIdColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(tabIdColumn);
-			}
-			if (key.equals("Location_Description__c")) {
-				TextColumnBuilder<String> descriptionTextColumn = col.column("", "Location_Description__c",	type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					descriptionTextColumn.setWidth(Units.inch(1.32));
-				} else {
-					descriptionTextColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(descriptionTextColumn);
-			}
-			if (key.equals("Face_Direction__c")) {
-				TextColumnBuilder<String> flightLineTextColumn = col.column("", "Face_Direction__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				report.addColumn(flightLineTextColumn);
-				if (isExportAsExcel()) {
-					flightLineTextColumn.setWidth(Units.inch(1.32));
-				}
-			}
-
-			if (key.equals("Weekly_Total_18_Imps__c")) {
-				if (isExportAsExcel()) {
-					weeklyTotal18ImpsColumn.setWidth(Units.inch(1.32));
-				} else {
-					weeklyTotal18ImpsColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyTotal18ImpsColumn);
-			}
-			if (key.equals("Weekly_Total_18_Imps_000__c")) {
-				if (isExportAsExcel()) {
-					weeklyTotal18Imps000Column.setWidth(Units.inch(1.32));
-				} else {
-					weeklyTotal18Imps000Column.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyTotal18Imps000Column);
-			}
-			if (key.equals("In_Mkt_Imps__c")) {
-				TextColumnBuilder<BigDecimal> targetInMarketImpsColumn = col.column("", "In_Mkt_Imps__c", type.bigDecimalType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					targetInMarketImpsColumn.setWidth(Units.inch(1.32));
-				} else {
-					targetInMarketImpsColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(targetInMarketImpsColumn);
-			}
-			
-			if (key.equals("Target_In_Market_Imps_000__c")) {
-				TextColumnBuilder<BigDecimal> targetInMarketImps000Column = col.column("", "Target_In_Market_Imps_000__c", type.bigDecimalType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					targetInMarketImps000Column.setWidth(Units.inch(1.32));
-				} else {
-					targetInMarketImps000Column.setWidth(Units.inch(3));
-				}
-				report.addColumn(targetInMarketImps000Column);
-			}
-			if (key.equals("Total_Imps__c")) {
-				if (isExportAsExcel()) {
-					totalImpsColumn.setWidth(Units.inch(1.32));
-				} else {
-					totalImpsColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(totalImpsColumn);
-			}
-			if (key.equals("Target_Total_Imps_000__c")) {
-				if (isExportAsExcel()) {
-					totalImps000Column.setWidth(Units.inch(1.32));
-				} else {
-					totalImps000Column.setWidth(Units.inch(3));
-				}
-				report.addColumn(totalImps000Column);
-			}
-			
-			if (key.equals("WeeklyMarketImps__c")) {
-				TextColumnBuilder<BigDecimal> weeklyTotalTargetImpsColumn = col.column("", "WeeklyMarketImps__c", type.bigDecimalType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					weeklyTotalTargetImpsColumn.setWidth(Units.inch(1.32));
-				} else {
-					weeklyTotalTargetImpsColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyTotalTargetImpsColumn);
-			}
-			
-			if (key.equals("Weekly_Total_Target_Imps_000__c")) {
-				TextColumnBuilder<BigDecimal> weeklyTotalTargetImps000Column = col.column("", "Weekly_Total_Target_Imps_000__c", type.bigDecimalType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					weeklyTotalTargetImps000Column.setWidth(Units.inch(1.32));
-				} else {
-					weeklyTotalTargetImps000Column.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyTotalTargetImps000Column);
-			}
-			
-			if (key.equals("WeeklyInMarketImps__c")) {
-				TextColumnBuilder<BigDecimal> weeklyInMarketTargetImpsColumn = col.column("", "WeeklyInMarketImps__c", type.bigDecimalType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					weeklyInMarketTargetImpsColumn.setWidth(Units.inch(1.32));
-				} else {
-					weeklyInMarketTargetImpsColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyInMarketTargetImpsColumn);
-			}
-			
-			if (key.equals("Weekly_In_Market_Target_Imps_000__c")) {
-				TextColumnBuilder<BigDecimal> weeklyInMarketTargetImps000Column = col.column("", "Weekly_In_Market_Target_Imps_000__c",	type.bigDecimalType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					weeklyInMarketTargetImps000Column.setWidth(Units.inch(1.32));
-				} else {
-					weeklyInMarketTargetImps000Column.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyInMarketTargetImps000Column);
-			}
-			
-			if (key.equals("In_Mkt_TRP__c")) {
-				if (isExportAsExcel()) {
-					weekklyTRPColumn.setWidth(Units.inch(1.32));
-				} else {
-					weekklyTRPColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(weekklyTRPColumn);
-			}
-			if (key.equals("PlanTRP__c")) {
-				TextColumnBuilder<Double> planTRPColumn = col.column("", "PlanTRP__c", type.doubleType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
-				if (isExportAsExcel()) {
-					planTRPColumn.setWidth(Units.inch(1.32));
-				} else {
-					planTRPColumn.setWidth(Units.inch(2));
-				}
-				report.addColumn(planTRPColumn);
-			}
-			if (key.equals("Plan_Imps_Reach_Perc__c")) {
-				TextColumnBuilder<Double> planImpsReachPercColumn = col.column("", "Plan_Imps_Reach_Perc__c", type.percentageType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
-				if (isExportAsExcel()) {
-					planImpsReachPercColumn.setWidth(Units.inch(1.32));
-				} else {
-					planImpsReachPercColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(planImpsReachPercColumn);
-			}
-			if (key.equals("Plan_Imps_Avg_Frequency__c")) {
-				if (isExportAsExcel()) {
-					frequencyColumn.setWidth(Units.inch(1.32));
-				}
-				report.addColumn(frequencyColumn);
-			}
-
-			if (key.equals("X4_Wk_Proposed_Price__c")) {
-				TextColumnBuilder<BigDecimal> X4WkProposedPriceColumn = col.column("", "X4_Wk_Proposed_Price__c",
-						currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					X4WkProposedPriceColumn.setWidth(Units.inch(1.32));
-				} else {
-					X4WkProposedPriceColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(X4WkProposedPriceColumn);
-			}
-			if (key.equals("Net_Amount_Value__c")) {
-				TextColumnBuilder<BigDecimal> subTotalPriceColumn = col.column("", "Net_Amount_Value__c",
-						currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					subTotalPriceColumn.setWidth(Units.inch(1.32));
-				} else {
-					subTotalPriceColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(subTotalPriceColumn);
-			}
-			
-			if (key.equals("Total_Price_0d__c")) {
-				if (isExportAsExcel()) {
-					totalPriceColumn.setWidth(Units.inch(1.32));
-				} else {
-					totalPriceColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(totalPriceColumn);
-			}
-			if (key.equals("TotalInMarketCPM_0d__c")) {
-				TextColumnBuilder<BigDecimal> totalInMarketCPM0dColumn = col.column("", "TotalInMarketCPM_0d__c",
-						currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					totalInMarketCPM0dColumn.setWidth(Units.inch(1.32));
-				} else {
-					totalInMarketCPM0dColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(totalInMarketCPM0dColumn);
-			}
-			if (key.equals("CPP_0d__c")) {
-				if (isExportAsExcel()) {
-					cppColumn.setWidth(Units.inch(1.32));
-				} else {
-					cppColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(cppColumn);
-			}
-			if (key.equals("Unit_Size__c")) {
-				TextColumnBuilder<String> unitSizeColumn = col.column("", "Unit_Size__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					unitSizeColumn.setWidth(Units.inch(1.32));
-				} else {
-					unitSizeColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(unitSizeColumn);
-			}
-			if (key.equals("Illumination_yn__c")) {
-				TextColumnBuilder<String> illuminationColumn = col.column("", "Illumination_yn__c",	type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					illuminationColumn.setWidth(Units.inch(1.32));
-				} else {
-					illuminationColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(illuminationColumn);
-			}
-			if (key.equals("Comments__c")) {
-				TextColumnBuilder<String> commentsColumn = col.column("", "Comments__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					commentsColumn.setWidth(Units.inch(1.32));
-				} else {
-					commentsColumn.setWidth(Units.inch(3.5));
-				}
-				report.addColumn(commentsColumn);
-			}
-			if (isExportAsExcel()) {
-				TextColumnBuilder<String> flightCommentsColumn = col.column("", "Package_Flight__r/Flight_Comments__c",	type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					flightCommentsColumn.setWidth(Units.inch(1.32));
-				} else {
-					flightCommentsColumn.setWidth(Units.inch(3.5));
-				}
-				report.addColumn(flightCommentsColumn);
-				
-				TextColumnBuilder<String> packageCommentsColumn = col.column("", "Package_Flight__r/Package_Comments__c",	type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					packageCommentsColumn.setWidth(Units.inch(1.32));
-				} else {
-					packageCommentsColumn.setWidth(Units.inch(3.5));
-				}
-				report.addColumn(packageCommentsColumn);
-			}
-
-			if (key.equals("Timing__c")) {
-				TextColumnBuilder<String> timingColumn = col.column("", "Timing__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					timingColumn.setWidth(Units.inch(1.32));
-				} else {
-					timingColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(timingColumn);
-			}
-			
-			if (key.equals("In_Mkt_Perc_Comp__c")) {
-				TextColumnBuilder<BigDecimal> inMktPercCompColumn = col.column("", "In_Mkt_Perc_Comp__c", type.bigDecimalType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT).setPattern("#,##0.00");
-				if (isExportAsExcel()) {
-					inMktPercCompColumn.setWidth(Units.inch(1.32));
-				} else {
-					inMktPercCompColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(inMktPercCompColumn);
-			}
-			
-			if (key.equals("X4_Wk_Avg_Rate_per_Panel__c")) {
-				TextColumnBuilder<String> x4WkAverageRatePanelColumn = col.column("", "X4_Wk_Avg_Rate_per_Panel__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					x4WkAverageRatePanelColumn.setWidth(Units.inch(1.32));
-				} else {
-					x4WkAverageRatePanelColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(x4WkAverageRatePanelColumn);
-			}
-			
-			if (key.equals("Production__c")) {
-				TextColumnBuilder<BigDecimal> productionColumn = col.column("", "Production__c",
-						currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					productionColumn.setWidth(Units.inch(1.32));
-				} else {
-					productionColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(productionColumn);
-			}
-			
-			if (key.equals("Additional_Cost__c")) {
-				TextColumnBuilder<BigDecimal> additionalCostColumn = col.column("", "Additional_Cost__c",
-						currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					additionalCostColumn.setWidth(Units.inch(1.32));
-				} else {
-					additionalCostColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(additionalCostColumn);
-			}
-			
-			if (key.equals("Tax_Amt__c")) {
-				TextColumnBuilder<BigDecimal> taxAmtColumn = col.column("", "Tax_Amt__c",
-						currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					taxAmtColumn.setWidth(Units.inch(1.32));
-				} else {
-					taxAmtColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(taxAmtColumn);
-			}
-			
-			if (key.equals("Location__Longitude__s")) {
-				TextColumnBuilder<String> locationLangitudeColumn = col.column("", "Location__Longitude__s", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					locationLangitudeColumn.setWidth(Units.inch(1.32));
-				} else {
-					locationLangitudeColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(locationLangitudeColumn);
-			}
-			
-			if (key.equals("Location__Latitude__s")) {
-				TextColumnBuilder<String> locationLatitudeColumn = col.column("", "Location__Latitude__s", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					locationLatitudeColumn.setWidth(Units.inch(1.32));
-				} else {
-					locationLatitudeColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(locationLatitudeColumn);
-			}
-			
-			if (key.equals("Embellishments__c")) {
-				TextColumnBuilder<String> embellishmentsColumn = col.column("", "Embellishments__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					embellishmentsColumn.setWidth(Units.inch(1.32));
-				} else {
-					embellishmentsColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(embellishmentsColumn);
-			}
-			
-			if (key.equals("Illumination__c")) {
-				TextColumnBuilder<BigDecimal> illuminationColumn = col.column("", "Illumination__c",
-						currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					illuminationColumn.setWidth(Units.inch(1.32));
-				} else {
-					illuminationColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(illuminationColumn);
-			}
-			
-			if (key.equals("Current_Copy__c")) {
-				TextColumnBuilder<String> currentCopyColumn = col.column("", "Current_Copy__c",	type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					currentCopyColumn.setWidth(Units.inch(1.32));
-				} else {
-					currentCopyColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(currentCopyColumn);
-			}
-			
-			if (key.equals("City__c")) {
-				TextColumnBuilder<String> cityColumn = col.column("", "City__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					cityColumn.setWidth(Units.inch(1.32));
-				} else {
-					cityColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(cityColumn);
-			}
-			
-			if (key.equals("County__c")) {
-				TextColumnBuilder<String> countryColumn = col.column("", "County__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					countryColumn.setWidth(Units.inch(1.32));
-				} else {
-					countryColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(countryColumn);
-			}
-			
-			if (key.equals("State__c")) {
-				TextColumnBuilder<String> stateColumn = col.column("", "State__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					stateColumn.setWidth(Units.inch(1.32));
-				} else {
-					stateColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(stateColumn);
-			}
-			
-			if (key.equals("Zip__c")) {
-				TextColumnBuilder<String> zipColumn = col.column("", "Zip__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					zipColumn.setWidth(Units.inch(1.32));
-				} else {
-					zipColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(zipColumn);
-			}
-			if (key.equals("Media_Product__c")) {
-				TextColumnBuilder<String> mediaProductColumn = col.column("", "Media_Product__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					mediaProductColumn.setWidth(Units.inch(1.32));
-				} else {
-					mediaProductColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(mediaProductColumn);;
-			}
-			
-			if (key.equals("Ride_Order__c")) {
-				TextColumnBuilder<String> rideOrderColumn = col.column("", "Ride_Order__c",	type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					rideOrderColumn.setWidth(Units.inch(1.32));
-				} else {
-					rideOrderColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(rideOrderColumn);
-			}
-			if (key.equals("Facing__c")) {
-				TextColumnBuilder<String> faceSideColumn = col.column("", "Facing__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					faceSideColumn.setWidth(Units.inch(1.32));
-				} else {
-					faceSideColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(faceSideColumn);
-			}
-			if (isExportAsExcel()) {
-				if (key.equals("X4_Wk_Base_Rate__c")) {
-					TextColumnBuilder<BigDecimal> x4WkBaseRateColumn = col.column("", "X4_Wk_Base_Rate__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
-					report.addColumn(x4WkBaseRateColumn);
-				}
-				if (key.equals("X4_Wk_Floor__c")) {
-					TextColumnBuilder<BigDecimal> x4WkFloorColumn = col.column("", "X4_Wk_Floor__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
-					report.addColumn(x4WkFloorColumn);
-				}
-			}
-			if(getPackageMarketFlightPreviousRecordExpression().isDigitalMediaCategory()) {
-				if (key.equals("Average_Daily_Spots__c")) {
-					TextColumnBuilder<String> averageDailySpotsColumn = col.column("", "Average_Daily_Spots__c", type.stringType())
+				if (key.equals("Panel_Id_Label__c")) {
+					TextColumnBuilder<String> panelIdColumn = col.column("", "Panel_Id_Label__c", type.stringType())
 							.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-					if (isExportAsExcel()) {
-						averageDailySpotsColumn.setWidth(Units.inch(1.32));
-					} else {
-						averageDailySpotsColumn.setWidth(Units.inch(1.5));
-					}
-					report.addColumn(averageDailySpotsColumn);
+					panelIdColumn.setWidth(Units.inch(1.32));
+					report.addColumn(panelIdColumn);
 				}
-			}
+				if (key.equals("TAB_Id__c")) {
+					TextColumnBuilder<String> tabIdColumn = col.column("", "TAB_Id__c",	type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					tabIdColumn.setWidth(Units.inch(1.5));
+					report.addColumn(tabIdColumn);
+				}
+				if (key.equals("Location_Description__c")) {
+					TextColumnBuilder<String> descriptionTextColumn = col.column("", "Location_Description__c",	type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					descriptionTextColumn.setWidth(Units.inch(2.5));
+					report.addColumn(descriptionTextColumn);
+				}
+				if (key.equals("Face_Direction__c")) {
+					TextColumnBuilder<String> flightLineTextColumn = col.column("", "Face_Direction__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					report.addColumn(flightLineTextColumn);
+				}
+				if (key.equals("Weekly_Total_18_Imps__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotal18ImpsColumn = col.column("", "Weekly_Total_18_Imps__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					weeklyTotal18ImpsColumn.setWidth(Units.inch(3));
+					report.addColumn(weeklyTotal18ImpsColumn);
+				}
+				if (key.equals("Weekly_Total_18_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotal18Imps000Column = col.column("", "Weekly_Total_18_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					weeklyTotal18Imps000Column.setWidth(Units.inch(3));
+					report.addColumn(weeklyTotal18Imps000Column);
+				}
+				if (key.equals("In_Mkt_Imps__c")) {
+					TextColumnBuilder<BigDecimal> targetInMarketImpsColumn = col.column("", "In_Mkt_Imps__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					targetInMarketImpsColumn.setWidth(Units.inch(3));
+					report.addColumn(targetInMarketImpsColumn);
+				}
+				if (key.equals("Target_In_Market_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> targetInMarketImps000Column = col.column("", "Target_In_Market_Imps_000__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					targetInMarketImps000Column.setWidth(Units.inch(3));
+					report.addColumn(targetInMarketImps000Column);
+				}
+				if (key.equals("Total_Imps__c")) {
+					TextColumnBuilder<BigDecimal> totalImpsColumn = col.column("", "Total_Imps__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					totalImpsColumn.setWidth(Units.inch(3));
+					report.addColumn(totalImpsColumn);
+				}
+				if (key.equals("Target_Total_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> totalImps000Column = col.column("", "Target_Total_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					totalImps000Column.setWidth(Units.inch(3));
+					report.addColumn(totalImps000Column);
+				}
+				if (key.equals("WeeklyMarketImps__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotalTargetImpsColumn = col.column("", "WeeklyMarketImps__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					weeklyTotalTargetImpsColumn.setWidth(Units.inch(3));
+					report.addColumn(weeklyTotalTargetImpsColumn);
+				}
+				if (key.equals("Weekly_Total_Target_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotalTargetImps000Column = col.column("", "Weekly_Total_Target_Imps_000__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					weeklyTotalTargetImps000Column.setWidth(Units.inch(3));
+					report.addColumn(weeklyTotalTargetImps000Column);
+				}
+				if (key.equals("WeeklyInMarketImps__c")) {
+					TextColumnBuilder<BigDecimal> weeklyInMarketTargetImpsColumn = col.column("", "WeeklyInMarketImps__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					weeklyInMarketTargetImpsColumn.setWidth(Units.inch(3));
+					report.addColumn(weeklyInMarketTargetImpsColumn);
+				}
+				if (key.equals("Weekly_In_Market_Target_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyInMarketTargetImps000Column = col.column("", "Weekly_In_Market_Target_Imps_000__c",	type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					weeklyInMarketTargetImps000Column.setWidth(Units.inch(3));
+					report.addColumn(weeklyInMarketTargetImps000Column);
+				}
+				if (key.equals("In_Mkt_TRP__c")) {
+					TextColumnBuilder<Double> weekklyTRPColumn = col.column("", "In_Mkt_TRP__c",
+							type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
+					weekklyTRPColumn.setWidth(Units.inch(3));
+					report.addColumn(weekklyTRPColumn);
+				}
+				if (key.equals("PlanTRP__c")) {
+					TextColumnBuilder<Double> planTRPColumn = col.column("", "PlanTRP__c", type.doubleType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
+					planTRPColumn.setWidth(Units.inch(2));
+					report.addColumn(planTRPColumn);
+				}
+				if (key.equals("Plan_Imps_Reach_Perc__c")) {
+					TextColumnBuilder<Double> planImpsReachPercColumn = col.column("", "Plan_Imps_Reach_Perc__c", type.percentageType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
+					planImpsReachPercColumn.setWidth(Units.inch(1.5));
+					report.addColumn(planImpsReachPercColumn);
+				}
+				if (key.equals("Plan_Imps_Avg_Frequency__c")) {
+					TextColumnBuilder<Double> frequencyColumn = col.column("", "Plan_Imps_Avg_Frequency__c",
+							type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
+					report.addColumn(frequencyColumn);
+				}
+				if (key.equals("X4_Wk_Proposed_Price__c")) {
+					TextColumnBuilder<BigDecimal> X4WkProposedPriceColumn = col.column("", "X4_Wk_Proposed_Price__c",
+							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					X4WkProposedPriceColumn.setWidth(Units.inch(2.5));
+					report.addColumn(X4WkProposedPriceColumn);
+				}
+				if (key.equals("Net_Amount_Value__c")) {
+					TextColumnBuilder<BigDecimal> subTotalPriceColumn = col.column("", "Net_Amount_Value__c",
+							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					subTotalPriceColumn.setWidth(Units.inch(2.5));
+					report.addColumn(subTotalPriceColumn);
+				}
+				if (key.equals("Total_Price_0d__c")) {
+					TextColumnBuilder<BigDecimal> totalPriceColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"),	"Total_Price__c",
+							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					totalPriceColumn.setWidth(Units.inch(2.5));
+					report.addColumn(totalPriceColumn);
+				}
+				if (key.equals("TotalInMarketCPM_0d__c")) {
+					TextColumnBuilder<BigDecimal> totalInMarketCPM0dColumn = col.column("", "TotalInMarketCPM_0d__c",
+							currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					totalInMarketCPM0dColumn.setWidth(Units.inch(2.5));
+					report.addColumn(totalInMarketCPM0dColumn);
+				}
+				if (key.equals("CPP_0d__c")) {
+					TextColumnBuilder<BigDecimal> cppColumn = col.column("", "CPP_0d__c",
+							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					cppColumn.setWidth(Units.inch(2.5));
+					report.addColumn(cppColumn);
+				}
+				if (key.equals("Unit_Size__c")) {
+					TextColumnBuilder<String> unitSizeColumn = col.column("", "Unit_Size__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					unitSizeColumn.setWidth(Units.inch(1.5));
+					report.addColumn(unitSizeColumn);
+				}
+				if (key.equals("Illumination_yn__c")) {
+					TextColumnBuilder<String> illuminationColumn = col.column("", "Illumination_yn__c",	type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					illuminationColumn.setWidth(Units.inch(1));
+					report.addColumn(illuminationColumn);
+				}
+				if (key.equals("Comments__c")) {
+					TextColumnBuilder<String> commentsColumn = col.column("", "Comments__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					commentsColumn.setWidth(Units.inch(3.5));
+					report.addColumn(commentsColumn);
+				}
+				if (key.equals("Timing__c")) {
+					TextColumnBuilder<String> timingColumn = col.column("", "Timing__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					timingColumn.setWidth(Units.inch(3));
+					report.addColumn(timingColumn);
+				}
+				if (key.equals("In_Mkt_Perc_Comp__c")) {
+					TextColumnBuilder<BigDecimal> inMktPercCompColumn = col.column("", "In_Mkt_Perc_Comp__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT).setPattern("#,##0.00");
+					inMktPercCompColumn.setWidth(Units.inch(1.5));
+					report.addColumn(inMktPercCompColumn);
+				}
+				if (key.equals("X4_Wk_Avg_Rate_per_Panel__c")) {
+					TextColumnBuilder<String> x4WkAverageRatePanelColumn = col.column("", "X4_Wk_Avg_Rate_per_Panel__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					x4WkAverageRatePanelColumn.setWidth(Units.inch(1.5));
+					report.addColumn(x4WkAverageRatePanelColumn);
+				}
+				if (key.equals("Production__c")) {
+					TextColumnBuilder<BigDecimal> productionColumn = col.column("", "Production__c",
+							currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					productionColumn.setWidth(Units.inch(1.5));
+					report.addColumn(productionColumn);
+				}
+				if (key.equals("Additional_Cost__c")) {
+					TextColumnBuilder<BigDecimal> additionalCostColumn = col.column("", "Additional_Cost__c",
+							currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					additionalCostColumn.setWidth(Units.inch(1.5));
+					report.addColumn(additionalCostColumn);
+				}
+				if (key.equals("Tax_Amt__c")) {
+					TextColumnBuilder<BigDecimal> taxAmtColumn = col.column("", "Tax_Amt__c",
+							currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					taxAmtColumn.setWidth(Units.inch(1.5));
+					report.addColumn(taxAmtColumn);
+				}
+				if (key.equals("Location__Longitude__s")) {
+					TextColumnBuilder<String> locationLangitudeColumn = col.column("", "Location__Longitude__s", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					locationLangitudeColumn.setWidth(Units.inch(1));
+					report.addColumn(locationLangitudeColumn);
+				}
+				if (key.equals("Location__Latitude__s")) {
+					TextColumnBuilder<String> locationLatitudeColumn = col.column("", "Location__Latitude__s", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					locationLatitudeColumn.setWidth(Units.inch(1));
+					report.addColumn(locationLatitudeColumn);
+				}
+				if (key.equals("Embellishments__c")) {
+					TextColumnBuilder<String> embellishmentsColumn = col.column("", "Embellishments__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					embellishmentsColumn.setWidth(Units.inch(1));
+					report.addColumn(embellishmentsColumn);
+				}
+				if (key.equals("Illumination__c")) {
+					TextColumnBuilder<BigDecimal> illuminationColumn = col.column("", "Illumination__c",
+							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					illuminationColumn.setWidth(Units.inch(1));
+					report.addColumn(illuminationColumn);
+				}
+				if (key.equals("Current_Copy__c")) {
+					TextColumnBuilder<String> currentCopyColumn = col.column("", "Current_Copy__c",	type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					currentCopyColumn.setWidth(Units.inch(1));
+					report.addColumn(currentCopyColumn);
+				}
+				if (key.equals("City__c")) {
+					TextColumnBuilder<String> cityColumn = col.column("", "City__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					cityColumn.setWidth(Units.inch(1.5));
+					report.addColumn(cityColumn);
+				}
+				if (key.equals("County__c")) {
+					TextColumnBuilder<String> countryColumn = col.column("", "County__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					countryColumn.setWidth(Units.inch(1.5));
+					report.addColumn(countryColumn);
+				}
+				if (key.equals("State__c")) {
+					TextColumnBuilder<String> stateColumn = col.column("", "State__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					stateColumn.setWidth(Units.inch(1.5));
+					report.addColumn(stateColumn);
+				}
+				if (key.equals("Zip__c")) {
+					TextColumnBuilder<String> zipColumn = col.column("", "Zip__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					zipColumn.setWidth(Units.inch(1.5));
+					report.addColumn(zipColumn);
+				}
+				if (key.equals("Media_Product__c")) {
+					TextColumnBuilder<String> mediaProductColumn = col.column("", "Media_Product__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					mediaProductColumn.setWidth(Units.inch(1.5));
+					report.addColumn(mediaProductColumn);;
+				}
+				if (key.equals("Ride_Order__c")) {
+					TextColumnBuilder<String> rideOrderColumn = col.column("", "Ride_Order__c",	type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					rideOrderColumn.setWidth(Units.inch(1.5));
+					report.addColumn(rideOrderColumn);
+				}
+				if (key.equals("Facing__c")) {
+					TextColumnBuilder<String> faceSideColumn = col.column("", "Facing__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.LEFT);
+					faceSideColumn.setWidth(Units.inch(1.5));
+					report.addColumn(faceSideColumn);
+				}
+				if(getPackageMarketFlightPreviousRecordExpression().isDigitalMediaCategory()) {
+					if (key.equals("Average_Daily_Spots__c")) {
+						TextColumnBuilder<String> averageDailySpotsColumn = col.column("", "Average_Daily_Spots__c", type.stringType())
+								.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+						averageDailySpotsColumn.setWidth(Units.inch(1.5));
+						report.addColumn(averageDailySpotsColumn);
+					}
+				}
 			}
 			// return report
 			return report;
@@ -2134,35 +1776,6 @@ public class Reporter {
 		public void setColumnStyle(StyleBuilder columnStyle) {
 			this.columnStyle = columnStyle;
 		}
-
-		public boolean isExportAsExcel() {
-			return exportAsExcel;
-		}
-
-		public void setExportAsExcel(boolean exportAsExcel) {
-			this.exportAsExcel = exportAsExcel;
-		}
-
-		public boolean isLocationMapExists() {
-			return locationMapExists;
-		}
-
-		public StyleBuilder getFlightHeaderStyle() {
-			return flightHeaderStyle;
-		}
-
-		public void setFlightHeaderStyle(StyleBuilder flightHeaderStyle) {
-			this.flightHeaderStyle = flightHeaderStyle;
-		}
-
-		public StyleBuilder getFlightHeaderValueStyle() {
-			return flightHeaderValueStyle;
-		}
-
-		public void setFlightHeaderValueStyle(
-				StyleBuilder flightHeaderValueStyle) {
-			this.flightHeaderValueStyle = flightHeaderValueStyle;
-		}
 	}
 
 	private class PackageSummarySubreportExpression extends
@@ -2176,14 +1789,6 @@ public class Reporter {
 
 		private StyleBuilder columnStyle;
 
-		private boolean exportAsExcel;
-
-		private boolean showSummaryHeaders;
-
-		private StyleBuilder flightHeaderStyle;
-
-		private StyleBuilder flightHeaderValueStyle;
-
 		public PackageSummarySubreportExpression(
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
@@ -2193,10 +1798,6 @@ public class Reporter {
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 			setColumnTitleStyle(columnTitleStyle);
 			setColumnStyle(columnStyle);
-			setExportAsExcel(exportAsExcel);
-			setShowSummaryHeaders(showSummaryHeaders);
-			setFlightHeaderStyle(flightHeaderStyle);
-			setFlightHeaderValueStyle(flightHeaderValueStyle);
 		}
 
 		@Override
@@ -2207,25 +1808,18 @@ public class Reporter {
 			CurrencyWithoutFractionDecimalType currencyWithoutFractionDecimalType = new CurrencyWithoutFractionDecimalType();
 
 			System.out.println("Package summary");
-			if (isExportAsExcel()) {
-				report.setIgnorePageWidth(true);
-			}
-			TextColumnBuilder<String> summaryColumn = col.column("Summary",
-					"Package_Name__c", type.stringType())
+			report.setIgnorePageWidth(true);
+
+			TextColumnBuilder<String> summaryColumn = col.column("Summary",	"Package_Name__c", type.stringType())
 					.setHorizontalAlignment(HorizontalAlignment.LEFT);
 			summaryColumn.setWidth(Units.inch(1.32));
 			report.addColumn(summaryColumn);
+			
 			TextColumnBuilder<BigDecimal> totalPriceColumn = col.column(
-					getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"),
-					"Total_Price__c", currencyWithoutFractionDecimalType)
+					getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"),	"Total_Price__c", currencyWithoutFractionDecimalType)
 					.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-			if (getFlightLineColumnLabelHashMap().containsKey(
-					"Total_Price_0d__c")) {
-				if (isExportAsExcel()) {
-					totalPriceColumn.setWidth(Units.inch(1.32));
-				} else {
-					totalPriceColumn.setWidth(Units.inch(2.5));
-				}
+			if (getFlightLineColumnLabelHashMap().containsKey("Total_Price_0d__c")) {
+				totalPriceColumn.setWidth(Units.inch(1.32));
 				report.addColumn(totalPriceColumn);
 			}
 
@@ -2233,7 +1827,6 @@ public class Reporter {
 			report.highlightDetailEvenRows();
 			report.setColumnStyle(getColumnStyle());
 			report.setColumnTitleStyle(getColumnTitleStyle());
-			// filter
 
 			// add a blank line at the end
 			report.addLastPageFooter(cmp.text(""));
@@ -2264,39 +1857,6 @@ public class Reporter {
 
 		public void setColumnStyle(StyleBuilder columnStyle) {
 			this.columnStyle = columnStyle;
-		}
-
-		public boolean isExportAsExcel() {
-			return exportAsExcel;
-		}
-
-		public void setExportAsExcel(boolean exportAsExcel) {
-			this.exportAsExcel = exportAsExcel;
-		}
-
-		public boolean isShowSummaryHeaders() {
-			return showSummaryHeaders;
-		}
-
-		public void setShowSummaryHeaders(boolean showSummaryHeaders) {
-			this.showSummaryHeaders = showSummaryHeaders;
-		}
-
-		public StyleBuilder getFlightHeaderStyle() {
-			return flightHeaderStyle;
-		}
-
-		public void setFlightHeaderStyle(StyleBuilder flightHeaderStyle) {
-			this.flightHeaderStyle = flightHeaderStyle;
-		}
-
-		public StyleBuilder getFlightHeaderValueStyle() {
-			return flightHeaderValueStyle;
-		}
-
-		public void setFlightHeaderValueStyle(
-				StyleBuilder flightHeaderValueStyle) {
-			this.flightHeaderValueStyle = flightHeaderValueStyle;
 		}
 	}
 
@@ -2798,289 +2358,306 @@ public class Reporter {
 			// types
 			CurrencyWithoutFractionDecimalType currencyWithoutFractionDecimalType = new CurrencyWithoutFractionDecimalType();
 
-			// build columns that are to be summarized
-			String weeklyTotal18ImplsHeaderLabel = "";
-			if(exportAsExcel) {
-				weeklyTotal18ImplsHeaderLabel = getFlightLineColumnLabelHashMap().get(
-						"Weekly_Total_18_Imps__c");
+			if (isExportAsExcel()) {
+				report.addColumn(col.column(
+						this.isShowSummaryHeaders() ? "Summary" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c"),
+						this.isShowSummaryHeaders() ? "Package_Flight__r/Name" : "Package_Flight__r/Package_Name__c", type.stringType()));
+			} else {
+				report.addColumn(col.column(
+						this.isShowSummaryHeaders() ? "Summary" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Market_Name__c"),
+						this.isShowSummaryHeaders() ? "Package_Flight__r/Name" : "Package_Flight__r/Market_Name__c", type.stringType()));
 			}
-			
-			String weeklyTotalImplsHeaderLabel = "";
-			if(exportAsExcel) {
-				weeklyTotalImplsHeaderLabel = getFlightLineColumnLabelHashMap().get(
-						"Total_Imps__c");
-			}
-			
-			String weeklyInMktTRPHeaderLabel = "";
-			if(exportAsExcel) {
-				weeklyInMktTRPHeaderLabel = getFlightLineColumnLabelHashMap().get(
-						"In_Mkt_TRP__c");
-			}
-			String freqHeaderLabel = "";
-			if(exportAsExcel) {
-				freqHeaderLabel = getFlightLineColumnLabelHashMap().get(
-						"Plan_Imps_Avg_Frequency__c");
-			}
-			String totalPriceHeaderLabel = "";
-			if(exportAsExcel) {
-				totalPriceHeaderLabel = getFlightLineColumnLabelHashMap().get(
-						"Total_Price_0d__c");
-			}
-			String cppHeaderLabel = "";
-			if(exportAsExcel) {
-				cppHeaderLabel = getFlightLineColumnLabelHashMap().get(
-						"CPP_0d__c");
-			}
-			String InMktImpsHeaderLabel = "";
-			if(exportAsExcel) {
-				InMktImpsHeaderLabel = getFlightLineColumnLabelHashMap().get(
-						"In_Mkt_Imps__c");
-			}
-			String planTRPHeaderLabel = "";
-			if(exportAsExcel) {
-				planTRPHeaderLabel = getFlightLineColumnLabelHashMap().get(
-						"PlanTRP__c");
-			}
-			String reachPercHeaderLabel = "";
-			if(exportAsExcel) {
-				reachPercHeaderLabel = getFlightLineColumnLabelHashMap().get(
-						"Plan_Imps_Reach_Perc__c");
-			}
-			String X4WkProposedPriceHeaderLabel = "";
-			if(exportAsExcel) {
-				X4WkProposedPriceHeaderLabel = getFlightLineColumnLabelHashMap().get(
-						"X4_Wk_Proposed_Price__c");
-			}
-			
-			String totalInMarketCPMHeaderLabel = "";
-			if(exportAsExcel) {
-				totalInMarketCPMHeaderLabel = getFlightLineColumnLabelHashMap().get(
-						"TotalInMarketCPM_0d__c");
-			}
-			// build columns that are to be summarized
-			TextColumnBuilder<Integer> weeklyTotal18ImpsColumn = col.column(
-					this.isShowSummaryHeaders() ? weeklyTotal18ImplsHeaderLabel : getFlightLineColumnLabelHashMap().get(
-							"Weekly_Total_18_Imps__c"),
-					"Weekly_Total_18_Imps__c", type.integerType())
-					.setHorizontalAlignment(HorizontalAlignment.CENTER)
-					;
-				weeklyTotal18ImpsColumn.setWidth(Units.inch(2.5));
-
-			TextColumnBuilder<Double> totalImpsColumn = col.column(
-					this.isShowSummaryHeaders() ? weeklyTotalImplsHeaderLabel : getFlightLineColumnLabelHashMap().get("Total_Imps__c"),
-					"Total_Imps__c", type.doubleType())
-					.setHorizontalAlignment(HorizontalAlignment.CENTER);
-			totalImpsColumn.setWidth(Units.inch(2.5));
-
-			TextColumnBuilder<Double> weekklyTRPColumn = col.column(
-					this.isShowSummaryHeaders() ? weeklyInMktTRPHeaderLabel : getFlightLineColumnLabelHashMap().get("In_Mkt_TRP__c"),
-					"In_Mkt_TRP__c", type.doubleType())
-					.setHorizontalAlignment(HorizontalAlignment.CENTER);
-			TextColumnBuilder<Double> frequencyColumn = col.column(
-					this.isShowSummaryHeaders() ? freqHeaderLabel : getFlightLineColumnLabelHashMap().get(
-							"Plan_Imps_Avg_Frequency__c"),
-					"Plan_Imps_Avg_Frequency__c", type.doubleType())
-					.setHorizontalAlignment(HorizontalAlignment.CENTER);
-
-			TextColumnBuilder<BigDecimal> totalPriceColumn = col.column(
-					this.isShowSummaryHeaders() ? totalPriceHeaderLabel : getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"),
-					"Total_Price_0d__c", currencyWithoutFractionDecimalType)
-					.setHorizontalAlignment(HorizontalAlignment.CENTER);
-			totalPriceColumn.setWidth(Units.inch(2.5));
-
-			TextColumnBuilder<BigDecimal> cppColumn = col.column(
-					this.isShowSummaryHeaders() ? cppHeaderLabel : getFlightLineColumnLabelHashMap().get("CPP_0d__c"),
-					"CPP_0d__c", currencyWithoutFractionDecimalType)
-					.setHorizontalAlignment(HorizontalAlignment.CENTER);
-
-			String marketNameLabel = "";
-			if(!this.isExportAsExcel()) {
-				if(this.isShowSummaryHeaders()) {
-					marketNameLabel = "Summary";
-				} else {
-					marketNameLabel = getFlightLineColumnLabelHashMap().get("MarketName__c");
-				}
-			}
-
 			for(String key : fieldMap.keySet()) {
-				
-				if(key.equals("Weekly_Total_18_Imps__c")) {
-						report.addColumn(weeklyTotal18ImpsColumn);
-				}
-
-				if(key.equals("Total_Imps__c")) {
-					report.addColumn(totalImpsColumn);
-				}
-
-				if(key.equals("Total_Price_0d__c")) {
-					report.addColumn(totalPriceColumn);
-				}
-
 				if (isExportAsExcel()) {
 					//report.setIgnorePageWidth(true);
-					if(key.equals("Package_Flight__r/Package_Name__c")) {
+					/*if(key.equals("Package_Flight__r/Package_Name__c")) {
 						report.addColumn(col.column(this.isShowSummaryHeaders() ? "Summary" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c"),
 								"Package_Flight__r/Package_Name__c", type.stringType()));
-					}
+					}*/
 					if(key.equals("Package_Flight__r/Name")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Name"),
-								"Package_Flight__r/Name", type.stringType()));
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Name"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Name", type.stringType()));
 					}
 					if(key.equals("Package_Flight__r/Division__c")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Division__c"),
-								"Package_Flight__r/Division__c", type.stringType()));
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Division__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Division__c", type.stringType()));
 					}
 					if(key.equals("Package_Flight__r/Market_Name__c")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Market_Name__c"),
-								"Package_Flight__r/Market_Name__c", type.stringType()));
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" :	getFlightLineColumnLabelHashMap().get("Package_Flight__r/Market_Name__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Market_Name__c", type.stringType()));
 					}
-					//I-62210 - Anjali 12 Aug 2013- Market Type not in audience layout, media type shud come at this place instead
-	
-					//if(getFlightColumnLabelHashMap().containsKey("Package_Flight__r/Market_Type__c")) {
-						//report.addColumn(col.column(this.isShowSummaryHeaders() ? "" : getFlightColumnLabelHashMap().get("Package_Flight__r/Market_Type__c"),
-								//"Package_Flight__r/Market_Type__c", type.stringType()));
-					//}
 					if(key.equals("Package_Flight__r/Campaign_Start_Date__c")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_Start_Date__c"),
-								"Package_Flight__r/Campaign_Start_Date__c",
-								type.stringType())
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_Start_Date__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Campaign_Start_Date__c",	type.stringType())
 								.setHorizontalAlignment(HorizontalAlignment.CENTER));
 					}
 					if(key.equals("Package_Flight__r/Campaign_End_Date__c")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_End_Date__c"),
-								"Package_Flight__r/Campaign_End_Date__c",
-								type.stringType())
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_End_Date__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Campaign_End_Date__c", type.stringType())
 								.setHorizontalAlignment(HorizontalAlignment.CENTER));
 					}
 					if(key.equals("Package_Flight__r/Duration_And_Type__c")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Duration_And_Type__c"),
-								"Package_Flight__r/Duration_And_Type__c",
-								type.stringType())
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Duration_And_Type__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Duration_And_Type__c", type.stringType())
 								.setHorizontalAlignment(HorizontalAlignment.CENTER));
 					}
+					if(key.equals("Package_Flight__r/Target_Population__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target_Population__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "Package_Flight__r/Target_Population__c",
+								type.bigDecimalType()).setWidth(Units.inch(1.32)));
+					}
+					if (key.equals("Package_Flight__r/Flight_Comments__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" :	getFlightLineColumnLabelHashMap().get("Package_Flight__r/Flight_Comments__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Flight_Comments__c", type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
+					}
+					if (key.equals("Package_Flight__r/Package_Comments__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" :	getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Comments__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Package_Comments__c", type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
+					}
+					if (key.equals("X4_Wk_Base_Rate__c")) {
+						TextColumnBuilder<BigDecimal> x4WkBaseRateColumn = col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Base_Rate__c", currencyWithoutFractionDecimalType)
+								.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
+						report.addColumn(x4WkBaseRateColumn);
+					}
+					if (key.equals("X4_Wk_Floor__c")) {
+						TextColumnBuilder<BigDecimal> x4WkFloorColumn = col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Floor__c", currencyWithoutFractionDecimalType)
+								.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
+						report.addColumn(x4WkFloorColumn);
+					}
 				}
-	
-				if(key.equals("MarketName__c")) {
-					report.addColumn(
-						col.column(
-							marketNameLabel,
-							"MarketName__c",
-							type.stringType())).setColumnTitleStyle(getColumnTitleStyle());
-				}
-				if(key.equals("Media_Category__c")) {
-					report.addColumn(
-						col.column(
-						this.isShowSummaryHeaders() ?
-							"" : getFlightLineColumnLabelHashMap().get("Media_Category__c"),
-						"Media_Category__c",
-						type.stringType())).setColumnTitleStyle(getColumnTitleStyle());
-				}
-				if(key.equals("Number_of_Panels__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ?
-								"" : getFlightLineColumnLabelHashMap().get("Number_of_Panels__c"),
-							"Number_of_Panels__c",
-							type.integerType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER));
-				}
-				// *	ANJALI- 12 Aug added 
-				if(key.equals("Package_Flight__r/Target__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get(
-									"Package_Flight__r/Target__c"),
-							"Package_Flight__r/Target__c", type.stringType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER));
-				}
+				/*if(key.equals("MarketName__c")) {
+					report.addColumn(col.column(marketNameLabel, "MarketName__c", type.stringType())).setColumnTitleStyle(getColumnTitleStyle());
+				}*/
 				if(key.equals("Weekly_Total_18_Imps__c")) {
+					TextColumnBuilder<Integer> weeklyTotal18ImpsColumn = col.column(
+							this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps__c") : getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps__c"),
+							"Weekly_Total_18_Imps__c", type.integerType()).setHorizontalAlignment(HorizontalAlignment.CENTER);
 					weeklyTotal18ImpsColumn.setWidth(Units.inch(2.5));
 					report.addColumn(weeklyTotal18ImpsColumn);
 				}
+				if(key.equals("Total_Imps__c")) {
+					TextColumnBuilder<Double> totalImpsColumn = col.column(
+							this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("Total_Imps__c") : getFlightLineColumnLabelHashMap().get("Total_Imps__c"),
+							"Total_Imps__c", type.doubleType()).setHorizontalAlignment(HorizontalAlignment.CENTER);
+					totalImpsColumn.setWidth(Units.inch(2.5));
+					report.addColumn(totalImpsColumn);
+				}
+				if(key.equals("Total_Price_0d__c")) {
+					TextColumnBuilder<BigDecimal> totalPriceColumn = col.column(
+							this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("Total_Price_0d__c") : getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"),
+							"Total_Price_0d__c", currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.CENTER);
+					totalPriceColumn.setWidth(Units.inch(2.5));
+					report.addColumn(totalPriceColumn);
+				}
+				if(key.equals("Media_Category__c")) {
+					report.addColumn(col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Media_Category__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Media_Category__c", type.stringType()));
+				}
+				if(key.equals("Number_of_Panels__c")) {
+					report.addColumn(col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Number_of_Panels__c"),
+							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "Number_of_Panels__c", type.bigDecimalType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER));
+				}
+				if(key.equals("Package_Flight__r/Target__c")) {
+					report.addColumn(col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Target__c", type.stringType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER));
+				}
 				if(key.equals("In_Mkt_Imps__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ?
-									InMktImpsHeaderLabel : getFlightLineColumnLabelHashMap().get("In_Mkt_Imps__c"),
-							"In_Mkt_Imps__c", type.doubleType())
+							this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("In_Mkt_Imps__c") :
+							getFlightLineColumnLabelHashMap().get("In_Mkt_Imps__c"), "In_Mkt_Imps__c", type.doubleType())
 							.setHorizontalAlignment(HorizontalAlignment.CENTER));
-				// 23. {Jesus} "Target Total Imps" and "Sub Total" in Audience should not be rendered on the PDF detail output for Audience.
-	//			report.addColumn(totalImpsColumn);
 				}
 				if(key.equals("In_Mkt_TRP__c")) {
+					TextColumnBuilder<Double> weekklyTRPColumn = col.column(
+							this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("In_Mkt_TRP__c") : getFlightLineColumnLabelHashMap().get("In_Mkt_TRP__c"),
+							"In_Mkt_TRP__c", type.doubleType()).setHorizontalAlignment(HorizontalAlignment.CENTER);
 					report.addColumn(weekklyTRPColumn);
 				}
 				if(key.equals("PlanTRP__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ?
-									planTRPHeaderLabel : getFlightLineColumnLabelHashMap().get("PlanTRP__c"),
-							"PlanTRP__c", type.doubleType())
+							this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("PlanTRP__c") :
+							getFlightLineColumnLabelHashMap().get("PlanTRP__c"), "PlanTRP__c", type.doubleType())
 							.setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("Plan_Imps_Reach_Perc__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ?
-									reachPercHeaderLabel : getFlightLineColumnLabelHashMap().get("Plan_Imps_Reach_Perc__c"),
-							"Plan_Imps_Reach_Perc__c", type.percentageType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER)
-						//.setPattern("#%"));
-						.setPattern("###.#"));
+							this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("Plan_Imps_Reach_Perc__c") :
+							getFlightLineColumnLabelHashMap().get("Plan_Imps_Reach_Perc__c"), "Plan_Imps_Reach_Perc__c", type.percentageType())
+							.setHorizontalAlignment(HorizontalAlignment.CENTER).setPattern("###.#"));
 				}
 				if(key.equals("Plan_Imps_Avg_Frequency__c")) {
+					TextColumnBuilder<Double> frequencyColumn = col.column(
+							this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("Plan_Imps_Avg_Frequency__c") : getFlightLineColumnLabelHashMap().get("Plan_Imps_Avg_Frequency__c"),
+							"Plan_Imps_Avg_Frequency__c", type.doubleType()).setHorizontalAlignment(HorizontalAlignment.CENTER);
 					report.addColumn(frequencyColumn);
 				}
 				if(key.equals("X4_Wk_Proposed_Price__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ?
-								"" : getFlightLineColumnLabelHashMap().get("X4_Wk_Proposed_Price__c"),
-							"X4_Wk_Proposed_Price__c", currencyWithoutFractionDecimalType)
-							.setHorizontalAlignment(HorizontalAlignment.CENTER));
-				}
-				// 23. {Jesus} "Target Total Imps" and "Sub Total" in Audience should not be rendered on the PDF detail output for Audience.
-	//			report.addColumn(col.column(
-	//					getFlightLineColumnLabelHashMap()
-	//							.get("Net_Amount_Value__c"), "Net_Amount_Value__c",
-	//					type.doubleType())
-	//					.setHorizontalAlignment(HorizontalAlignment.CENTER));
-				if(key.equals("Total_Price_0d__c")) {
-					report.addColumn(totalPriceColumn);
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Proposed_Price__c"),
+							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Proposed_Price__c", currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("TotalInMarketCPM_0d__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ?
-									totalInMarketCPMHeaderLabel : getFlightLineColumnLabelHashMap().get("TotalInMarketCPM_0d__c"),
-							"TotalInMarketCPM_0d__c", currencyWithoutFractionDecimalType)
+							this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("TotalInMarketCPM_0d__c") :
+							getFlightLineColumnLabelHashMap().get("TotalInMarketCPM_0d__c"), "TotalInMarketCPM_0d__c", currencyWithoutFractionDecimalType)
 							.setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("CPP_0d__c")) {
+					TextColumnBuilder<BigDecimal> cppColumn = col.column(
+							this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("CPP_0d__c") : getFlightLineColumnLabelHashMap().get("CPP_0d__c"),
+							"CPP_0d__c", currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.CENTER);
 					report.addColumn(cppColumn);
 				}
 				if(key.equals("Comments__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ?
-									"" : getFlightLineColumnLabelHashMap().get("Comments__c"),
-							"Comments__c", type.stringType()));
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Comments__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Comments__c", type.stringType()));
 				}
-				if (isExportAsExcel()) {
-					if (key.equals("Package_Flight__r/Flight_Comments__c")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? "" : 
-							getFlightLineColumnLabelHashMap().get("Package_Flight__r/Flight_Comments__c"),
-							"Package_Flight__r/Flight_Comments__c", type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
+				if (key.equals("Package_Flight__r/Market_Type__c")) {
+					report.addColumn(col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Market_Type__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Market_Type__c",
+							type.stringType()).setWidth(Units.inch(1.32)));
+				}
+				if (key.equals("Timing__c")) {
+					TextColumnBuilder<String> timingColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Timing__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Timing__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						timingColumn.setWidth(Units.inch(1.32));
+					} else {
+						timingColumn.setWidth(Units.inch(3));
 					}
-
-					if (key.equals("X4_Wk_Base_Rate__c")) {
-						TextColumnBuilder<BigDecimal> x4WkBaseRateColumn = col
-								.column(this.isShowSummaryHeaders() ? ""
-										: getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"), "X4_Wk_Base_Rate__c",
-										currencyWithoutFractionDecimalType)
-										.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
-						report.addColumn(x4WkBaseRateColumn);
+					report.addColumn(timingColumn);
+				}
+				if (key.equals("Weekly_Total_18_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotal18Imps000Column = col.column(
+							getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps_000__c"), "Weekly_Total_18_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						weeklyTotal18Imps000Column.setWidth(Units.inch(1.32));
+					} else {
+						weeklyTotal18Imps000Column.setWidth(Units.inch(3));
 					}
-					if (key.equals("X4_Wk_Floor__c")) {
-						TextColumnBuilder<BigDecimal> x4WkFloorColumn = col
-								.column(this.isShowSummaryHeaders() ? ""
-										: getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"), "X4_Wk_Floor__c",
-										currencyWithoutFractionDecimalType)
-										.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
-						report.addColumn(x4WkFloorColumn);
+					report.addColumn(weeklyTotal18Imps000Column);
+				}
+				if (key.equals("WeeklyMarketImps__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotalTargetImpsColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("WeeklyMarketImps__c"), "WeeklyMarketImps__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						weeklyTotalTargetImpsColumn.setWidth(Units.inch(1.32));
+					} else {
+						weeklyTotalTargetImpsColumn.setWidth(Units.inch(3));
 					}
+					report.addColumn(weeklyTotalTargetImpsColumn);
+				}
+				if (key.equals("Weekly_Total_Target_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotalTargetImps000Column = col.column(
+							getFlightLineColumnLabelHashMap().get("Weekly_Total_Target_Imps_000__c"), "Weekly_Total_Target_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						weeklyTotalTargetImps000Column.setWidth(Units.inch(1.32));
+					} else {
+						weeklyTotalTargetImps000Column.setWidth(Units.inch(3));
+					}
+					report.addColumn(weeklyTotalTargetImps000Column);
+				}
+				if (key.equals("WeeklyInMarketImps__c")) {
+					TextColumnBuilder<BigDecimal> weeklyInMarketTargetImpsColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("WeeklyInMarketImps__c"), "WeeklyInMarketImps__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						weeklyInMarketTargetImpsColumn.setWidth(Units.inch(1.32));
+					} else {
+						weeklyInMarketTargetImpsColumn.setWidth(Units.inch(3));
+					}
+					report.addColumn(weeklyInMarketTargetImpsColumn);
+				}
+				if (key.equals("Weekly_In_Market_Target_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyInMarketTargetImps000Column = col.column(
+							getFlightLineColumnLabelHashMap().get("Weekly_In_Market_Target_Imps_000__c"), "Weekly_In_Market_Target_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						weeklyInMarketTargetImps000Column.setWidth(Units.inch(1.32));
+					} else {
+						weeklyInMarketTargetImps000Column.setWidth(Units.inch(3));
+					}
+					report.addColumn(weeklyInMarketTargetImps000Column);
+				}
+				if (key.equals("Target_In_Market_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> targetInMarketImps000Column = col.column(
+							getFlightLineColumnLabelHashMap().get("Target_In_Market_Imps_000__c"), "Target_In_Market_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						targetInMarketImps000Column.setWidth(Units.inch(1.32));
+					} else {
+						targetInMarketImps000Column.setWidth(Units.inch(3));
+					}
+					report.addColumn(targetInMarketImps000Column);
+				}
+				if (key.equals("Target_Total_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> totalImps000Column = col.column(getFlightLineColumnLabelHashMap().get("Target_Total_Imps_000__c"), "Target_Total_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						totalImps000Column.setWidth(Units.inch(1.32));
+					} else {
+						totalImps000Column.setWidth(Units.inch(3));
+					}
+					report.addColumn(totalImps000Column);
+				}
+				if (key.equals("X4_Wk_Avg_Rate_per_Panel__c")) {
+					TextColumnBuilder<String> x4WkAverageRatePanelColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Avg_Rate_per_Panel__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "X4_Wk_Avg_Rate_per_Panel__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						x4WkAverageRatePanelColumn.setWidth(Units.inch(1.32));
+					} else {
+						x4WkAverageRatePanelColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(x4WkAverageRatePanelColumn);
+				}
+				if (key.equals("Net_Amount_Value__c")) {
+					TextColumnBuilder<BigDecimal> subTotalPriceColumn = col.column(getFlightLineColumnLabelHashMap().get("Net_Amount_Value__c"),
+							"Net_Amount_Value__c", currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						subTotalPriceColumn.setWidth(Units.inch(1.32));
+					} else {
+						subTotalPriceColumn.setWidth(Units.inch(2.5));
+					}
+					report.addColumn(subTotalPriceColumn);
+				}
+				if (key.equals("In_Mkt_Perc_Comp__c")) {
+					TextColumnBuilder<BigDecimal> inMktPercCompColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("In_Mkt_Perc_Comp__c"),
+							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "In_Mkt_Perc_Comp__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.LEFT).setPattern("#,##0.00");
+					if (isExportAsExcel()) {
+						inMktPercCompColumn.setWidth(Units.inch(1.32));
+					} else {
+						inMktPercCompColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(inMktPercCompColumn);
 				}
 			}
 			// return report
@@ -3166,6 +2743,7 @@ public class Reporter {
 		private StyleBuilder flightHeaderValueStyle;
 
 		private boolean locationMapExists;
+		
 		public LocationSubreportExpression(
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
@@ -3223,60 +2801,10 @@ public class Reporter {
 			CurrencyWithoutFractionDecimalType currencyWithoutFractionDecimalType = new CurrencyWithoutFractionDecimalType();
 
 			CurrencyWithFractionDecimalType currencyWithFractionDecimalType = new CurrencyWithFractionDecimalType();
-			// define columns
-				//Weekly Total 18+ Imps 	
-				String weeklyTotal18ImplsHeaderLabel = getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps__c");
-
-				String weeklyTotal18Impls000HeaderLabel = getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps_000__c");
-
-				String targetTotalImplsHeaderLabel = getFlightLineColumnLabelHashMap().get("Total_Imps__c");
-				
-				String targetTotalImpls000HeaderLabel = getFlightLineColumnLabelHashMap().get("Target_Total_Imps_000__c");
-				
-				String weeklyInMktTRPHeaderLabel = getFlightLineColumnLabelHashMap().get("In_Mkt_TRP__c");
-									
-				String freqHeaderLabel = getFlightLineColumnLabelHashMap().get("Plan_Imps_Avg_Frequency__c");
-
-				String totalPriceHeaderLabel = getFlightLineColumnLabelHashMap().get("Total_Price_0d__c");
-
-				String cppHeaderLabel = getFlightLineColumnLabelHashMap().get("CPP_0d__c");
-
-				String planTRPHeaderLabel = getFlightLineColumnLabelHashMap().get("PlanTRP__c");
-
-				String subTotalHeaderLabel = getFlightLineColumnLabelHashMap().get("Net_Amount_Value__c");
-
-				String totalInMarketCPMHeaderLabel = getFlightLineColumnLabelHashMap().get("TotalInMarketCPM_0d__c");
-					
-			TextColumnBuilder<BigDecimal> weeklyTotal18ImpsColumn = col.column(weeklyTotal18ImplsHeaderLabel, "Weekly_Total_18_Imps__c",
-					type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-			
-			TextColumnBuilder<BigDecimal> weeklyTotal18Imps000Column = col.column(weeklyTotal18Impls000HeaderLabel,	"Weekly_Total_18_Imps_000__c",
-					type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-						
-			TextColumnBuilder<BigDecimal> totalImpsColumn = col.column(targetTotalImplsHeaderLabel, "Total_Imps__c",
-					type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-			
-			TextColumnBuilder<BigDecimal> totalImps000Column = col.column(targetTotalImpls000HeaderLabel, "Target_Total_Imps_000__c",
-					type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-			
-			TextColumnBuilder<Double> weekklyTRPColumn = col.column(weeklyInMktTRPHeaderLabel, "In_Mkt_TRP__c",
-					type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
-			
-			TextColumnBuilder<Double> frequencyColumn = col.column(freqHeaderLabel,	"Plan_Imps_Avg_Frequency__c",
-					type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
-			
-			TextColumnBuilder<BigDecimal> totalPriceColumn = col.column(totalPriceHeaderLabel, "Total_Price_0d__c",
-					currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-			
-			TextColumnBuilder<BigDecimal> cppColumn = col.column(cppHeaderLabel, "CPP_0d__c",
-					currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-			
-			//report.setIgnorePageWidth(true);
 
 			for(String key : fieldMap.keySet()) {
-			//if (locationMapExists) {
+				//if (locationMapExists) {
 				if (key.equals("MapLocation_Number__c")) {
-
 					try {
 						if(!isShowSummaryHeaders()) {
 							TextColumnBuilder<Integer> mapLocNumberColumn = col.column(
@@ -3316,723 +2844,635 @@ public class Reporter {
 						e.printStackTrace();
 					}
 				}
-			//}
-
-			if (isExportAsExcel()) {
-				// field("Package_Flight__r/Campaign_Start_Date__c",
-				// report.addField(field("Package_Flight__r/Campaign_Start_Date__c",
-				// Date.class));
-				// report.addField(field("Package_Flight__r/Campaign_End_Date__c",
-				// Date.class));
-				report.setIgnorePageWidth(true);
-				if (key.equals("Package_Flight__r/Division__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Division__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Division__c",
-							type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if (key.equals("Package_Flight__r/Market_Name__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Market_Name__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Market_Name__c",
-							type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if (key.equals("Package_Flight__r/Market_Type__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Market_Type__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Market_Type__c",
-							type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if (key.equals("Package_Flight__r/Package_Name__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Package_Name__c",
-							type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if (key.equals("Package_Flight__r/Name")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Name"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Name",
-							type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				// report.addColumn(col.column("Start Date", new
-				// ValueExpression("Package_Flight__r/Campaign_Start_Date__c")));
-				// report.addColumn(col.column("End Date", new
-				// ValueExpression("Package_Flight__r/Campaign_End_Date__c")));
-
-				if (key.equals("Package_Flight__r/Type__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Type__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Type__c",
-							type.stringType()).setWidth(Units.inch(1.32)));
-				}
-
-				if (key.equals("Package_Flight__r/Campaign_Start_Date__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_Start_Date__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Campaign_Start_Date__c",
-							type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)).setValueFormatter(new ValueFormatter()));
-				}
-				if (key.equals("Package_Flight__r/Campaign_End_Date__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_End_Date__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Campaign_End_Date__c",
-							type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)).setValueFormatter(new ValueFormatter()));
-				}
-				if (key.equals("Package_Flight__r/Duration_And_Type__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Duration_And_Type__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Duration_And_Type__c",
-							type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if (key.equals("Package_Flight__r/Target__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Target__c",
-							type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)));
-					//report.addProperty("net.sf.jasperreports.export.html.remove.emtpy.space.between.rows", "true");			
-				}
-				//report.addProperty("net.sf.jasperreports.export.pdf.detect.cell.type", "true");
-
-				if(key.equals("Package_Flight__r/Target_Population__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target_Population__c"),
-							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "Package_Flight__r/Target_Population__c",
-							type.integerType()).setWidth(Units.inch(1.32)));
-				} 
-				//report.addProperty("net.sf.jasperreports.export.pdf.detect.cell.type", "true");
-			}
-			/*report.setParameter("net.sf.jasperreports.export.xls.wrap.text", "Boolean.FALSE");
-			report.setParameter("net.sf.jasperreports.print.keep.full.text", "Boolean.TRUE");
-			report.setParameter("net.sf.jasperreports.export.xls.white.page.background", "Boolean.FALSE");*/
-			//report.addProperty("net.sf.jasperreports.export.pdf.force.linebreak.policy", "true");			
-			//report.addProperty("net.sf.jasperreports.export.pdf.wrap.text", "false");
-			if (key.equals("Package_Flight__r/Media_Category__c")) {
-				TextColumnBuilder<String> mediaTypeColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Media_Category__c"), 
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Media_Category__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT).setWidth(Units.inch(2.0));
-				report.addColumn(mediaTypeColumn);
-			}
-			/*if (key.equals("Number_of_Panels__c")) {
-				TextColumnBuilder<BigDecimal> noOfPanelsColumn = col.column(
-						this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("Number_of_Panels__c")
-						: getFlightLineColumnLabelHashMap().get("Number_of_Panels__c"),
-						"Number_of_Panels__c", type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+				//}
 				if (isExportAsExcel()) {
-					noOfPanelsColumn.setWidth(Units.inch(1.32));
-				}
-				noOfPanelsColumn.setWidth(Units.inch(1.5));
-				report.addColumn(noOfPanelsColumn);
-			}*/
-			if (key.equals("Panel_Id_Label__c")) {
-				TextColumnBuilder<String> panelIdColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Panel_Id_Label__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Panel_Id_Label__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					panelIdColumn.setWidth(Units.inch(1.32));
-				} else {
-					panelIdColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(panelIdColumn);
-			}
-			if (key.equals("TAB_Id__c")) {
-				TextColumnBuilder<String> tabIdColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("TAB_Id__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "TAB_Id__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					tabIdColumn.setWidth(Units.inch(1.32));
-				} else {
-					tabIdColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(tabIdColumn);
-			}
-		/*	
-			if (key.equals(
-					"Network_Name__c")) {
-				TextColumnBuilder<String> networkNameTextColumn = col.column(
-						this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get(
-								"Network_Name__c")
-								: getFlightLineColumnLabelHashMap().get(
-										"Network_Name__c"),
-						"Network_Name__c", type.stringType())
-						.setHorizontalAlignment(HorizontalAlignment.LEFT);
-				//networkNameTextColumn.setWidth(Units.inch(4));
-				// descriptionTextColumn.addProperty("net.sf.jasperreports.export.xls.wrap.text",
-				// "true");
-				if (isExportAsExcel()) {
-					networkNameTextColumn.setWidth(Units.inch(1.32));
-				}
-				report.addColumn(networkNameTextColumn);
-			}*/
-			if (key.equals("Location_Description__c")) {
-				TextColumnBuilder<String> descriptionTextColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Location_Description__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Location_Description__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				// descriptionTextColumn.addProperty("net.sf.jasperreports.export.xls.wrap.text", "true");
-				if (isExportAsExcel()) {
-					descriptionTextColumn.setWidth(Units.inch(1.32));
-				} else {
-					descriptionTextColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(descriptionTextColumn);
-			}
-			if (key.equals("Face_Direction__c")) {
-				TextColumnBuilder<String> flightLineTextColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Face_Direction__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Face_Direction__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				report.addColumn(flightLineTextColumn);
-				if (isExportAsExcel()) {
-					flightLineTextColumn.setWidth(Units.inch(1.32));
-				}
-			}
-
-			if (key.equals("Weekly_Total_18_Imps__c")) {
-				if (isExportAsExcel()) {
-					weeklyTotal18ImpsColumn.setWidth(Units.inch(1.32));
-				} else {
-					weeklyTotal18ImpsColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyTotal18ImpsColumn);
-			}
-			if (key.equals("Weekly_Total_18_Imps_000__c")) {
-				if (isExportAsExcel()) {
-					weeklyTotal18Imps000Column.setWidth(Units.inch(1.32));
-				} else {
-					weeklyTotal18Imps000Column.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyTotal18Imps000Column);
-			}
-			if (key.equals("In_Mkt_Imps__c")) {
-				TextColumnBuilder<BigDecimal> targetInMarketImpsColumn = col.column(
-						getFlightLineColumnLabelHashMap().get("In_Mkt_Imps__c"), "In_Mkt_Imps__c",
-						type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					targetInMarketImpsColumn.setWidth(Units.inch(1.32));
-				} else {
-					targetInMarketImpsColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(targetInMarketImpsColumn);
-			}
-			
-			if (key.equals("Target_In_Market_Imps_000__c")) {
-				TextColumnBuilder<BigDecimal> targetInMarketImps000Column = col.column(
-						getFlightLineColumnLabelHashMap().get("Target_In_Market_Imps_000__c"), "Target_In_Market_Imps_000__c",
-						type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					targetInMarketImps000Column.setWidth(Units.inch(1.32));
-				} else {
-					targetInMarketImps000Column.setWidth(Units.inch(3));
-				}
-				report.addColumn(targetInMarketImps000Column);
-			}
-			if (key.equals("Total_Imps__c")) {
-				if (isExportAsExcel()) {
-					totalImpsColumn.setWidth(Units.inch(1.32));
-				} else {
-					totalImpsColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(totalImpsColumn);
-			}
-			if (key.equals("Target_Total_Imps_000__c")) {
-				if (isExportAsExcel()) {
-					totalImps000Column.setWidth(Units.inch(1.32));
-				} else {
-					totalImps000Column.setWidth(Units.inch(3));
-				}
-				report.addColumn(totalImps000Column);
-			}
-			
-			if (key.equals("WeeklyMarketImps__c")) {
-				TextColumnBuilder<BigDecimal> weeklyTotalTargetImpsColumn = col.column(
-						getFlightLineColumnLabelHashMap().get("WeeklyMarketImps__c"), "WeeklyMarketImps__c",
-						type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					weeklyTotalTargetImpsColumn.setWidth(Units.inch(1.32));
-				} else {
-					weeklyTotalTargetImpsColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyTotalTargetImpsColumn);
-			}
-			
-			if (key.equals("Weekly_Total_Target_Imps_000__c")) {
-				TextColumnBuilder<BigDecimal> weeklyTotalTargetImps000Column = col.column(
-						getFlightLineColumnLabelHashMap().get("Weekly_Total_Target_Imps_000__c"), "Weekly_Total_Target_Imps_000__c",
-						type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					weeklyTotalTargetImps000Column.setWidth(Units.inch(1.32));
-				} else {
-					weeklyTotalTargetImps000Column.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyTotalTargetImps000Column);
-			}
-			
-			if (key.equals("WeeklyInMarketImps__c")) {
-				TextColumnBuilder<BigDecimal> weeklyInMarketTargetImpsColumn = col.column(
-						getFlightLineColumnLabelHashMap().get("WeeklyInMarketImps__c"), "WeeklyInMarketImps__c",
-						type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					weeklyInMarketTargetImpsColumn.setWidth(Units.inch(1.32));
-				} else {
-					weeklyInMarketTargetImpsColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyInMarketTargetImpsColumn);
-			}
-			
-			if (key.equals("Weekly_In_Market_Target_Imps_000__c")) {
-				TextColumnBuilder<BigDecimal> weeklyInMarketTargetImps000Column = col.column(
-						getFlightLineColumnLabelHashMap().get("Weekly_In_Market_Target_Imps_000__c"), "Weekly_In_Market_Target_Imps_000__c",
-						type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
-				if (isExportAsExcel()) {
-					weeklyInMarketTargetImps000Column.setWidth(Units.inch(1.32));
-				} else {
-					weeklyInMarketTargetImps000Column.setWidth(Units.inch(3));
-				}
-				report.addColumn(weeklyInMarketTargetImps000Column);
-			}
-			
-			if (key.equals("In_Mkt_TRP__c")) {
-				if (isExportAsExcel()) {
-					weekklyTRPColumn.setWidth(Units.inch(1.32));
-				} else {
-					weekklyTRPColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(weekklyTRPColumn);
-			}
-			if (key.equals("PlanTRP__c")) {
-				TextColumnBuilder<Double> planTRPColumn = col.column(planTRPHeaderLabel, "PlanTRP__c",
-						type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
-				if (isExportAsExcel()) {
-					planTRPColumn.setWidth(Units.inch(1.32));
-				} else {
-					planTRPColumn.setWidth(Units.inch(2));
-				}
-				report.addColumn(planTRPColumn);
-			}
-			if (key.equals("Plan_Imps_Reach_Perc__c")) {
-				TextColumnBuilder<Double> planImpsReachPercColumn = col.column(
-						getFlightLineColumnLabelHashMap().get("Plan_Imps_Reach_Perc__c"), "Plan_Imps_Reach_Perc__c",
-						type.percentageType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
-				if (isExportAsExcel()) {
-					planImpsReachPercColumn.setWidth(Units.inch(1.32));
-				} else {
-					planImpsReachPercColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(planImpsReachPercColumn);
-			}
-			if (key.equals("Plan_Imps_Avg_Frequency__c")) {
-				if (isExportAsExcel()) {
-					frequencyColumn.setWidth(Units.inch(1.32));
-				}
-				report.addColumn(frequencyColumn);
-			}
-
-			if (key.equals("X4_Wk_Proposed_Price__c")) {
-				TextColumnBuilder<BigDecimal> X4WkProposedPriceColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Proposed_Price__c"),
-						this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Proposed_Price__c",
-						currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					X4WkProposedPriceColumn.setWidth(Units.inch(1.32));
-				} else {
-					X4WkProposedPriceColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(X4WkProposedPriceColumn);
-			}
-			//X4WkProposedPriceHeaderLabel ,subTotalHeaderLabel
-			if (key.equals("Net_Amount_Value__c")) {
-				TextColumnBuilder<BigDecimal> subTotalPriceColumn = col.column(subTotalHeaderLabel, "Net_Amount_Value__c",
-						currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					subTotalPriceColumn.setWidth(Units.inch(1.32));
-				} else {
-					subTotalPriceColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(subTotalPriceColumn);
-			}
-			
-			if (key.equals("Total_Price_0d__c")) {
-				if (isExportAsExcel()) {
-					totalPriceColumn.setWidth(Units.inch(1.32));
-				} else {
-					totalPriceColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(totalPriceColumn);
-			}
-			if (key.equals("TotalInMarketCPM_0d__c")) {
-				TextColumnBuilder<BigDecimal> totalInMarketCPM0dColumn = col.column(totalInMarketCPMHeaderLabel, "TotalInMarketCPM_0d__c",
-						currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					totalInMarketCPM0dColumn.setWidth(Units.inch(1.32));
-				} else {
-					totalInMarketCPM0dColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(totalInMarketCPM0dColumn);
-			}
-			if (key.equals("CPP_0d__c")) {
-				if (isExportAsExcel()) {
-					cppColumn.setWidth(Units.inch(1.32));
-				} else {
-					cppColumn.setWidth(Units.inch(2.5));
-				}
-				report.addColumn(cppColumn);
-			}
-			if (key.equals("Unit_Size__c")) {
-				TextColumnBuilder<String> unitSizeColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Unit_Size__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Unit_Size__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					unitSizeColumn.setWidth(Units.inch(1.32));
-				} else {
-					unitSizeColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(unitSizeColumn);
-			}
-			if (key.equals("Illumination_yn__c")) {
-				TextColumnBuilder<String> illuminationColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Illumination_yn__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Illumination_yn__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					illuminationColumn.setWidth(Units.inch(1.32));
-				} else {
-					illuminationColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(illuminationColumn);
-			}
-			if (key.equals("Comments__c")) {
-				TextColumnBuilder<String> commentsColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Comments__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Comments__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					commentsColumn.setWidth(Units.inch(1.32));
-				} else {
-					commentsColumn.setWidth(Units.inch(3.5));
-				}
-				report.addColumn(commentsColumn);
-			}
-			if (isExportAsExcel()) {
-				TextColumnBuilder<String> flightCommentsColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Flight_Comments__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Flight_Comments__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				flightCommentsColumn.setWidth(Units.inch(1.32));
-				report.addColumn(flightCommentsColumn);
-				
-				TextColumnBuilder<String> packageCommentsColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Comments__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Package_Comments__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				packageCommentsColumn.setWidth(Units.inch(1.32));
-				report.addColumn(packageCommentsColumn);
-			}
-
-			if (key.equals("Timing__c")) {
-				TextColumnBuilder<String> timingColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Timing__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Timing__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					timingColumn.setWidth(Units.inch(1.32));
-				} else {
-					timingColumn.setWidth(Units.inch(3));
-				}
-				report.addColumn(timingColumn);
-			}
-			
-			if (key.equals("In_Mkt_Perc_Comp__c")) {
-				TextColumnBuilder<BigDecimal> inMktPercCompColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("In_Mkt_Perc_Comp__c"),
-						this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "In_Mkt_Perc_Comp__c",
-						type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.LEFT).setPattern("#,##0.00");
-				if (isExportAsExcel()) {
-					inMktPercCompColumn.setWidth(Units.inch(1.32));
-				} else {
-					inMktPercCompColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(inMktPercCompColumn);
-			}
-			
-			if (key.equals("X4_Wk_Avg_Rate_per_Panel__c")) {
-				TextColumnBuilder<String> x4WkAverageRatePanelColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Avg_Rate_per_Panel__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "X4_Wk_Avg_Rate_per_Panel__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					x4WkAverageRatePanelColumn.setWidth(Units.inch(1.32));
-				} else {
-					x4WkAverageRatePanelColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(x4WkAverageRatePanelColumn);
-			}
-			
-			if (key.equals("Production__c")) {
-				TextColumnBuilder<BigDecimal> productionColumn = col.column(
-						getFlightLineColumnLabelHashMap().get("Production__c"), "Production__c",
-						currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					productionColumn.setWidth(Units.inch(1.32));
-				} else {
-					productionColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(productionColumn);
-			}
-			
-			if (key.equals("Additional_Cost__c")) {
-				TextColumnBuilder<BigDecimal> additionalCostColumn = col.column(
-						getFlightLineColumnLabelHashMap().get("Additional_Cost__c"), "Additional_Cost__c",
-						currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					additionalCostColumn.setWidth(Units.inch(1.32));
-				} else {
-					additionalCostColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(additionalCostColumn);
-			}
-			
-			if (key.equals("Tax_Amt__c")) {
-				TextColumnBuilder<BigDecimal> taxAmtColumn = col.column(
-						getFlightLineColumnLabelHashMap().get("Tax_Amt__c"), "Tax_Amt__c",
-						currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					taxAmtColumn.setWidth(Units.inch(1.32));
-				} else {
-					taxAmtColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(taxAmtColumn);
-			}
-			
-			if (key.equals("Location__Longitude__s")) {
-				TextColumnBuilder<String> locationLangitudeColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Location__Longitude__s"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Location__Longitude__s",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					locationLangitudeColumn.setWidth(Units.inch(1.32));
-				} else {
-					locationLangitudeColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(locationLangitudeColumn);
-			}
-			
-			if (key.equals("Location__Latitude__s")) {
-				TextColumnBuilder<String> locationLatitudeColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Location__Latitude__s"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Location__Latitude__s",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					locationLatitudeColumn.setWidth(Units.inch(1.32));
-				} else {
-					locationLatitudeColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(locationLatitudeColumn);
-			}
-			
-			if (key.equals("Embellishments__c")) {
-				TextColumnBuilder<String> embellishmentsColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Embellishments__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Embellishments__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					embellishmentsColumn.setWidth(Units.inch(1.32));
-				} else {
-					embellishmentsColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(embellishmentsColumn);
-			}
-			
-			if (key.equals("Illumination__c")) {
-				TextColumnBuilder<BigDecimal> illuminationColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Illumination__c"),
-						this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "Illumination__c",
-						currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-				if (isExportAsExcel()) {
-					illuminationColumn.setWidth(Units.inch(1.32));
-				} else {
-					illuminationColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(illuminationColumn);
-			}
-			
-			if (key.equals("Current_Copy__c")) {
-				TextColumnBuilder<String> currentCopyColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Current_Copy__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Current_Copy__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					currentCopyColumn.setWidth(Units.inch(1.32));
-				} else {
-					currentCopyColumn.setWidth(Units.inch(1));
-				}
-				report.addColumn(currentCopyColumn);
-			}
-			
-			if (key.equals("City__c")) {
-				TextColumnBuilder<String> cityColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("City__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "City__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					cityColumn.setWidth(Units.inch(1.32));
-				} else {
-					cityColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(cityColumn);
-			}
-			
-			if (key.equals("County__c")) {
-				TextColumnBuilder<String> countryColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("County__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "County__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					countryColumn.setWidth(Units.inch(1.32));
-				} else {
-					countryColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(countryColumn);
-			}
-			
-			if (key.equals("State__c")) {
-				TextColumnBuilder<String> stateColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("State__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "State__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					stateColumn.setWidth(Units.inch(1.32));
-				} else {
-					stateColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(stateColumn);
-			}
-			
-			if (key.equals("Zip__c")) {
-				TextColumnBuilder<String> zipColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Zip__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Zip__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					zipColumn.setWidth(Units.inch(1.32));
-				} else {
-					zipColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(zipColumn);
-			}
-			if (key.equals("Media_Product__c")) {
-				TextColumnBuilder<String> mediaProductColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Media_Product__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Media_Product__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					mediaProductColumn.setWidth(Units.inch(1.32));
-				} else {
-					mediaProductColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(mediaProductColumn);;
-			}
-			
-			if (key.equals("Ride_Order__c")) {
-				TextColumnBuilder<String> rideOrderColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Ride_Order__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Ride_Order__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					rideOrderColumn.setWidth(Units.inch(1.32));
-				} else {
-					rideOrderColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(rideOrderColumn);
-			}
-			if (key.equals("Facing__c")) {
-				TextColumnBuilder<String> faceSideColumn = col.column(
-						this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Facing__c"),
-						this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Facing__c",
-						type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
-				if (isExportAsExcel()) {
-					faceSideColumn.setWidth(Units.inch(1.32));
-				} else {
-					faceSideColumn.setWidth(Units.inch(1.5));
-				}
-				report.addColumn(faceSideColumn);
-			}
-			if (isExportAsExcel()) {
-				if (key.equals("X4_Wk_Base_Rate__c")) {
-					TextColumnBuilder<BigDecimal> x4WkBaseRateColumn = col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"),
-							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Base_Rate__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
-					report.addColumn(x4WkBaseRateColumn);
-				}
-				if (key.equals("X4_Wk_Floor__c")) {
-					TextColumnBuilder<BigDecimal> x4WkFloorColumn = col.column(
-							this.isShowSummaryHeaders() ? ""	: getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"),
-							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Floor__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
-					report.addColumn(x4WkFloorColumn);
-				}
-				/*if (key.equals("Offering_Discount_Percent__c")) {
-					TextColumnBuilder<BigDecimal> offeringDiscountPercentColumn = col
-							.column(this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("Offering_Discount_Percent__c")
-									: getFlightLineColumnLabelHashMap().get("Offering_Discount_Percent__c"), "Offering_Discount_Percent__c",
-									type.bigDecimalType()).setPattern("#,##0.00%")
-							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
-					report.addColumn(offeringDiscountPercentColumn);
-				}
-				if (key.equals("Offering_Discount__c")) {
-					TextColumnBuilder<BigDecimal> offeringDiscountColumn = col
-							.column(this.isShowSummaryHeaders() ? getFlightLineColumnLabelHashMap().get("Offering_Discount__c")
-									: getFlightLineColumnLabelHashMap().get("Offering_Discount__c"), "Offering_Discount__c",
-									currencyWithFractionDecimalType)
-							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
-					report.addColumn(offeringDiscountColumn);
-				}*/
-			}
-			if(getPackageMarketFlightPreviousRecordExpression().isDigitalMediaCategory()) {
-				/*if (key.equals("Max_of_Spots_per_Loop__c")) {
-					TextColumnBuilder<String> maxNoOfSpotsPerLoopColumn = col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Max_of_Spots_per_Loop__c"),
-							"Max_of_Spots_per_Loop__c", type.stringType()).setHorizontalAlignment(HorizontalAlignment.RIGHT);
-					if (isExportAsExcel()) {
-						maxNoOfSpotsPerLoopColumn.setWidth(Units.inch(1.32));
-					} else {
-						maxNoOfSpotsPerLoopColumn.setWidth(Units.inch(1.5));
+					report.setIgnorePageWidth(true);
+					if (key.equals("Package_Flight__r/Division__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Division__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Division__c",
+								type.stringType()).setWidth(Units.inch(1.32)));
 					}
-					report.addColumn(maxNoOfSpotsPerLoopColumn);
-				}*/
-
-				if (key.equals("Average_Daily_Spots__c")) {
-					TextColumnBuilder<String> averageDailySpotsColumn = col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Average_Daily_Spots__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Average_Daily_Spots__c",
+					if (key.equals("Package_Flight__r/Market_Name__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Market_Name__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Market_Name__c",
+								type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if (key.equals("Package_Flight__r/Market_Type__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Market_Type__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Market_Type__c",
+								type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if (key.equals("Package_Flight__r/Package_Name__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Package_Name__c",
+								type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if (key.equals("Package_Flight__r/Name")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Name"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Name",
+								type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if (key.equals("Package_Flight__r/Type__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Type__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Type__c",
+								type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if (key.equals("Package_Flight__r/Campaign_Start_Date__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_Start_Date__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Campaign_Start_Date__c",
+								type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)).setValueFormatter(new ValueFormatter()));
+					}
+					if (key.equals("Package_Flight__r/Campaign_End_Date__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_End_Date__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Campaign_End_Date__c",
+								type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)).setValueFormatter(new ValueFormatter()));
+					}
+					if (key.equals("Package_Flight__r/Duration_And_Type__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Duration_And_Type__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Duration_And_Type__c",
+								type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if (key.equals("Package_Flight__r/Target__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Target__c",
+								type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Package_Flight__r/Target_Population__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target_Population__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "Package_Flight__r/Target_Population__c",
+								type.bigDecimalType()).setWidth(Units.inch(1.32)));
+					}
+				}
+				if (key.equals("Package_Flight__r/Media_Category__c")) {
+					TextColumnBuilder<String> mediaTypeColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Media_Category__c"), 
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Media_Category__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT).setWidth(Units.inch(2.0));
+					report.addColumn(mediaTypeColumn);
+				}
+				if (key.equals("Panel_Id_Label__c")) {
+					TextColumnBuilder<String> panelIdColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Panel_Id_Label__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Panel_Id_Label__c",
 							type.stringType()).setHorizontalAlignment(HorizontalAlignment.RIGHT);
 					if (isExportAsExcel()) {
-						averageDailySpotsColumn.setWidth(Units.inch(1.32));
+						panelIdColumn.setWidth(Units.inch(1.32));
 					} else {
-						averageDailySpotsColumn.setWidth(Units.inch(1.5));
+						panelIdColumn.setWidth(Units.inch(1.5));
 					}
-					report.addColumn(averageDailySpotsColumn);
+					report.addColumn(panelIdColumn);
 				}
-				
-				/*if (key.equals("Spot_Type__c")) {
-					TextColumnBuilder<String> averageDailySpotsColumn = col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Spot_Type__c"),
-							"Spot_Type__c", type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+				if (key.equals("TAB_Id__c")) {
+					TextColumnBuilder<String> tabIdColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("TAB_Id__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "TAB_Id__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.RIGHT);
 					if (isExportAsExcel()) {
-						averageDailySpotsColumn.setWidth(Units.inch(1.32));
+						tabIdColumn.setWidth(Units.inch(1.32));
 					} else {
-						averageDailySpotsColumn.setWidth(Units.inch(1.5));
+						tabIdColumn.setWidth(Units.inch(1.5));
 					}
-					report.addColumn(averageDailySpotsColumn);
-				}*/
+					report.addColumn(tabIdColumn);
+				}
+				if (key.equals("Location_Description__c")) {
+					TextColumnBuilder<String> descriptionTextColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Location_Description__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Location_Description__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						descriptionTextColumn.setWidth(Units.inch(1.32));
+					} else {
+						descriptionTextColumn.setWidth(Units.inch(2.5));
+					}
+					report.addColumn(descriptionTextColumn);
+				}
+				if (key.equals("Face_Direction__c")) {
+					TextColumnBuilder<String> flightLineTextColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Face_Direction__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Face_Direction__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					report.addColumn(flightLineTextColumn);
+					if (isExportAsExcel()) {
+						flightLineTextColumn.setWidth(Units.inch(1.32));
+					}
+				}
+				if (key.equals("Weekly_Total_18_Imps__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotal18ImpsColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps__c"), "Weekly_Total_18_Imps__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						weeklyTotal18ImpsColumn.setWidth(Units.inch(1.32));
+					} else {
+						weeklyTotal18ImpsColumn.setWidth(Units.inch(3));
+					}
+					report.addColumn(weeklyTotal18ImpsColumn);
+				}
+				if (key.equals("Weekly_Total_18_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotal18Imps000Column = col.column(
+							getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps_000__c"),	"Weekly_Total_18_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						weeklyTotal18Imps000Column.setWidth(Units.inch(1.32));
+					} else {
+						weeklyTotal18Imps000Column.setWidth(Units.inch(3));
+					}
+					report.addColumn(weeklyTotal18Imps000Column);
+				}
+				if (key.equals("In_Mkt_Imps__c")) {
+					TextColumnBuilder<BigDecimal> targetInMarketImpsColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("In_Mkt_Imps__c"), "In_Mkt_Imps__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						targetInMarketImpsColumn.setWidth(Units.inch(1.32));
+					} else {
+						targetInMarketImpsColumn.setWidth(Units.inch(3));
+					}
+					report.addColumn(targetInMarketImpsColumn);
+				}
+				if (key.equals("Target_In_Market_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> targetInMarketImps000Column = col.column(
+							getFlightLineColumnLabelHashMap().get("Target_In_Market_Imps_000__c"), "Target_In_Market_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						targetInMarketImps000Column.setWidth(Units.inch(1.32));
+					} else {
+						targetInMarketImps000Column.setWidth(Units.inch(3));
+					}
+					report.addColumn(targetInMarketImps000Column);
+				}
+				if (key.equals("Total_Imps__c")) {
+					TextColumnBuilder<BigDecimal> totalImpsColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("Total_Imps__c"), "Total_Imps__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						totalImpsColumn.setWidth(Units.inch(1.32));
+					} else {
+						totalImpsColumn.setWidth(Units.inch(3));
+					}
+					report.addColumn(totalImpsColumn);
+				}
+				if (key.equals("Target_Total_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> totalImps000Column = col.column(
+							getFlightLineColumnLabelHashMap().get("Target_Total_Imps_000__c"), "Target_Total_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						totalImps000Column.setWidth(Units.inch(1.32));
+					} else {
+						totalImps000Column.setWidth(Units.inch(3));
+					}
+					report.addColumn(totalImps000Column);
+				}
+				if (key.equals("WeeklyMarketImps__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotalTargetImpsColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("WeeklyMarketImps__c"), "WeeklyMarketImps__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						weeklyTotalTargetImpsColumn.setWidth(Units.inch(1.32));
+					} else {
+						weeklyTotalTargetImpsColumn.setWidth(Units.inch(3));
+					}
+					report.addColumn(weeklyTotalTargetImpsColumn);
+				}
+				if (key.equals("Weekly_Total_Target_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyTotalTargetImps000Column = col.column(
+							getFlightLineColumnLabelHashMap().get("Weekly_Total_Target_Imps_000__c"), "Weekly_Total_Target_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						weeklyTotalTargetImps000Column.setWidth(Units.inch(1.32));
+					} else {
+						weeklyTotalTargetImps000Column.setWidth(Units.inch(3));
+					}
+					report.addColumn(weeklyTotalTargetImps000Column);
+				}
+				if (key.equals("WeeklyInMarketImps__c")) {
+					TextColumnBuilder<BigDecimal> weeklyInMarketTargetImpsColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("WeeklyInMarketImps__c"), "WeeklyInMarketImps__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						weeklyInMarketTargetImpsColumn.setWidth(Units.inch(1.32));
+					} else {
+						weeklyInMarketTargetImpsColumn.setWidth(Units.inch(3));
+					}
+					report.addColumn(weeklyInMarketTargetImpsColumn);
+				}
+				if (key.equals("Weekly_In_Market_Target_Imps_000__c")) {
+					TextColumnBuilder<BigDecimal> weeklyInMarketTargetImps000Column = col.column(
+							getFlightLineColumnLabelHashMap().get("Weekly_In_Market_Target_Imps_000__c"), "Weekly_In_Market_Target_Imps_000__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("#,###");
+					if (isExportAsExcel()) {
+						weeklyInMarketTargetImps000Column.setWidth(Units.inch(1.32));
+					} else {
+						weeklyInMarketTargetImps000Column.setWidth(Units.inch(3));
+					}
+					report.addColumn(weeklyInMarketTargetImps000Column);
+				}
+				if (key.equals("In_Mkt_TRP__c")) {
+					TextColumnBuilder<Double> weekklyTRPColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("In_Mkt_TRP__c"), "In_Mkt_TRP__c",
+							type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
+					if (isExportAsExcel()) {
+						weekklyTRPColumn.setWidth(Units.inch(1.32));
+					} else {
+						weekklyTRPColumn.setWidth(Units.inch(3));
+					}
+					report.addColumn(weekklyTRPColumn);
+				}
+				if (key.equals("PlanTRP__c")) {
+					TextColumnBuilder<Double> planTRPColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("PlanTRP__c"), "PlanTRP__c",
+							type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
+					if (isExportAsExcel()) {
+						planTRPColumn.setWidth(Units.inch(1.32));
+					} else {
+						planTRPColumn.setWidth(Units.inch(2));
+					}
+					report.addColumn(planTRPColumn);
+				}
+				if (key.equals("Plan_Imps_Reach_Perc__c")) {
+					TextColumnBuilder<Double> planImpsReachPercColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("Plan_Imps_Reach_Perc__c"), "Plan_Imps_Reach_Perc__c",
+							type.percentageType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
+					if (isExportAsExcel()) {
+						planImpsReachPercColumn.setWidth(Units.inch(1.32));
+					} else {
+						planImpsReachPercColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(planImpsReachPercColumn);
+				}
+				if (key.equals("Plan_Imps_Avg_Frequency__c")) {
+					TextColumnBuilder<Double> frequencyColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("Plan_Imps_Avg_Frequency__c"),	"Plan_Imps_Avg_Frequency__c",
+							type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT).setPattern("##0.0");
+					if (isExportAsExcel()) {
+						frequencyColumn.setWidth(Units.inch(1.32));
+					}
+					report.addColumn(frequencyColumn);
+				}
+				if (key.equals("X4_Wk_Proposed_Price__c")) {
+					TextColumnBuilder<BigDecimal> X4WkProposedPriceColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Proposed_Price__c"),
+							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Proposed_Price__c",
+							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						X4WkProposedPriceColumn.setWidth(Units.inch(1.32));
+					} else {
+						X4WkProposedPriceColumn.setWidth(Units.inch(2.5));
+					}
+					report.addColumn(X4WkProposedPriceColumn);
+				}
+				if (key.equals("Net_Amount_Value__c")) {
+					TextColumnBuilder<BigDecimal> subTotalPriceColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("Net_Amount_Value__c"), "Net_Amount_Value__c",
+							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						subTotalPriceColumn.setWidth(Units.inch(1.32));
+					} else {
+						subTotalPriceColumn.setWidth(Units.inch(2.5));
+					}
+					report.addColumn(subTotalPriceColumn);
+				}
+				if (key.equals("Total_Price_0d__c")) {
+					TextColumnBuilder<BigDecimal> totalPriceColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"), "Total_Price_0d__c",
+							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						totalPriceColumn.setWidth(Units.inch(1.32));
+					} else {
+						totalPriceColumn.setWidth(Units.inch(2.5));
+					}
+					report.addColumn(totalPriceColumn);
+				}
+				if (key.equals("TotalInMarketCPM_0d__c")) {
+					TextColumnBuilder<BigDecimal> totalInMarketCPM0dColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("TotalInMarketCPM_0d__c"), "TotalInMarketCPM_0d__c",
+							currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						totalInMarketCPM0dColumn.setWidth(Units.inch(1.32));
+					} else {
+						totalInMarketCPM0dColumn.setWidth(Units.inch(2.5));
+					}
+					report.addColumn(totalInMarketCPM0dColumn);
+				}
+				if (key.equals("CPP_0d__c")) {
+					TextColumnBuilder<BigDecimal> cppColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("CPP_0d__c"), "CPP_0d__c",
+							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						cppColumn.setWidth(Units.inch(1.32));
+					} else {
+						cppColumn.setWidth(Units.inch(2.5));
+					}
+					report.addColumn(cppColumn);
+				}
+				if (key.equals("Unit_Size__c")) {
+					TextColumnBuilder<String> unitSizeColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Unit_Size__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Unit_Size__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						unitSizeColumn.setWidth(Units.inch(1.32));
+					} else {
+						unitSizeColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(unitSizeColumn);
+				}
+				if (key.equals("Illumination_yn__c")) {
+					TextColumnBuilder<String> illuminationColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Illumination_yn__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Illumination_yn__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						illuminationColumn.setWidth(Units.inch(1.32));
+					} else {
+						illuminationColumn.setWidth(Units.inch(1));
+					}
+					report.addColumn(illuminationColumn);
+				}
+				if (key.equals("Comments__c")) {
+					TextColumnBuilder<String> commentsColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Comments__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Comments__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						commentsColumn.setWidth(Units.inch(1.32));
+					} else {
+						commentsColumn.setWidth(Units.inch(3.5));
+					}
+					report.addColumn(commentsColumn);
+				}
+				if (isExportAsExcel()) {
+					if (key.equals("Package_Flight__r/Flight_Comments__c")) {
+						TextColumnBuilder<String> flightCommentsColumn = col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Flight_Comments__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Flight_Comments__c",
+								type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+						flightCommentsColumn.setWidth(Units.inch(1.32));
+						report.addColumn(flightCommentsColumn);
+					}
+					if (key.equals("Package_Flight__r/Package_Comments__c")) {
+						TextColumnBuilder<String> packageCommentsColumn = col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Comments__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Package_Comments__c",
+								type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+						packageCommentsColumn.setWidth(Units.inch(1.32));
+						report.addColumn(packageCommentsColumn);
+					}
+				}
+				if (key.equals("Timing__c")) {
+					TextColumnBuilder<String> timingColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Timing__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Timing__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						timingColumn.setWidth(Units.inch(1.32));
+					} else {
+						timingColumn.setWidth(Units.inch(3));
+					}
+					report.addColumn(timingColumn);
+				}
+				if (key.equals("In_Mkt_Perc_Comp__c")) {
+					TextColumnBuilder<BigDecimal> inMktPercCompColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("In_Mkt_Perc_Comp__c"),
+							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "In_Mkt_Perc_Comp__c",
+							type.bigDecimalType()).setHorizontalAlignment(HorizontalAlignment.LEFT).setPattern("#,##0.00");
+					if (isExportAsExcel()) {
+						inMktPercCompColumn.setWidth(Units.inch(1.32));
+					} else {
+						inMktPercCompColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(inMktPercCompColumn);
+				}
+				if (key.equals("X4_Wk_Avg_Rate_per_Panel__c")) {
+					TextColumnBuilder<String> x4WkAverageRatePanelColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Avg_Rate_per_Panel__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "X4_Wk_Avg_Rate_per_Panel__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						x4WkAverageRatePanelColumn.setWidth(Units.inch(1.32));
+					} else {
+						x4WkAverageRatePanelColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(x4WkAverageRatePanelColumn);
+				}
+				if (key.equals("Production__c")) {
+					TextColumnBuilder<BigDecimal> productionColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("Production__c"), "Production__c",
+							currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						productionColumn.setWidth(Units.inch(1.32));
+					} else {
+						productionColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(productionColumn);
+				}
+				if (key.equals("Additional_Cost__c")) {
+					TextColumnBuilder<BigDecimal> additionalCostColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("Additional_Cost__c"), "Additional_Cost__c",
+							currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						additionalCostColumn.setWidth(Units.inch(1.32));
+					} else {
+						additionalCostColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(additionalCostColumn);
+				}
+				if (key.equals("Tax_Amt__c")) {
+					TextColumnBuilder<BigDecimal> taxAmtColumn = col.column(
+							getFlightLineColumnLabelHashMap().get("Tax_Amt__c"), "Tax_Amt__c",
+							currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						taxAmtColumn.setWidth(Units.inch(1.32));
+					} else {
+						taxAmtColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(taxAmtColumn);
+				}
+				if (key.equals("Location__Longitude__s")) {
+					TextColumnBuilder<String> locationLangitudeColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Location__Longitude__s"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Location__Longitude__s",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						locationLangitudeColumn.setWidth(Units.inch(1.32));
+					} else {
+						locationLangitudeColumn.setWidth(Units.inch(1));
+					}
+					report.addColumn(locationLangitudeColumn);
+				}
+				if (key.equals("Location__Latitude__s")) {
+					TextColumnBuilder<String> locationLatitudeColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Location__Latitude__s"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Location__Latitude__s",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						locationLatitudeColumn.setWidth(Units.inch(1.32));
+					} else {
+						locationLatitudeColumn.setWidth(Units.inch(1));
+					}
+					report.addColumn(locationLatitudeColumn);
+				}
+				if (key.equals("Embellishments__c")) {
+					TextColumnBuilder<String> embellishmentsColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Embellishments__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Embellishments__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						embellishmentsColumn.setWidth(Units.inch(1.32));
+					} else {
+						embellishmentsColumn.setWidth(Units.inch(1));
+					}
+					report.addColumn(embellishmentsColumn);
+				}
+				if (key.equals("Illumination__c")) {
+					TextColumnBuilder<BigDecimal> illuminationColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Illumination__c"),
+							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "Illumination__c",
+							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+					if (isExportAsExcel()) {
+						illuminationColumn.setWidth(Units.inch(1.32));
+					} else {
+						illuminationColumn.setWidth(Units.inch(1));
+					}
+					report.addColumn(illuminationColumn);
+				}
+				if (key.equals("Current_Copy__c")) {
+					TextColumnBuilder<String> currentCopyColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Current_Copy__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Current_Copy__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						currentCopyColumn.setWidth(Units.inch(1.32));
+					} else {
+						currentCopyColumn.setWidth(Units.inch(1));
+					}
+					report.addColumn(currentCopyColumn);
+				}
+				if (key.equals("City__c")) {
+					TextColumnBuilder<String> cityColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("City__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "City__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						cityColumn.setWidth(Units.inch(1.32));
+					} else {
+						cityColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(cityColumn);
+				}
+				if (key.equals("County__c")) {
+					TextColumnBuilder<String> countryColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("County__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "County__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						countryColumn.setWidth(Units.inch(1.32));
+					} else {
+						countryColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(countryColumn);
+				}
+				if (key.equals("State__c")) {
+					TextColumnBuilder<String> stateColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("State__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "State__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						stateColumn.setWidth(Units.inch(1.32));
+					} else {
+						stateColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(stateColumn);
+				}
+				if (key.equals("Zip__c")) {
+					TextColumnBuilder<String> zipColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Zip__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Zip__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						zipColumn.setWidth(Units.inch(1.32));
+					} else {
+						zipColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(zipColumn);
+				}
+				if (key.equals("Media_Product__c")) {
+					TextColumnBuilder<String> mediaProductColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Media_Product__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Media_Product__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						mediaProductColumn.setWidth(Units.inch(1.32));
+					} else {
+						mediaProductColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(mediaProductColumn);;
+				}
+				if (key.equals("Ride_Order__c")) {
+					TextColumnBuilder<String> rideOrderColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Ride_Order__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Ride_Order__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						rideOrderColumn.setWidth(Units.inch(1.32));
+					} else {
+						rideOrderColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(rideOrderColumn);
+				}
+				if (key.equals("Facing__c")) {
+					TextColumnBuilder<String> faceSideColumn = col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Facing__c"),
+							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Facing__c",
+							type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT);
+					if (isExportAsExcel()) {
+						faceSideColumn.setWidth(Units.inch(1.32));
+					} else {
+						faceSideColumn.setWidth(Units.inch(1.5));
+					}
+					report.addColumn(faceSideColumn);
+				}
+				if (isExportAsExcel()) {
+					if (key.equals("X4_Wk_Base_Rate__c")) {
+						TextColumnBuilder<BigDecimal> x4WkBaseRateColumn = col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Base_Rate__c",
+								currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
+						report.addColumn(x4WkBaseRateColumn);
+					}
+					if (key.equals("X4_Wk_Floor__c")) {
+						TextColumnBuilder<BigDecimal> x4WkFloorColumn = col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Floor__c",
+								currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
+						report.addColumn(x4WkFloorColumn);
+					}
+				}
+				if (getPackageMarketFlightPreviousRecordExpression().isDigitalMediaCategory()) {
+					if (key.equals("Average_Daily_Spots__c")) {
+						TextColumnBuilder<String> averageDailySpotsColumn = col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Average_Daily_Spots__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Average_Daily_Spots__c",
+								type.stringType()).setHorizontalAlignment(HorizontalAlignment.RIGHT);
+						if (isExportAsExcel()) {
+							averageDailySpotsColumn.setWidth(Units.inch(1.32));
+						} else {
+							averageDailySpotsColumn.setWidth(Units.inch(1.5));
+						}
+						report.addColumn(averageDailySpotsColumn);
+					}
 				}
 			}
-
 			// return report
 			return report;
 		}
@@ -4078,6 +3518,7 @@ public class Reporter {
 		public void setLocationMapExists(boolean mapExists) {
 			this.locationMapExists = mapExists;
 		}
+		
 		public boolean isShowSummaryHeaders() {
 			return showSummaryHeaders;
 		}
@@ -4146,27 +3587,7 @@ public class Reporter {
 				addFlightFields(report);
 
 				// report specific header
-				String[] rotaryHeaderFieldNamesArray = new String[] {
-						"Package_Flight__r/Package_Name__c",
-						"Package_Flight__r/Name",
-						"Package_Flight__r/Division__c",
-						"Package_Flight__r/Campaign_Start_Date__c",
-						"Package_Flight__r/Campaign_End_Date__c",
-						"Package_Flight__r/Duration_And_Type__c",
-						"Package_Flight__r/Target__c"
-					};
-				String[] rotaryHeaderFieldLabelsArray = new String[] {
-						getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c"),
-						getFlightLineColumnLabelHashMap().get("Package_Flight__r/Name"),
-						getFlightLineColumnLabelHashMap().get("Package_Flight__r/Division__c"),
-						getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_Start_Date__c"),
-						getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_End_Date__c"),
-						getFlightLineColumnLabelHashMap().get("Package_Flight__r/Duration_And_Type__c"),
-						getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target__c")
-					};
-				report.title(createVerticalTable(getFlightHeaderStyle(),
-						getFlightHeaderValueStyle(), rotaryHeaderFieldNamesArray,
-						rotaryHeaderFieldLabelsArray, Units.inch(2)));
+				addFlightHeader(report, getFlightHeaderStyle(), getFlightHeaderValueStyle());
 			}
 			// ======================================================== end
 
@@ -4179,10 +3600,10 @@ public class Reporter {
 			// style
 			report.highlightDetailEvenRows();
 			report.setColumnStyle(getColumnStyle());
+			report.setColumnTitleStyle(getColumnTitleStyle());
 
 			// filter
-			report.setFilterExpression(new FilterByFlightIdExpression(
-					getPackageMarketFlightPreviousRecordExpression()));
+			report.setFilterExpression(new FilterByFlightIdExpression(getPackageMarketFlightPreviousRecordExpression()));
 
 			// add a blank line at the end
 			report.addLastPageFooter(cmp.text(""));
@@ -4196,209 +3617,124 @@ public class Reporter {
 			CurrencyWithoutFractionDecimalType currencyWithoutFractionDecimalType = new CurrencyWithoutFractionDecimalType();
 
 			for(String key : fieldMap.keySet()) {
-				
 				if (isExportAsExcel()) {
 					if(key.equals("Package_Flight__r/Package_Name__c")) {
 						report.addColumn(col.column(
-								this.isShowSummaryHeaders() ? "Summary"
-										: getFlightLineColumnLabelHashMap().get(
-												"Package_Flight__r/Package_Name__c"),
+								this.isShowSummaryHeaders() ? "Summary"	: getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c"),
 								"Package_Flight__r/Package_Name__c", type.stringType()));
 					}
 					if(key.equals("Package_Flight__r/Name")) {
 						report.addColumn(col.column(
-								this.isShowSummaryHeaders() ? ""
-										: getFlightLineColumnLabelHashMap().get(
-												"Package_Flight__r/Name"),
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Name"),
 								"Package_Flight__r/Name", type.stringType()));
 					}
 					if(key.equals("Package_Flight__r/Division__c")) {
 						report.addColumn(col.column(
-								this.isShowSummaryHeaders() ? ""
-										: getFlightLineColumnLabelHashMap().get(
-												"Package_Flight__r/Division__c"),
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Division__c"),
 								"Package_Flight__r/Division__c", type.stringType()));
 					}
-					// Excel & PDF
 					if(key.equals("Network_Name__c")) {
 						report.addColumn(col.column(
-								this.isShowSummaryHeaders() ? ""
-										: getFlightLineColumnLabelHashMap().get(
-												"Network_Name__c"),
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Name__c"),
 								"Network_Name__c", type.stringType()));
 					}
 					if(key.equals("Package_Flight__r/Target__c")) {
 						report.addColumn(col.column(
-								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get(
-										"Package_Flight__r/Target__c"),
-								"Package_Flight__r/Target__c", type.stringType())
-								.setHorizontalAlignment(HorizontalAlignment.CENTER));
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target__c"),
+								"Package_Flight__r/Target__c", type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
 					}
 					if(key.equals("Package_Flight__r/Duration_And_Type__c")) {
-						report.addColumn(col
-								.column(this.isShowSummaryHeaders() ? ""
-										: getFlightLineColumnLabelHashMap().get(
-												"Package_Flight__r/Duration_And_Type__c"),
-										"Package_Flight__r/Duration_And_Type__c",
-										type.stringType()).setHorizontalAlignment(
-										HorizontalAlignment.CENTER));
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Duration_And_Type__c"),
+								"Package_Flight__r/Duration_And_Type__c", type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
 					}
 					if(key.equals("Package_Flight__r/Campaign_Start_Date__c")) {
-						report.addColumn(col
-								.column(this.isShowSummaryHeaders() ? ""
-										: getFlightLineColumnLabelHashMap()
-												.get("Package_Flight__r/Campaign_Start_Date__c"),
-										"Package_Flight__r/Campaign_Start_Date__c",
-										type.stringType()).setHorizontalAlignment(
-										HorizontalAlignment.CENTER));
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_Start_Date__c"),
+								"Package_Flight__r/Campaign_Start_Date__c",	type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
 					}
 					if(key.equals("Package_Flight__r/Campaign_End_Date__c")) {
-						report.addColumn(col
-								.column(this.isShowSummaryHeaders() ? ""
-										: getFlightLineColumnLabelHashMap()
-												.get("Package_Flight__r/Campaign_End_Date__c"),
-										"Package_Flight__r/Campaign_End_Date__c",
-										type.stringType()).setHorizontalAlignment(
-										HorizontalAlignment.CENTER));
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_End_Date__c"),
+								"Package_Flight__r/Campaign_End_Date__c", type.stringType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
 					}
 				}
 	
 				// add columns
-				String networkNameLabel = "";
 				if (!this.isExportAsExcel()) {
-					if (this.isShowSummaryHeaders()) {
-						networkNameLabel = "Summary";
-					} else {
-						networkNameLabel = getFlightLineColumnLabelHashMap().get(
-								"Network_Name__c");
-					}
-				}
-	
-				if(!this.isExportAsExcel()) {
 					if(key.equals("Network_Name__c")) {
-						report.addColumn(
-								col.column(networkNameLabel, "Network_Name__c",
-										type.stringType())).setColumnTitleStyle(
-								getColumnTitleStyle());
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "Summary": getFlightLineColumnLabelHashMap().get("Network_Name__c"),
+										"Network_Name__c",	type.stringType()));
 					}
 				}
-	
 				if(key.equals("Number_of_Panels__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"Number_of_Panels__c"),
-							"Number_of_Panels__c", type.integerType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER))
-							.setColumnTitleStyle(getColumnTitleStyle());
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Number_of_Panels__c"),
+							"Number_of_Panels__c", type.integerType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("Weekly_Total_18_Imps__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"Weekly_Total_18_Imps__c"),
-							"Weekly_Total_18_Imps__c", type.integerType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER));
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps__c"),
+							"Weekly_Total_18_Imps__c", type.integerType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("In_Mkt_Imps__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"In_Mkt_Imps__c"), "In_Mkt_Imps__c",
-							type.doubleType()).setHorizontalAlignment(
-							HorizontalAlignment.CENTER));
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("In_Mkt_Imps__c"),
+							"In_Mkt_Imps__c", type.doubleType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("Total_Imps__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"Total_Imps__c"), "Total_Imps__c",
-							type.doubleType()).setHorizontalAlignment(
-							HorizontalAlignment.CENTER));
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Total_Imps__c"),
+							"Total_Imps__c", type.doubleType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("In_Mkt_TRP__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"In_Mkt_TRP__c"), "In_Mkt_TRP__c",
-							type.doubleType()).setHorizontalAlignment(
-							HorizontalAlignment.CENTER));
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("In_Mkt_TRP__c"),
+							"In_Mkt_TRP__c", type.doubleType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("PlanTRP__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"PlanTRP__c"), "PlanTRP__c",
-							type.doubleType()).setHorizontalAlignment(
-							HorizontalAlignment.CENTER));
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("PlanTRP__c"),
+							"PlanTRP__c", type.doubleType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("Plan_Imps_Reach_Perc__c")) {
-					report.addColumn(col
-							.column(this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"Plan_Imps_Reach_Perc__c"),
-									"Plan_Imps_Reach_Perc__c", type.percentageType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER)
+					report.addColumn(col.column(
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Plan_Imps_Reach_Perc__c"),
+							"Plan_Imps_Reach_Perc__c", type.percentageType()).setHorizontalAlignment(HorizontalAlignment.CENTER)
 							.setPattern("#%"));
 				}
 				if(key.equals("Plan_Imps_Avg_Frequency__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"Plan_Imps_Avg_Frequency__c"),
-							"Plan_Imps_Avg_Frequency__c", type.doubleType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER));
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Plan_Imps_Avg_Frequency__c"),
+							"Plan_Imps_Avg_Frequency__c", type.doubleType()).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("X4_Wk_Proposed_Price__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"X4_Wk_Proposed_Price__c"),
-							"X4_Wk_Proposed_Price__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(
-							HorizontalAlignment.CENTER));
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Proposed_Price__c"),
+							"X4_Wk_Proposed_Price__c", currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("Total_Price_0d__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"Total_Price_0d__c"), "Total_Price_0d__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(
-							HorizontalAlignment.CENTER));
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"),
+							"Total_Price_0d__c", currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("TotalInMarketCPM_0d__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"TotalInMarketCPM_0d__c"),
-							"TotalInMarketCPM_0d__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(
-							HorizontalAlignment.CENTER));
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("TotalInMarketCPM_0d__c"),
+							"TotalInMarketCPM_0d__c", currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
 				if(key.equals("CPP_0d__c")) {
 					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap()
-											.get("CPP_0d__c"), "CPP_0d__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(
-							HorizontalAlignment.CENTER));
+							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("CPP_0d__c"),
+							"CPP_0d__c", currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.CENTER));
 				}
-	
-				if(this.isExportAsExcel()) {
-					if(key.equals("Comments__c")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? ""
-								: getFlightLineColumnLabelHashMap().get("Comments__c"),
-								"Comments__c", type.stringType()));
-						}
-				}
-	
 				if(key.equals("Package_Flight__r/Flight_Comments__c")) {
 					report.addColumn(col.column(this.isShowSummaryHeaders() ? ""
 							: getFlightLineColumnLabelHashMap().get("Package_Flight__r/Flight_Comments__c"),
 							"Package_Flight__r/Flight_Comments__c", type.stringType()));
 				}
 			}
-
 			// return report
 			return report;
 		}
@@ -4583,241 +3919,241 @@ public class Reporter {
 			// types
 			CurrencyWithFractionDecimalType currencyWithFractionDecimalType = new CurrencyWithFractionDecimalType();
 			CurrencyWithoutFractionDecimalType currencyWithoutFractionDecimalType = new CurrencyWithoutFractionDecimalType();
-
-			for(String key : fieldMap.keySet()) {
-			// ================================= add columns: begin
 			if (isExportAsExcel()) {
-				if(key.equals("Package_Flight__r/Package_Name__c")) {
+				report.addColumn(col.column(
+						this.isShowSummaryHeaders() ? "Summary" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c"),
+						this.isShowSummaryHeaders() ? "Package_Flight__r/Name" : "Package_Flight__r/Package_Name__c", type.stringType()).setWidth(Units.inch(1.32)));
+			} else {
+				report.addColumn(col.column(
+						this.isShowSummaryHeaders() ? "Summary" : getFlightLineColumnLabelHashMap().get("Network_Name__c"),
+						this.isShowSummaryHeaders() ? "Package_Flight__r/Name" : "Network_Name__c", type.stringType()));
+			}
+			for(String key : fieldMap.keySet()) {
+				// ================================= add columns: begin
+				if (isExportAsExcel()) {
+					/*if(key.equals("Package_Flight__r/Package_Name__c")) {
 					report.addColumn(col.column(
 							this.isShowSummaryHeaders() ? "Summary" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c"),
 							this.isShowSummaryHeaders() ? "Package_Flight__r/Name" : "Package_Flight__r/Package_Name__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Package_Flight__r/Name")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Name"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Name", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Package_Flight__r/Division__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Division__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Division__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Network_Name__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Name__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Name__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Number_of_Panels__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Number_of_Panels__c"), "Number_of_Panels__c",
-							type.integerType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Package_Flight__r/Target__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Target__c", type.stringType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Package_Flight__r/Campaign_Start_Date__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_Start_Date__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Campaign_Start_Date__c", type.stringType())
-							.setValueFormatter(new ValueFormatter()).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)));					
-				}
-				if(key.equals("Package_Flight__r/Campaign_End_Date__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_End_Date__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Campaign_End_Date__c", type.stringType())
-							.setValueFormatter(new ValueFormatter()).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)));					
-				}
-				if(key.equals("Package_Flight__r/Duration_And_Type__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Duration_And_Type__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Duration_And_Type__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Weekly_Total_18_Imps__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps__c"), "Weekly_Total_18_Imps__c",
-							type.integerType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("In_Mkt_Imps__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("In_Mkt_Imps__c"), "In_Mkt_Imps__c",
-							type.doubleType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Total_Imps__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Total_Imps__c"), "Total_Imps__c",
-							type.doubleType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("In_Mkt_TRP__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("In_Mkt_TRP__c"), "In_Mkt_TRP__c",
-							type.doubleType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("PlanTRP__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("PlanTRP__c"), "PlanTRP__c",
-							type.doubleType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Plan_Imps_Reach_Perc__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Plan_Imps_Reach_Perc__c"), "Plan_Imps_Reach_Perc__c",
-							type.percentageType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Plan_Imps_Avg_Frequency__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Plan_Imps_Avg_Frequency__c"), "Plan_Imps_Avg_Frequency__c",
-							type.doubleType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("X4_Wk_Proposed_Price__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Proposed_Price__c"),
-							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Proposed_Price__c", currencyWithoutFractionDecimalType)
-							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Total_Price_0d__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"), "Total_Price_0d__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("TotalInMarketCPM_0d__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("TotalInMarketCPM_0d__c"), "TotalInMarketCPM_0d__c",
-							currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("CPP_0d__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("CPP_0d__c"), "CPP_0d__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Package_Flight__r/Flight_Comments__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Flight_Comments__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Flight_Comments__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Package_Flight__r/Package_Comments__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Comments__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Package_Comments__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Network_Description__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Description__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Description__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if(key.equals("Network_Notes__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Notes__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Notes__c", type.stringType()).setWidth(Units.inch(1.32)));
-				}
-				if(getPackageMarketFlightPreviousRecordExpression().isDigitalMediaCategory()) {
-					/*if(key.equals("Max_of_Spots_per_Loop__c")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? ""
-								: getFlightLineColumnLabelHashMap().get("Max_of_Spots_per_Loop__c"),
-								"Max_of_Spots_per_Loop__c", type.stringType()).setWidth(Units.inch(1.32)));
 					}*/
-					if(key.equals("Average_Daily_Spots__c")) {
+					if(key.equals("Package_Flight__r/Name")) {
 						report.addColumn(col.column(
-								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Average_Daily_Spots__c"),
-								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Average_Daily_Spots__c", type.stringType())
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Name"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Name", type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Package_Flight__r/Division__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Division__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Division__c", type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Network_Name__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Name__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Name__c", type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Number_of_Panels__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Number_of_Panels__c"), "Number_of_Panels__c",
+								type.integerType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Package_Flight__r/Target__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Target__c", type.stringType())
+								.setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Package_Flight__r/Campaign_Start_Date__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_Start_Date__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Campaign_Start_Date__c", type.stringType())
+								.setValueFormatter(new ValueFormatter()).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)));					
+					}
+					if(key.equals("Package_Flight__r/Campaign_End_Date__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_End_Date__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Campaign_End_Date__c", type.stringType())
+								.setValueFormatter(new ValueFormatter()).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(Units.inch(1.32)));					
+					}
+					if(key.equals("Package_Flight__r/Duration_And_Type__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Duration_And_Type__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Duration_And_Type__c", type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if (key.equals("Package_Flight__r/Media_Category__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Media_Category__c"), 
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Media_Category__c",
+								type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Weekly_Total_18_Imps__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps__c"), "Weekly_Total_18_Imps__c",
+								type.integerType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("In_Mkt_Imps__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("In_Mkt_Imps__c"), "In_Mkt_Imps__c",
+								type.doubleType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Total_Imps__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Total_Imps__c"), "Total_Imps__c",
+								type.doubleType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("In_Mkt_TRP__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("In_Mkt_TRP__c"), "In_Mkt_TRP__c",
+								type.doubleType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("PlanTRP__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("PlanTRP__c"), "PlanTRP__c",
+								type.doubleType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Plan_Imps_Reach_Perc__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Plan_Imps_Reach_Perc__c"), "Plan_Imps_Reach_Perc__c",
+								type.percentageType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Plan_Imps_Avg_Frequency__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Plan_Imps_Avg_Frequency__c"), "Plan_Imps_Avg_Frequency__c",
+								type.doubleType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("X4_Wk_Proposed_Price__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Proposed_Price__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Proposed_Price__c", currencyWithoutFractionDecimalType)
 								.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
 					}
-					/*if (key.equals("Spot_Type__c")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? ""
-								: getFlightLineColumnLabelHashMap().get("Spot_Type__c"),
-								"Spot_Type__c", type.stringType()).setWidth(Units.inch(1.32)));
-					}*/
+					if(key.equals("Total_Price_0d__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"), "Total_Price_0d__c",
+								currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("TotalInMarketCPM_0d__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("TotalInMarketCPM_0d__c"), "TotalInMarketCPM_0d__c",
+								currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("CPP_0d__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("CPP_0d__c"), "CPP_0d__c",
+								currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Package_Flight__r/Flight_Comments__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Flight_Comments__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Flight_Comments__c", type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Package_Flight__r/Package_Comments__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Comments__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Package_Comments__c", type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Network_Description__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Description__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Description__c", type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if(key.equals("Network_Notes__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Notes__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Notes__c", type.stringType()).setWidth(Units.inch(1.32)));
+					}
+					if(getPackageMarketFlightPreviousRecordExpression().isDigitalMediaCategory()) {
+						if(key.equals("Average_Daily_Spots__c")) {
+							report.addColumn(col.column(
+									this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Average_Daily_Spots__c"),
+									this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Average_Daily_Spots__c", type.stringType())
+									.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+						}
+					}
+					if (key.equals("X4_Wk_Base_Rate__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Base_Rate__c", currencyWithoutFractionDecimalType)
+								.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
+					if (key.equals("X4_Wk_Floor__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Floor__c", currencyWithoutFractionDecimalType)
+								.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+					}
 				}
-				if (key.equals("X4_Wk_Base_Rate__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"),
-							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Base_Rate__c", currencyWithoutFractionDecimalType)
-							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-				if (key.equals("X4_Wk_Floor__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"),
-							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Floor__c", currencyWithoutFractionDecimalType)
-							.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-				}
-			}
 
-			if(!this.isExportAsExcel()) {
-				if(key.equals("Network_Name__c")) {
+				if(!this.isExportAsExcel()) {
+					/*if(key.equals("Network_Name__c")) {
 					report.addColumn(col.column(
 							this.isShowSummaryHeaders() ? "Summary" : getFlightLineColumnLabelHashMap().get("Network_Name__c"),
 							this.isShowSummaryHeaders() ? "Package_Flight__r/Name" : "Network_Name__c", type.stringType()));
-				}
-				if(key.equals("Number_of_Panels__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Number_of_Panels__c"), "Number_of_Panels__c",
-							type.integerType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("Weekly_Total_18_Imps__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps__c"), "Weekly_Total_18_Imps__c",
-							type.integerType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("In_Mkt_Imps__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("In_Mkt_Imps__c"), "In_Mkt_Imps__c",
-							type.doubleType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("Total_Imps__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Total_Imps__c"), "Total_Imps__c",
-							type.doubleType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("In_Mkt_TRP__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("In_Mkt_TRP__c"), "In_Mkt_TRP__c",
-							type.doubleType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("PlanTRP__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("PlanTRP__c"), "PlanTRP__c",
-							type.doubleType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("Plan_Imps_Reach_Perc__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Plan_Imps_Reach_Perc__c"), "Plan_Imps_Reach_Perc__c",
-							type.percentageType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("Plan_Imps_Avg_Frequency__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Plan_Imps_Avg_Frequency__c"), "Plan_Imps_Avg_Frequency__c",
-							type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("X4_Wk_Proposed_Price__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Proposed_Price__c"),
-							this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Proposed_Price__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("Total_Price_0d__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"), "Total_Price_0d__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("TotalInMarketCPM_0d__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("TotalInMarketCPM_0d__c"), "TotalInMarketCPM_0d__c",
-							currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("CPP_0d__c")) {
-					report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("CPP_0d__c"),	"CPP_0d__c",
-							currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT));
-				}
-				if(key.equals("Network_Description__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Description__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Description__c", type.stringType())
-							.setWidth(Units.inch(2.5)));
-				}
-				if(key.equals("Network_Notes__c")) {
-					report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Notes__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Notes__c", type.stringType()));
-				}
-				if(getPackageMarketFlightPreviousRecordExpression().isDigitalMediaCategory()) {
-					/*if(key.equals("Max_of_Spots_per_Loop__c")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? ""
-								: getFlightLineColumnLabelHashMap().get("Max_of_Spots_per_Loop__c"),
-								"Spots_Per_Display_Per_Day__c", type.stringType()));
 					}*/
-					if(key.equals("Average_Daily_Spots__c")) {
+					if(key.equals("Number_of_Panels__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Number_of_Panels__c"), "Number_of_Panels__c",
+								type.integerType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if (key.equals("Package_Flight__r/Media_Category__c")) {
 						report.addColumn(col.column(
-							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Average_Daily_Spots__c"),
-							this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Average_Daily_Spots__c", type.stringType())
-							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
-					}/*
-					if (key.equals("Spot_Type__c")) {
-						report.addColumn(col.column(this.isShowSummaryHeaders() ? ""
-								: getFlightLineColumnLabelHashMap().get("Spot_Type__c"),
-								"Spot_Type__c", type.stringType()));
-					}*/
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Media_Category__c"), 
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Media_Category__c",
+								type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT).setWidth(Units.inch(2.0)));
+					}
+					if(key.equals("Weekly_Total_18_Imps__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Weekly_Total_18_Imps__c"), "Weekly_Total_18_Imps__c",
+								type.integerType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if(key.equals("In_Mkt_Imps__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("In_Mkt_Imps__c"), "In_Mkt_Imps__c",
+								type.doubleType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if(key.equals("Total_Imps__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Total_Imps__c"), "Total_Imps__c",
+								type.doubleType()).setPattern("#,###").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if(key.equals("In_Mkt_TRP__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("In_Mkt_TRP__c"), "In_Mkt_TRP__c",
+								type.doubleType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if(key.equals("PlanTRP__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("PlanTRP__c"), "PlanTRP__c",
+								type.doubleType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if(key.equals("Plan_Imps_Reach_Perc__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Plan_Imps_Reach_Perc__c"), "Plan_Imps_Reach_Perc__c",
+								type.percentageType()).setPattern("##0.0").setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if(key.equals("Plan_Imps_Avg_Frequency__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Plan_Imps_Avg_Frequency__c"), "Plan_Imps_Avg_Frequency__c",
+								type.doubleType()).setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if(key.equals("X4_Wk_Proposed_Price__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Proposed_Price__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Proposed_Price__c",
+								currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if(key.equals("Total_Price_0d__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Total_Price_0d__c"), "Total_Price_0d__c",
+								currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if(key.equals("TotalInMarketCPM_0d__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("TotalInMarketCPM_0d__c"), "TotalInMarketCPM_0d__c",
+								currencyWithFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if(key.equals("CPP_0d__c")) {
+						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("CPP_0d__c"),	"CPP_0d__c",
+								currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT));
+					}
+					if(key.equals("Network_Description__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Description__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Description__c", type.stringType())
+								.setWidth(Units.inch(2.5)));
+					}
+					if(key.equals("Network_Notes__c")) {
+						report.addColumn(col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Notes__c"),
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Notes__c", type.stringType()));
+					}
+					if(getPackageMarketFlightPreviousRecordExpression().isDigitalMediaCategory()) {
+						if(key.equals("Average_Daily_Spots__c")) {
+							report.addColumn(col.column(
+									this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Average_Daily_Spots__c"),
+									this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Average_Daily_Spots__c", type.stringType())
+									.setHorizontalAlignment(HorizontalAlignment.RIGHT));
+						}
+					}
 				}
-			}
 			}
 			// ================================= add columns: end
 			return report;
@@ -4937,18 +4273,17 @@ public class Reporter {
 
 			addColumns(report, getFlightLineColumnLabelHashMap());
 			// style
-						//report.highlightDetailEvenRows();
-						report.setColumnTitleStyle(getColumnTitleStyle());
-						report.setColumnStyle(getColumnStyle());
+			report.highlightDetailEvenRows();
+			report.setColumnTitleStyle(getColumnTitleStyle());
+			report.setColumnStyle(getColumnStyle());
 
-						// filter
-						report.setFilterExpression(new FilterByDetailFlightLineIdExpression(getFlightLinePreviousRecordExpression()));
+			// filter
+			report.setFilterExpression(new FilterByDetailFlightLineIdExpression(getFlightLinePreviousRecordExpression()));
 
-						// add a blank line at the end
-						report.addLastPageFooter(cmp.text(""));
-
-						// return report
-						return report;
+			// add a blank line at the end
+			report.addLastPageFooter(cmp.text(""));
+			// return report
+			return report;
 		}
 
 		private JasperReportBuilder addColumns(JasperReportBuilder report, Map<String, String> fieldMap) {
@@ -4985,8 +4320,7 @@ public class Reporter {
 					report.addColumn(
 						col.column(
 							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("MarketName__c"),
-							"MarketName__c", type.stringType())
-							.setWidth(Units.inch(1.32)));
+							"MarketName__c", type.stringType()).setWidth(Units.inch(1.32)));
 				}
 				if(key.equals("Panel_Id_Label__c")) {
 					report.addColumn(col.column(
@@ -5406,16 +4740,6 @@ public class Reporter {
 		}
 	}
 
-
-	private class DateOnlyType extends DateType {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getPattern() {
-			return "MM-dd-yyyy";
-		}
-	}
- 
 	private class CurrencyWithoutFractionDecimalType extends BigDecimalType {
 		private static final long serialVersionUID = 1L;
 
@@ -6186,7 +5510,8 @@ public class Reporter {
 				// NOTICE: group by name because we could loose TOC if grouping by id. It means that for
 				// generating TOC we need the names. If we put ID, this ID value would
 				// be shown in the TOC.
-				return " " + reportParameters.getValue("Package_Flight__r/Name") + "........"
+				return " " + reportParameters.getValue("Package_Flight__r/Name") +
+						"................................................................................"
 						+ "$~" + reportParameters.getValue("Package_Flight__r/Package_Name__c");
 
 			} catch (Exception ex) {
