@@ -658,7 +658,8 @@ public class PDFCombiner {
 	}
 
 	private static int getStartPageNumber(PDFCombinerArguments pdfCombinerArguments) {
-		int start = 1;
+		int start = 0;
+		if(pdfCombinerArguments.isShowCoverPage()) start++;
 		if(pdfCombinerArguments.isShowTableOfContents()) start++;
 		return start;
 	}
@@ -675,15 +676,15 @@ public class PDFCombiner {
 	private static void doMerge(PDFCombinerArguments pdfCombinerArguments, LinkedHashMap<String, PDFCombinerFile> pdfFileList, OutputStream outputStream)
             throws DocumentException, IOException {
         Document document = new Document();
-        document.setPageSize(PageSize.LETTER);
+        document.setPageSize(PageSize.A2);
         PdfWriter writer = PdfWriter.getInstance(document, outputStream);
-
-        writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
+        writer.setBoxSize("art", new Rectangle(100, 50, 1300, 500));
 
 		if(pdfCombinerArguments.isShowPageNumbering()) {
         	HeaderFooter event = new HeaderFooter(getStartPageNumber(pdfCombinerArguments));
         	writer.setPageEvent(event);
         }
+		
 		AEFooter aeEvent;
 		if(pdfCombinerArguments.getMarketContactInformation() != null)
 			aeEvent = new AEFooter(getStartPageNumber(pdfCombinerArguments), pdfCombinerArguments.getMarketContactInformation());
@@ -734,7 +735,8 @@ public class PDFCombiner {
                     System.out.println("      positionX: " + positionX);
                     cb.addTemplate(page, factor, 0, 0, factor, positionX, offsetY);
                 } else {
-                	document.setPageSize(page.getBoundingBox());
+                	//document.setPageSize(page.getBoundingBox());
+                	document.setPageSize(new Rectangle(1684, 1188));
                     //add the page to the destination pdf
                     document.newPage();
                     cb.addTemplate(page, 0, 0);
