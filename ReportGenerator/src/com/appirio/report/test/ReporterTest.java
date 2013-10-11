@@ -49,7 +49,7 @@ public class ReporterTest {
 		fieldTypesPipeDelimited.add("String|String");
 		pdfCombinerFile.setFieldTypesPipeDelimited(fieldTypesPipeDelimited);
 
-		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, pdfCombinerFile, true, true, null);
+		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, false, pdfCombinerFile, true, true, null);
 		showReporterInfo(reporter);
 
 		List<PDFCombinerContentEntry> pdfCombinerContentEntryList = reporter.getPDFCombinerContentEntryList();
@@ -79,7 +79,7 @@ public class ReporterTest {
 		fieldTypesPipeDelimited.add("String");
 		pdfCombinerFile.setFieldTypesPipeDelimited(fieldTypesPipeDelimited);
 
-		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, pdfCombinerFile, true, true,null);
+		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, false, pdfCombinerFile, true, true,null);
 		showReporterInfo(reporter);
 	}
 
@@ -99,7 +99,7 @@ public class ReporterTest {
 		fieldTypesPipeDelimited.add("String|String|String|String|String|Double|Double|Double|Double|Double|Double|Double|Double|Double|Double|Double|Double|String|String|String|String|String|String");
 		pdfCombinerFile.setFieldTypesPipeDelimited(fieldTypesPipeDelimited);
 
-		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, true, true, false, pdfCombinerFile, true, true,null);
+		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, true, true, false, pdfCombinerFile, true, true,null);
 		showReporterInfo(reporter);
 	}
 
@@ -119,7 +119,7 @@ public class ReporterTest {
 		fieldTypesPipeDelimited.add("String|String|String|String|String|Double|Double|Double|Double|Double|Double|Double|Double|Double|Double|Double|Double|String|String|String|String|String|String");
 		pdfCombinerFile.setFieldTypesPipeDelimited(fieldTypesPipeDelimited);
 
-		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c_with_data.xml", null, true, true, false, pdfCombinerFile, true, true,null);
+		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c_with_data.xml", null, false, true, true, false, pdfCombinerFile, true, true,null);
 		showReporterInfo(reporter);
 	}
 
@@ -139,7 +139,7 @@ public class ReporterTest {
 		fieldTypesPipeDelimited.add("String|String|String|String|String|String|Double|Double|Double|Double|Double|Double|Double|Double|Double|Double|Double|Double|String|String|String|String|String|String");
 		pdfCombinerFile.setFieldTypesPipeDelimited(fieldTypesPipeDelimited);
 
-		Reporter reporter = new Reporter("Data//CPQ_FourLevelsSample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, true, true, true, pdfCombinerFile, true, true,null);
+		Reporter reporter = new Reporter("Data//CPQ_FourLevelsSample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, true, true, true, pdfCombinerFile, true, true,null);
 		showReporterInfo(reporter);
 	}
 
@@ -159,7 +159,7 @@ public class ReporterTest {
 		fieldTypesPipeDelimited.add("String|String|String|String|String|String|String|String|Double|String|String|Double|Double|Double|Double|Double|Double|Double|Currency|Double|Currency, String|String");
 		pdfCombinerFile.setFieldTypesPipeDelimited(fieldTypesPipeDelimited);
 
-		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, true, false, false, pdfCombinerFile, true, true,null);
+		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, true, false, false, pdfCombinerFile, true, true,null);
 		showReporterInfo(reporter);
 	}
 
@@ -179,7 +179,7 @@ public class ReporterTest {
 		fieldTypesPipeDelimited.add("Double|Double|Double");
 		pdfCombinerFile.setFieldTypesPipeDelimited(fieldTypesPipeDelimited);
 
-		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, pdfCombinerFile, true, true,null);
+		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, false, pdfCombinerFile, true, true,null);
 		showReporterInfo(reporter);
 	}
 
@@ -199,7 +199,7 @@ public class ReporterTest {
 		fieldTypesPipeDelimited.add("Double|Double|Double");
 		pdfCombinerFile.setFieldTypesPipeDelimited(fieldTypesPipeDelimited);
 
-		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", "Data//CPQ_ShippingInstructions_With_Records.xml", false, false, false, pdfCombinerFile, true, true,null);
+		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", "Data//CPQ_ShippingInstructions_With_Records.xml", false, false, false, false, pdfCombinerFile, true, true,null);
 		showReporterInfo(reporter);
 	}
 
@@ -222,7 +222,7 @@ public class ReporterTest {
 		fieldTypesPipeDelimited.add("String");
 		pdfCombinerFile.setFieldTypesPipeDelimited(fieldTypesPipeDelimited);
 
-		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, pdfCombinerFile, true, true,null);
+		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, false, pdfCombinerFile, true, true,null);
 		showReporterInfo(reporter);
 	}
 
@@ -253,7 +253,7 @@ public class ReporterTest {
 		fieldTypesPipeDelimited.add("String|String|String");
 		pdfCombinerFile.setFieldTypesPipeDelimited(fieldTypesPipeDelimited);
 
-		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, pdfCombinerFile, true, true,null);
+		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, false, pdfCombinerFile, true, true,null);
 		showReporterInfo(reporter);
 	}
 
@@ -304,7 +304,7 @@ public class ReporterTest {
 		fieldTypesPipeDelimited.add("String|String");
 		pdfCombinerFile.setFieldTypesPipeDelimited(fieldTypesPipeDelimited);
 
-		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, pdfCombinerFile, true, false,null);
+		Reporter reporter = new Reporter("Data//CPQ_sample1.xml", "Data//CPQ_Proposal_Disclaimer__c.xml", "Data//CPQ_Map_Panel_Order_Pref__c.xml", null, false, false, false, false, pdfCombinerFile, true, false,null);
 		showReporterInfo(reporter);
 	}
 

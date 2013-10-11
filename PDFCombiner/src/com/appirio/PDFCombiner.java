@@ -735,8 +735,11 @@ public class PDFCombiner {
                     System.out.println("      positionX: " + positionX);
                     cb.addTemplate(page, factor, 0, 0, factor, positionX, offsetY);
                 } else {
-                	//document.setPageSize(page.getBoundingBox());
-                	document.setPageSize(new Rectangle(1684, 1188));
+                	int start = 0;
+                	if(pdfCombinerArguments.isShowCoverPage()) start++;
+            		if(pdfCombinerArguments.isShowTableOfContents()) start++;
+                	if(i<=start) document.setPageSize(page.getBoundingBox());
+                	else document.setPageSize(new Rectangle(1684, 1188));
                     //add the page to the destination pdf
                     document.newPage();
                     cb.addTemplate(page, 0, 0);

@@ -93,6 +93,8 @@ public class PDFCombinerArguments implements java.io.Serializable {
 	private PDFCombinerCallback pdfCombinerCallback;
 	
 	private boolean excludeFlightLines;
+	
+	private boolean excludeNetworkDetails;
 
 	public boolean isExcludeFlightLines() {
 		return excludeFlightLines;
@@ -449,5 +451,13 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setPackageSummaryUrl(String packageSummaryUrl) {
 		this.packageSummaryUrl = packageSummaryUrl;
+	}
+
+	public boolean isExcludeNetworkDetails() {
+		return excludeNetworkDetails;
+	}
+
+	public void setExcludeNetworkDetails(boolean excludeNetworkDetails) {
+		this.excludeNetworkDetails = excludeNetworkDetails;
 	}
 }
