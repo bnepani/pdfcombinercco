@@ -1249,7 +1249,7 @@ public class Reporter {
 	private void addSummaryField(SummaryLevelEnum summaryLevel, JasperReportBuilder report) {
 
 		// by default, point to a column we know that wont exist
-		String summaryField = "Fake_Column__c";
+		String summaryField = "Package_Flight__r/Name";
 
 		// determine which field will be used for specified summary level
 		if(summaryLevel == SummaryLevelEnum.Market) {
@@ -1838,9 +1838,9 @@ public class Reporter {
 			JasperReportBuilder report = report();
 
 			// title
-			if(getSummaryLevel() != null) {
+			/*if(getSummaryLevel() != null) {
 				report.title(getReportTitle(this.getSummaryLevel()));
-			}
+			}*/
 
 			// ======================================================== begin
 			if(!this.isShowSummaryHeaders() && !this.isExportAsExcel()) {
@@ -1897,8 +1897,9 @@ public class Reporter {
 					report.setIgnorePageWidth(true);
 					if(key.equals("Package_Flight__r/Package_Name__c")) {
 						if(!isShowSummaryHeaders() || firstColumnOverriden) {
-							report.addColumn(col.column(this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c"),
-									"Package_Flight__r/Package_Name__c", type.stringType())
+							report.addColumn(col.column(
+									this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c"),
+									this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Package_Name__c", type.stringType())
 									.setWidth(Units.inch(1.32)));
 						} else {
 							if(!firstColumnOverriden) {
@@ -2679,9 +2680,9 @@ public class Reporter {
 			JasperReportBuilder report = report();
 
 			// title
-			if(getSummaryLevel() != null) {
+			/*if(getSummaryLevel() != null) {
 				report.title(getReportTitle(this.getSummaryLevel()));
-			}
+			}*/
 			// ======================================================== begin
 			if(!this.isShowSummaryHeaders() && !this.isExportAsExcel()) {
 				// add flight fields
@@ -2738,30 +2739,18 @@ public class Reporter {
 					if (key.equals("MapLocation_Number__c")) {
 						if(!isShowSummaryHeaders() || firstColumnOverriden) {
 							try {
-								if(!isShowSummaryHeaders()) {
-									TextColumnBuilder<Integer> mapLocNumberColumn = col.column(
-											getFlightLineColumnLabelHashMap().get("MapLocation_Number__c"),
-											new MapLocationNumberExpressionColumn(getMapPanelOrderPrefDataSourceFileName()))
-											.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-									if (isExportAsExcel()) {
-										mapLocNumberColumn.setWidth(Units.inch(1.32));
-									} else {
-										mapLocNumberColumn.setWidth(Units.inch(2));
-									}
-									report.addColumn(mapLocNumberColumn);
-									report.sortBy(mapLocNumberColumn);
-									report.addField(field("MapLocation_Number__c", type.stringType()));
+								TextColumnBuilder<Integer> mapLocNumberColumn = col.column(
+										getFlightLineColumnLabelHashMap().get("MapLocation_Number__c"),
+										new MapLocationNumberExpressionColumn(getMapPanelOrderPrefDataSourceFileName()))
+										.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+								if (isExportAsExcel()) {
+									mapLocNumberColumn.setWidth(Units.inch(1.32));
 								} else {
-									TextColumnBuilder<String> summaryColumn = col.column(
-											"", "Package_Flight__r/Name", type.stringType())
-											.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-									if (isExportAsExcel()) {
-										summaryColumn.setWidth(Units.inch(1.32));
-									} else {
-										summaryColumn.setWidth(Units.inch(2));
-									}
-									report.addColumn(summaryColumn);
+									mapLocNumberColumn.setWidth(Units.inch(2));
 								}
+								report.addColumn(mapLocNumberColumn);
+								report.sortBy(mapLocNumberColumn);
+								report.addField(field("MapLocation_Number__c", type.stringType()));
 							} catch (ParserConfigurationException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -3937,9 +3926,9 @@ public class Reporter {
 			// ======================================================== end
 
 			// title
-			if(getSummaryLevel() != null) {
+			/*if(getSummaryLevel() != null) {
 				report.title(getReportTitle(this.getSummaryLevel()));
-			}
+			}*/
 
 			// add columns
 			addColumns(report, getFlightLineColumnLabelHashMap());
@@ -4375,9 +4364,9 @@ public class Reporter {
 			}
 
 			// title
-			if(getSummaryLevel() != null) {
+			/*if(getSummaryLevel() != null) {
 				report.title(getReportTitle(this.getSummaryLevel()));
-			}
+			}*/
 
 			// add columns
 			addColumns(report, getFlightLineColumnLabelHashMap());
@@ -4429,7 +4418,7 @@ public class Reporter {
                         if(!isShowSummaryHeaders() || firstColumnOverriden) {
 							report.addColumn(col.column(
 									this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c"),
-									this.isShowSummaryHeaders() ? "Package_Flight__r/Name" : "Package_Flight__r/Package_Name__c", type.stringType()).setWidth(Units.inch(1.32)));
+									this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Package_Name__c", type.stringType()).setWidth(Units.inch(1.32)));
                         } else {
                             if(!firstColumnOverriden) {
                                 addSummaryField(getSummaryLevel(), report);
@@ -4725,7 +4714,7 @@ public class Reporter {
                         if(!isShowSummaryHeaders() || firstColumnOverriden) {
                             report.addColumn(col.column(
                                     this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Name__c"),
-                                    this.isShowSummaryHeaders() ? "Package_Flight__r/Name" : "Network_Name__c", type.stringType()));
+                                    this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Name__c", type.stringType()));
                         } else {
                             if(!firstColumnOverriden) {
                                 addSummaryField(getSummaryLevel(), report);
@@ -7433,14 +7422,14 @@ public class Reporter {
 		this.recordCount = recordCount;
 	}
 
-	private TextFieldBuilder<String> getReportTitle(SummaryLevelEnum summaryLevel) {
+	/*private TextFieldBuilder<String> getReportTitle(SummaryLevelEnum summaryLevel) {
 		if(summaryLevel == SummaryLevelEnum.Market) {
 			return cmp.text("Market Summary").setStyle(columnTitleStyle);
 		} else if(summaryLevel == SummaryLevelEnum.Package) {
 			return cmp.text("Package Summary").setStyle(columnTitleStyle);
 		}
 		return null;
-	}
+	}*/
 
 	public StyleBuilder getFlightHeaderStyle() {
 		return flightHeaderStyle;

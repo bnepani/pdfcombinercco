@@ -680,28 +680,28 @@ public class PDFCombiner {
         PdfWriter writer = PdfWriter.getInstance(document, outputStream);
         writer.setBoxSize("art", new Rectangle(100, 50, 1300, 500));
 
+        int startPageNo = getStartPageNumber(pdfCombinerArguments);
 		if(pdfCombinerArguments.isShowPageNumbering()) {
-        	HeaderFooter event = new HeaderFooter(getStartPageNumber(pdfCombinerArguments));
+        	HeaderFooter event = new HeaderFooter(startPageNo);
         	writer.setPageEvent(event);
         }
 		
 		AEFooter aeEvent;
 		if(pdfCombinerArguments.getMarketContactInformation() != null)
-			aeEvent = new AEFooter(getStartPageNumber(pdfCombinerArguments), pdfCombinerArguments.getMarketContactInformation());
+			aeEvent = new AEFooter(startPageNo, pdfCombinerArguments.getMarketContactInformation());
 		else
-			aeEvent = new AEFooter(getStartPageNumber(pdfCombinerArguments), pdfCombinerArguments.getClientContactInformation());
+			aeEvent = new AEFooter(startPageNo, pdfCombinerArguments.getClientContactInformation());
 		
 		writer.setPageEvent(aeEvent);
 
         if(pdfCombinerArguments.isShowTimeAndDateStamp()) {
-        	DateTimeFooter dateTimeFooterEvent = new DateTimeFooter(pdfCombinerArguments.getDateTimeStamp(), getStartPageNumber(pdfCombinerArguments));
+        	DateTimeFooter dateTimeFooterEvent = new DateTimeFooter(pdfCombinerArguments.getDateTimeStamp(), startPageNo);
         	writer.setPageEvent(dateTimeFooterEvent);
         }
 
         document.open();
         PdfContentByte cb = writer.getDirectContent();
-
-        
+        int totalPages = 0;
         for (Map.Entry<String, PDFCombinerFile> entry : pdfFileList.entrySet()) {
         	String pdfFileName = entry.getKey();
         	System.out.println("   key: " + pdfFileName);
@@ -713,7 +713,7 @@ public class PDFCombiner {
             // get reader
             PdfReader reader = new PdfReader(in);
             int numberOfPages = reader.getNumberOfPages();
-            for (int i = 1; i <= numberOfPages; i++) {
+            for (int i = 1; i <= numberOfPages; i++, totalPages++) {
                 //import the page from source pdf
                 PdfImportedPage page = writer.getImportedPage(reader, i);
 
@@ -735,14 +735,23 @@ public class PDFCombiner {
                     System.out.println("      positionX: " + positionX);
                     cb.addTemplate(page, factor, 0, 0, factor, positionX, offsetY);
                 } else {
-                	int start = 0;
-                	if(pdfCombinerArguments.isShowCoverPage()) start++;
-            		if(pdfCombinerArguments.isShowTableOfContents()) start++;
-                	if(i<=start) document.setPageSize(page.getBoundingBox());
-                	else document.setPageSize(new Rectangle(1684, 1188));
-                    //add the page to the destination pdf
-                    document.newPage();
-                    cb.addTemplate(page, 0, 0);
+                	if(totalPages<=startPageNo) {
+                		document.setPageSize(page.getBoundingBox());
+                        //add the page to the destination pdf
+                        document.newPage();
+                        cb.addTemplate(page, 0, 0);
+                	} else {
+                		document.setPageSize(new Rectangle(1684, 1188));
+                        //add the page to the destination pdf
+                        document.newPage();
+                        float factor = .9f; // scale factor
+                        float offsetY = (1188 - (page.getHeight() * factor));
+                        System.out.println("      offsetY: " + offsetY);
+                        float positionX = (1684 - (page.getWidth() * factor)) / 2;
+                        System.out.println("      positionX: " + positionX);
+                        cb.addTemplate(page, factor, 0, 0, factor, positionX, offsetY);
+                        //cb.addTemplate(page, 0, 0);
+                	}
                 }
 
                 // show title?
