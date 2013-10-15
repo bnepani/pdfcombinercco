@@ -46,7 +46,6 @@ import net.sf.dynamicreports.report.builder.column.ComponentColumnBuilder;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.component.HorizontalListBuilder;
 import net.sf.dynamicreports.report.builder.component.SubreportBuilder;
-import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
 import net.sf.dynamicreports.report.builder.component.VerticalListBuilder;
 import net.sf.dynamicreports.report.builder.datatype.BigDecimalType;
 import net.sf.dynamicreports.report.builder.group.ColumnGroupBuilder;
@@ -4344,12 +4343,15 @@ public class Reporter {
 				// attach observer to group
 				CustomGroupBuilder flightLinePreviousRecordCustomGroupBuilder = grp.group(getFlightLinePreviousRecordExpression());
 				flightLinePreviousRecordCustomGroupBuilder.setHeaderLayout(GroupHeaderLayout.EMPTY);
+				flightLinePreviousRecordCustomGroupBuilder.setPadding(0);
 				report.addGroup(flightLinePreviousRecordCustomGroupBuilder);
 				
 				// create column group to re-render headers with each row
 				ColumnGroupBuilder flightLineCurrentRecordColumnGroupBuilder = grp.group(col.column("Id", "Id", type.stringType()));
-				flightLineCurrentRecordColumnGroupBuilder.setHeaderLayout(GroupHeaderLayout.EMPTY).showColumnHeaderAndFooter();
-				report.setShowColumnTitle(false).groupBy(flightLineCurrentRecordColumnGroupBuilder);
+				flightLineCurrentRecordColumnGroupBuilder.setHeaderLayout(GroupHeaderLayout.EMPTY);
+				flightLineCurrentRecordColumnGroupBuilder.showColumnHeaderAndFooter();
+				flightLineCurrentRecordColumnGroupBuilder.setPadding(0);
+				report.groupBy(flightLineCurrentRecordColumnGroupBuilder).setShowColumnTitle(false);
 				
 				// network detail sub-report
 				SubreportBuilder networkDetailSubreport = cmp
