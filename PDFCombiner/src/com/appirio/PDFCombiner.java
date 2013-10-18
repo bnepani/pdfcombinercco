@@ -444,15 +444,14 @@ public class PDFCombiner {
     	}
 
         public void onEndPage (PdfWriter writer, Document document) {
-            Rectangle rect = writer.getBoxSize("art");
-
+            Rectangle rect = writer.getPageSize();
+            
             int contentPage = writer.getPageNumber() - this.startPageNumber;
             if(contentPage > 0) {
 	            ColumnText.showTextAligned(writer.getDirectContent(),
 	                    Element.ALIGN_LEFT, 
 	                    new Phrase(0.0F, String.format("Page %d", contentPage), new Font(FontFamily.HELVETICA, 7)),
-	                    //(rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
-	                    rect.getLeft() + 10, rect.getBottom() - 18, 0);
+	                    rect.getLeft() + 10, rect.getBottom() + 18, 0);
             }
         }
     }
@@ -466,7 +465,7 @@ public class PDFCombiner {
     	}
 
         public void onEndPage (PdfWriter writer, Document document) {
-            Rectangle rect = writer.getBoxSize("art");
+            Rectangle rect = writer.getPageSize();
 
             int contentPage = writer.getPageNumber() - this.startPageNumber;
             System.out.println("AE Name->"+ aeName);
@@ -474,8 +473,7 @@ public class PDFCombiner {
 	            ColumnText.showTextAligned(writer.getDirectContent(),
 	                    Element.ALIGN_CENTER, 
 	                    new Phrase(0.0F, String.format("Prepared by: %s", aeName), new Font(FontFamily.HELVETICA, 7)),
-	                    //(rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
-	                    (rect.getLeft() + rect.getRight()) / 2 + 120, rect.getBottom() - 18, 0);
+	                    (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() + 18, 0);
             }
         }
     }
@@ -494,15 +492,14 @@ public class PDFCombiner {
     	}
 
         public void onEndPage (PdfWriter writer, Document document) {
-            Rectangle rect = writer.getBoxSize("art");
+            Rectangle rect = writer.getPageSize();
 
             int contentPage = writer.getPageNumber() - this.startPageNumber;
             if(contentPage > 0) {
             	System.out.println("   getDateTimeStamp(): " + getDateTimeStamp() + " contentPage: " + contentPage);
 	            ColumnText.showTextAligned(writer.getDirectContent(),
 	                    Element.ALIGN_RIGHT, new Phrase(0.0F, String.format("%s", getDateTimeStamp()), new Font(FontFamily.HELVETICA, 7)),
-	                    //rect.getRight() - 50, rect.getBottom() - 18, 0);
-	                    rect.getRight() + 245, rect.getBottom() - 18, 0);
+	                    rect.getRight() - 20, rect.getBottom() + 18, 0);
             }
         }
 
@@ -676,9 +673,9 @@ public class PDFCombiner {
 	private static void doMerge(PDFCombinerArguments pdfCombinerArguments, LinkedHashMap<String, PDFCombinerFile> pdfFileList, OutputStream outputStream)
             throws DocumentException, IOException {
         Document document = new Document();
-        document.setPageSize(PageSize.A2);
+        document.setPageSize(PageSize.A4);
         PdfWriter writer = PdfWriter.getInstance(document, outputStream);
-        writer.setBoxSize("art", new Rectangle(100, 50, 1300, 500));
+        writer.setBoxSize("art", PageSize.A4);
 
         int startPageNo = getStartPageNumber(pdfCombinerArguments);
 		if(pdfCombinerArguments.isShowPageNumbering()) {
@@ -701,7 +698,6 @@ public class PDFCombiner {
 
         document.open();
         PdfContentByte cb = writer.getDirectContent();
-        int totalPages = 0;
         for (Map.Entry<String, PDFCombinerFile> entry : pdfFileList.entrySet()) {
         	String pdfFileName = entry.getKey();
         	System.out.println("   key: " + pdfFileName);
@@ -713,7 +709,7 @@ public class PDFCombiner {
             // get reader
             PdfReader reader = new PdfReader(in);
             int numberOfPages = reader.getNumberOfPages();
-            for (int i = 1; i <= numberOfPages; i++, totalPages++) {
+            for (int i = 1; i <= numberOfPages; i++) {
                 //import the page from source pdf
                 PdfImportedPage page = writer.getImportedPage(reader, i);
 
@@ -735,23 +731,10 @@ public class PDFCombiner {
                     System.out.println("      positionX: " + positionX);
                     cb.addTemplate(page, factor, 0, 0, factor, positionX, offsetY);
                 } else {
-                	if(totalPages<=startPageNo) {
-                		document.setPageSize(page.getBoundingBox());
-                        //add the page to the destination pdf
-                        document.newPage();
-                        cb.addTemplate(page, 0, 0);
-                	} else {
-                		document.setPageSize(new Rectangle(1684, 1188));
-                        //add the page to the destination pdf
-                        document.newPage();
-                        float factor = .9f; // scale factor
-                        float offsetY = (1188 - (page.getHeight() * factor));
-                        System.out.println("      offsetY: " + offsetY);
-                        float positionX = (1684 - (page.getWidth() * factor)) / 2;
-                        System.out.println("      positionX: " + positionX);
-                        cb.addTemplate(page, factor, 0, 0, factor, positionX, offsetY);
-                        //cb.addTemplate(page, 0, 0);
-                	}
+                	document.setPageSize(page.getBoundingBox());
+                	//add the page to the destination pdf
+                	document.newPage();
+                	cb.addTemplate(page, 0, 0);
                 }
 
                 // show title?
@@ -847,10 +830,10 @@ public class PDFCombiner {
 					String appendixTitleFieldName = String.format("AppendixTitle%s", i + 1);
 					String pageTitle = pdfCombinerFile.getTitle();
 					if(pageTitle != null && pageTitle.contains("_bis_sheet.pdf")){
-						pageTitle = "BIS Sheets";
+						pageTitle = "BIS Sheets..........................................................................................";
 					}
 					if(pageTitle != null && pageTitle.contains("_maps.pdf")){
-						pageTitle = "Maps";
+						pageTitle = "Maps................................................................................................";
 					}
 					stamper.getAcroFields().setField(appendixTitleFieldName, pageTitle);
 

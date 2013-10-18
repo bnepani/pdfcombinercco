@@ -116,8 +116,8 @@ public class Reporter {
 
 	// column hashmap (key = column name, value = label)
 	private HashMap<String, String> flightLineColumnLabelHashMap = null;
+	
 	private Set<String> validDisclaimersSet = new HashSet<String>();
-
 	private Set<String> autoDisclaimersSet = new HashSet<String>();
 	DisclaimerStore disclaimerStore = new DisclaimerStore();
 
@@ -1131,9 +1131,16 @@ public class Reporter {
 	private List<String> getRequiredMissingFieldsList(JasperReportBuilder report) {
 
 		List<String> requiredFieldsList = new ArrayList<String>();
+		requiredFieldsList.add("Id");
+		requiredFieldsList.add("OB_Summ_Num__c");
 		requiredFieldsList.add("Package_Flight__r/Id");
+		requiredFieldsList.add("Parent_Flight_Line__c");
+		requiredFieldsList.add("Package_Flight__r/Name");
 		requiredFieldsList.add("Package_Flight__r/Type__c");
+		requiredFieldsList.add("Package_Flight__r/Package_Name__c");
 		requiredFieldsList.add("Package_Flight__r/Media_Category__c");
+		requiredFieldsList.add("Package_Flight__r/Package_Market__r/Id");
+		requiredFieldsList.add("Package_Flight__r/Package_Market__r/Package__r/Id");
 
 		for (Integer i = 0; i < report.getReport().getFields().size(); i++) {
 
@@ -1858,7 +1865,9 @@ public class Reporter {
 			report.addField(field("Id", type.stringType()));
 
 			// style
-			report.highlightDetailEvenRows();
+			if(!isExportAsExcel()) {
+				report.highlightDetailEvenRows();
+			}
 			report.setColumnStyle(getColumnStyle());
 			report.setColumnTitleStyle(getColumnTitleStyle());
 			// filter
@@ -3035,7 +3044,7 @@ public class Reporter {
                         if (isExportAsExcel()) {
                             descriptionTextColumn.setWidth(Units.inch(1.32));
                         } else {
-                            descriptionTextColumn.setWidth(Units.inch(2.5));
+                            descriptionTextColumn.setWidth(Units.inch(3.5));
                         }
                         report.addColumn(descriptionTextColumn);
                     } else {
@@ -4828,7 +4837,7 @@ public class Reporter {
                             report.addColumn(col.column(
                                     this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Network_Description__c"),
                                     this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Network_Description__c", type.stringType())
-                                    .setWidth(Units.inch(2.5)));
+                                    .setWidth(Units.inch(3.5)));
                         } else {
                             if(!firstColumnOverriden) {
                                 addSummaryField(getSummaryLevel(), report);
@@ -5005,7 +5014,9 @@ public class Reporter {
 
 			addColumns(report, getFlightLineColumnLabelHashMap());
 			// style
-			report.highlightDetailEvenRows();
+			if(!isExportAsExcel()) {
+				report.highlightDetailEvenRows();
+			}
 			report.setColumnTitleStyle(getColumnTitleStyle());
 			report.setColumnStyle(getColumnStyle());
 
@@ -5176,7 +5187,7 @@ public class Reporter {
 				if(key.equals("Location_Description__c")) {
 					report.addColumn(col.column(
 							this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Location_Description__c"),
-							"Location_Description__c", type.stringType()).setWidth(Units.inch(2.5)));
+							"Location_Description__c", type.stringType()).setWidth(Units.inch(3.5)));
 				}
 				if(key.equals("Panel_Id_Label__c")) {
 					report.addColumn(col.column(
@@ -6352,12 +6363,12 @@ public class Reporter {
 	 * Create a horizontal list
 	 */
 	private HorizontalListBuilder createHorizontalKeyValueList2(
-			String text, ValueExpression valueExpression,
+			String text1, ValueExpression valueExpression1,
 			String text2, ValueExpression valueExpression2,
 			ReportStyleBuilder groupHeaderStyle, ReportStyleBuilder groupValueStyle, Integer leftColumnWidth) {
 		HorizontalListBuilder horizontalList = cmp.horizontalList();
-		horizontalList.add(cmp.text(text).setStyle(groupHeaderStyle).setFixedWidth(leftColumnWidth));
-		horizontalList.add(cmp.text(valueExpression).setStyle(groupValueStyle));
+		horizontalList.add(cmp.text(text1).setStyle(groupHeaderStyle).setFixedWidth(leftColumnWidth));
+		horizontalList.add(cmp.text(valueExpression1).setStyle(groupValueStyle));
 		horizontalList.add(cmp.text(text2).setStyle(groupHeaderStyle).setFixedWidth(leftColumnWidth));
 		horizontalList.add(cmp.text(valueExpression2).setStyle(groupValueStyle));
 
@@ -7218,8 +7229,8 @@ public class Reporter {
 		if (this.doesShippingInstructionsExists) {
 			PDFCombinerContentEntry pdfCombinerContentEntry = new PDFCombinerContentEntry();
 			pdfCombinerContentEntry.setTitle("Shipping Instructions");
-			pdfCombinerContentEntry.setPageNumber(this
-					.getShippingInstructionsPageNumber() + 1); // page number
+			pdfCombinerContentEntry.setDescription("..........................................................................................");
+			pdfCombinerContentEntry.setPageNumber(this.getShippingInstructionsPageNumber() + 1); // page number
 																// seems
 																// zero-index
 																// based, so
