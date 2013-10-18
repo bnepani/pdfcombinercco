@@ -2,6 +2,7 @@ package com.appirio.report;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,33 @@ public class DisclaimerStore {
 				proposalType,marketName,mediaType,notes, sequence,shippingInstruction);
 		
 		disclaimerWrapperList.add(wrapper);
+		
+	}
+
+	public List<DisclaimerWrapper> getValidDisclaimers2 (String flightName,String flightMarket, String flightMediaCategory) {
+		//Set<String> validDisclaimersTextSet = new HashSet<String>();
+		List<DisclaimerWrapper> validDisclaimersList = new ArrayList<DisclaimerWrapper>();
+		for(DisclaimerWrapper wrapper : disclaimerWrapperList) {
+			//System.out.println(" getValidDisclaimers  sequence " + wrapper.sequence + 
+					//" wrapper.market --> " + wrapper.market + 
+					 //" flightMarket : " + flightMarket + 
+					// " wrapper.mediaCategory -->" + wrapper.mediaCategory + 
+					// " flightMediaCategory --> " + flightMediaCategory 
+					// + "  disclaimer text " + wrapper.disclaimerText);
+			//System.out.println(" getValidDisclaimers 222222222222 disclaimer " + wrapper.toString());
+			if(wrapper.isMatchingMarket(flightMarket) && wrapper.isMatchingMediaCategory(flightMediaCategory)) {
+				System.out.println(" disclaimer matched flightMarket " +flightMarket + " flightMediaCategory "
+						+ flightMediaCategory + " disclaimer " + wrapper.disclaimerText);
+				//validDisclaimersTextSet.add(wrapper.disclaimerText);
+				validDisclaimersList.add(wrapper);
+			}
+			
+		}
+		 
+        Collections.sort(validDisclaimersList);
+        System.out.println(validDisclaimersList);
+		
+		return validDisclaimersList ;
 		
 	}
 	
@@ -71,7 +99,7 @@ public class DisclaimerStore {
 	
 	
 	
-	public class DisclaimerWrapper {
+	public class DisclaimerWrapper implements Comparable<DisclaimerWrapper>{
 	
 		public String disclaimerText;
 		public String proposalType ;
@@ -80,6 +108,7 @@ public class DisclaimerStore {
 		public String outputLocation ;
 		public String notes ;
 		public String sequence; 
+		public Integer sequenceInt;
 		public String shippingInstr;
 		
 		public DisclaimerWrapper() {
@@ -90,6 +119,7 @@ public class DisclaimerStore {
 			this.mediaCategory = "";
 			this.notes = "";
 			this.sequence = "";
+			this.sequenceInt = null;
 			this.shippingInstr = "";
 			
 		}
@@ -104,12 +134,86 @@ public class DisclaimerStore {
 			this.mediaCategory = mediaCategory;
 			this.notes = notes2;
 			this.sequence = sequence;
+			System.out.println(" ************ sq " + sequence);
+			if(sequence != null && sequence.trim() != "") {
+				sequenceInt = (int)Double.parseDouble(sequence);
+			}
+			
+			System.out.println(" ************ sequenceInt " + sequenceInt );
 			this.shippingInstr = shippingInst;
+		}
+		public String getDisclaimerText() {
+			return disclaimerText;
+		}
+		public void setDisclaimerText(String disclaimerText) {
+			this.disclaimerText = disclaimerText;
+		}
+		public String getProposalType() {
+			return proposalType;
+		}
+		public void setProposalType(String proposalType) {
+			this.proposalType = proposalType;
+		}
+		public String getMarket() {
+			return market;
+		}
+		public void setMarket(String market) {
+			this.market = market;
+		}
+		public String getMediaCategory() {
+			return mediaCategory;
+		}
+		public void setMediaCategory(String mediaCategory) {
+			this.mediaCategory = mediaCategory;
+		}
+		public String getOutputLocation() {
+			return outputLocation;
+		}
+		public void setOutputLocation(String outputLocation) {
+			this.outputLocation = outputLocation;
+		}
+		public String getNotes() {
+			return notes;
+		}
+		public void setNotes(String notes) {
+			this.notes = notes;
+		}
+		public String getSequence() {
+			return sequence;
+		}
+		public void setSequence(String sequence) {
+			this.sequence = sequence;
+		}
+		public Integer getSequenceInt() {
+			return sequenceInt;
+		}
+		public void setSequenceInt(Integer sequenceInt) {
+			this.sequenceInt = sequenceInt;
+		}
+		public String getShippingInstr() {
+			return shippingInstr;
+		}
+		public void setShippingInstr(String shippingInstr) {
+			this.shippingInstr = shippingInstr;
 		}
 		public boolean isShippingInstruction() {
 			return this.shippingInstr != null && this.shippingInstr != "" && this.shippingInstr.equalsIgnoreCase("true");
 		}
 
+		public int compareTo(DisclaimerWrapper compareDisclaimer) {
+			 
+			System.out.println(" ********** compareto this.sequenceInt " + this.sequenceInt + " compareDisclaimer "
+					+ compareDisclaimer.getSequenceInt());
+			
+			Integer sequenceNo = ((DisclaimerWrapper) compareDisclaimer).getSequenceInt(); 
+	 
+			//ascending order
+			return this.sequenceInt  - sequenceNo;
+	 
+			//descending order
+			//return compareQuantity - this.quantity;
+	 
+	   }	
 		public boolean isMatchingMarket(String marketName) {
 			boolean isMarketMatched = false;
 			System.out.println(" flight market to be matched " + marketName +
@@ -183,9 +287,8 @@ public class DisclaimerStore {
 		}
 		
 		public String toString() {
-			return " Disclaimer : " + this.disclaimerText + " Market " + this.market + 
-					" Media Category " + this.mediaCategory +  " Output Loc " + this.outputLocation +
-					" Proposal Type " + this.proposalType + " Notes  " + this.notes
+			return " Disclaimer : Sequence " + this.sequenceInt +  " Disclaimer :" + this.disclaimerText 
+					+ " Market " + this.market + " Media Category " + this.mediaCategory 
 					+ " Shipping Instr " + this.shippingInstr;
 					 
 		}

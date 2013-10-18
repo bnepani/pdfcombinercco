@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -116,8 +117,8 @@ public class Reporter {
 
 	// column hashmap (key = column name, value = label)
 	private HashMap<String, String> flightLineColumnLabelHashMap = null;
+	//private Set<String> validDisclaimersSet = new HashSet<String>();
 	
-	private Set<String> validDisclaimersSet = new HashSet<String>();
 	private Set<String> autoDisclaimersSet = new HashSet<String>();
 	DisclaimerStore disclaimerStore = new DisclaimerStore();
 
@@ -130,6 +131,8 @@ public class Reporter {
 	// record count (flight lines in total)
 	private Integer recordCount = 0;
 
+	public List<DisclaimerStore.DisclaimerWrapper> validAllDisclaimersList = new ArrayList<DisclaimerStore.DisclaimerWrapper> ();
+	public List<String> validDisclaimersListDisplay = new ArrayList<String>();
 	/*
 	 * public void readfile(String fileName){ BufferedReader br = null; try {
 	 * String sCurrentLine; br = new BufferedReader(new FileReader(fileName));
@@ -1137,8 +1140,6 @@ public class Reporter {
 		requiredFieldsList.add("Parent_Flight_Line__c");
 		requiredFieldsList.add("Package_Flight__r/Name");
 		requiredFieldsList.add("Package_Flight__r/Type__c");
-		requiredFieldsList.add("Package_Flight__r/Package_Name__c");
-		requiredFieldsList.add("Package_Flight__r/Media_Category__c");
 		requiredFieldsList.add("Package_Flight__r/Package_Market__r/Id");
 		requiredFieldsList.add("Package_Flight__r/Package_Market__r/Package__r/Id");
 
@@ -1281,9 +1282,10 @@ public class Reporter {
 	@Override
 	public Boolean evaluate(ReportParameters reportParameters) {
 		System.out
-		.println("******** ValidDisclaimerExistsExpression evaluate.validDisclaimersSet exists "
-				+ validDisclaimersSet.size());
-		return validDisclaimersSet != null && validDisclaimersSet.size() >0;
+		.println("******** ValidDisclaimerExistsExpression evaluate.validDisclaimersListDisplay exists "
+				+ validDisclaimersListDisplay.size() + " validAllDisclaimersList size " + 
+				validAllDisclaimersList.size());
+		return validAllDisclaimersList != null && validAllDisclaimersList.size() >0;
 		
 	}
  }
@@ -5597,13 +5599,18 @@ public class Reporter {
 			Set<String> disclaimerSet = disclaimerStore.getValidDisclaimers(
 					flightName, division, mediaCategory);
 
+			List<DisclaimerStore.DisclaimerWrapper> validDisclaimersList =
+					disclaimerStore.getValidDisclaimers2(
+							flightName, division, mediaCategory);
+
 			System.out
 					.println(" FlightNameReportScriptlet calling auto disclaimers ");
 
 			Set<String> autoDisclaimerSet = disclaimerStore.getAutoDisclaimers(
 					flightName, division, mediaCategory );
 
-			validDisclaimersSet.addAll(disclaimerSet);
+			//validDisclaimersSet.addAll(disclaimerSet);
+			validAllDisclaimersList.addAll(validDisclaimersList);
 			autoDisclaimersSet.addAll(autoDisclaimerSet);
 
 		}
@@ -5624,10 +5631,10 @@ public class Reporter {
 			 * packageFlightTargetPopulationSet.clear();
 			 */
 
-			for (String discl : validDisclaimersSet) {
-				System.out.println(" ******* valid disclaimers  " + discl);
+			//for (String discl : validDisclaimersSet) {
+				//System.out.println(" ******* valid disclaimers  " + discl);
 
-			}
+			//}
 			for (String adiscl : autoDisclaimersSet) {
 				System.out.println(" ******* auto disclaimers  " + adiscl);
 
@@ -6162,16 +6169,33 @@ public class Reporter {
 
 		public Object evaluate(ReportParameters reportParameters) {
 			System.out
-					.println("******** DisclaimerExpression evaluate. getFieldName():validDisclaimersSet  "
-							+ validDisclaimersSet.size());
+					.println("******** DisclaimerExpression evaluate. getFieldName():validAllDisclaimersList " +
+							validAllDisclaimersList.size() );
 			//return StringUtils.join(validDisclaimersSet, ',');
 			
 			String str = "";
-			for (String disc : validDisclaimersSet) {
+			/*for (String disc : validDisclaimersSet) {
 				System.out.println("******** valid disc " + disc);
 				str += disc.trim();
 				str += "  ";
+			}*/
+			Collections.sort(validAllDisclaimersList);
+			  
+			for (DisclaimerStore.DisclaimerWrapper discWrapper : validAllDisclaimersList) {
+				System.out.println("******** DisclaimerExpression : valid disc " + discWrapper.sequenceInt + " disclaimer " + discWrapper.disclaimerText);
+				if(!validDisclaimersListDisplay.contains(discWrapper.disclaimerText)) {
+					//validDisclaimersSet.add(discWrapper.disclaimerText);
+					validDisclaimersListDisplay.add(discWrapper.disclaimerText);
+				}
 			}
+			
+			for (String disc : validDisclaimersListDisplay) {
+				System.out.println("******** DisclaimerExpression :valid disc " + disc);
+				str += disc.trim();
+				str += "  ";
+			}
+			
+			
 			System.out.println("******** disc string " + str + "  length = " + str.length());
 			//str =  str == "" ? "" : str.substring(0, str.length() - 2);
 			System.out.println("******** valid disc string " + str);
