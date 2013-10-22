@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -58,7 +59,6 @@ import net.sf.dynamicreports.report.builder.style.StyleBuilder;
 import net.sf.dynamicreports.report.constant.GroupHeaderLayout;
 import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 import net.sf.dynamicreports.report.constant.PageOrientation;
-import net.sf.dynamicreports.report.constant.VerticalAlignment;
 import net.sf.dynamicreports.report.definition.ReportParameters;
 import net.sf.dynamicreports.report.exception.DRException;
 import net.sf.jasperreports.engine.JRException;
@@ -90,6 +90,8 @@ public class Reporter {
 	private static final String QUERY_RESULT_RECORDS_UNIQUE_PACKAGE = "/QueryResult/records/Package_Flight__r/Package_Market__r/Package__r[not(@url=preceding::Package_Flight__r/Package_Market__r/Package__r/@url)]";
 
 	private static final String QUERY_RESULT_RECORDS_UNIQUE_MARKET = "/QueryResult/records/Package_Flight__r/Package_Market__r[not(@url=preceding::Package_Flight__r/Package_Market__r/@url)]";
+	
+	private static final String QUERY_RESULT_RECORDS_UNIQUE_FLIGHT = "/QueryResult/records/Package_Flight__r[not(@url=preceding::Package_Flight__r/@url)]";
 
 	private static final String QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1 = "/QueryResult/records[RecordTypeId = boolean(1)]";
 
@@ -117,10 +119,21 @@ public class Reporter {
 
 	// column hashmap (key = column name, value = label)
 	private HashMap<String, String> flightLineColumnLabelHashMap = null;
-	//private Set<String> validDisclaimersSet = new HashSet<String>();
-	
+
 	private Set<String> autoDisclaimersSet = new HashSet<String>();
 	DisclaimerStore disclaimerStore = new DisclaimerStore();
+	
+	private Map<String, Set<String>> flightDivisionsMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> flightMarketNamesMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> flightMarketTypesMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> flightPackageNamesMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> flightNamesMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> flightTypesMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> flightStartDatesMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> flightEndDatesMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> flightDurationsMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> flightTargetsMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> flightTargetPopulationsMap = new HashMap<String, Set<String>>();
 
 	private StyleBuilder flightHeaderStyle;
 
@@ -229,14 +242,6 @@ public class Reporter {
 						.setBackgroundColor(new Color(0, 153, 216))
 						.setHorizontalAlignment(HorizontalAlignment.CENTER);
 			}
-			StyleBuilder titleStyle = stl.style(boldCenteredStyle)
-					.setPadding(padding)
-					.setVerticalAlignment(VerticalAlignment.MIDDLE)
-					.setFontSize(10);
-			StyleBuilder groupHeaderStyle = stl.style(boldCenteredStyle)
-					.setPadding(padding).setBorder(grayThinLine)
-					.setBackgroundColor(new Color(197, 217, 241))
-					.setFontSize(10);
 			StyleBuilder groupHeaderStyleNew = stl.style().setFontSize(0)
 					.setBackgroundColor(new Color(255, 255, 255));
 
@@ -276,7 +281,7 @@ public class Reporter {
 			}
 			dataSource.moveFirst();
 
-			DisclaimersDataExpression disclaimerCollectionExpression = new DisclaimersDataExpression(disclaimerDataSourceFileName);
+			new DisclaimersDataExpression(disclaimerDataSourceFileName);
 			// disclaimer DataSources
 			JRXmlDataSource afterLocationListPageDisclaimerDataSource = new JRXmlDataSource(
 					disclaimerDataSourceFileName,
@@ -565,8 +570,7 @@ public class Reporter {
 					.group(packageMarketFlightPreviousRecordExpression);
 			b.addGroup(packageMarketFlightPreviousRecordCustomGroupBuilder);
 
-			// wrap the subreport inside horizontal list builder to control when
-			// it should be rendered/printed
+			// wrap the subreport inside horizontal list builder to control when it should be rendered/printed
 			HorizontalListBuilder afterLocationListPageDisclaimer = cmp
 					.horizontalList();
 			afterLocationListPageDisclaimer
@@ -575,15 +579,31 @@ public class Reporter {
 					.setPrintWhenExpression(packageMarketFlightPreviousRecordHadLocationExpression);
 			flightDisclaimerReports.add(afterLocationListPageDisclaimer.setStyle(summaryStyle));
 			// =================== end
+			
+			// =================== report flight headers: begin
+			JRXmlDataSource flightHeadersDataSource = new JRXmlDataSource(
+					dataSourceFileName, QUERY_RESULT_RECORDS_UNIQUE_FLIGHT);
+			new FlightDataExpression(flightHeadersDataSource);
+			SubreportBuilder flighHeadersSubreport = cmp
+					.subreport(
+							new FlightHeadersSubreportExpression(
+									flightHeaderStyle, flightHeaderValueStyle))
+					.setDataSource(flightHeadersDataSource)
+					.setPrintWhenExpression(
+							new PackageChangedExpression(
+									packageMarketFlightPreviousRecordExpression))
+					.removeLineWhenBlank();
+			// =================== report flight headers: end
 
 			// =================== audience subreport: begin
 			JRXmlDataSource detailDataSource = new JRXmlDataSource(
-					dataSourceFileName, QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_0);
+					dataSourceFileName,
+					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_0);
 			SubreportBuilder audienceSubreport = cmp
 					.subreport(
 							new AudienceSubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
-									columnTitleStyle, columnStyle, flightHeaderStyle, flightHeaderValueStyle,
+									columnTitleStyle, columnStyle,
 									exportAsExcel, false))
 					.setDataSource(detailDataSource)
 					.setPrintWhenExpression(
@@ -593,12 +613,13 @@ public class Reporter {
 
 			// =================== audience subreport summary: begin
 			JRXmlDataSource audienceSummaryDataSource = new JRXmlDataSource(
-					dataSourceFileName, QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
+					dataSourceFileName,
+					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
 			SubreportBuilder audienceSummarySubreport = cmp
 					.subreport(
 							new AudienceSubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
-									columnTitleStyle, columnStyle, null, null,
+									columnTitleStyle, columnStyle,
 									exportAsExcel, true))
 					.setDataSource(audienceSummaryDataSource)
 					.setPrintWhenExpression(
@@ -613,8 +634,9 @@ public class Reporter {
 					.subreport(
 							new AudienceSubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
-									columnTitleStyle, columnStyle, null, null,
-									exportAsExcel, true, SummaryLevelEnum.Market))
+									columnTitleStyle, columnStyle,
+									exportAsExcel, true,
+									SummaryLevelEnum.Market))
 					.setDataSource(audienceMarketSummaryDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadAudienceExpression)
@@ -628,8 +650,9 @@ public class Reporter {
 					.subreport(
 							new AudienceSubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
-									columnTitleStyle, columnStyle, null, null,
-									exportAsExcel, true, SummaryLevelEnum.Package))
+									columnTitleStyle, columnStyle,
+									exportAsExcel, true,
+									SummaryLevelEnum.Package))
 					.setDataSource(audiencePackageSummaryDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadAudienceExpression)
@@ -638,13 +661,13 @@ public class Reporter {
 
 			// =================== location subreport: begin
 			JRXmlDataSource detailDataSource2 = new JRXmlDataSource(
-					dataSourceFileName, QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_0);
+					dataSourceFileName,
+					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_0);
 			SubreportBuilder locationSubreport = cmp
 					.subreport(
 							new LocationSubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
-									flightHeaderStyle, flightHeaderValueStyle,
 									exportAsExcel, false, locationMapExists))
 					.setDataSource(detailDataSource2)
 					.setPrintWhenExpression(
@@ -654,12 +677,13 @@ public class Reporter {
 
 			// =================== location summary subreport: begin
 			JRXmlDataSource detailSummaryDataSource = new JRXmlDataSource(
-					dataSourceFileName, QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
+					dataSourceFileName,
+					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
 			SubreportBuilder locationSummarySubreport = cmp
 					.subreport(
 							new LocationSubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
-									columnTitleStyle, columnStyle, null, null,
+									columnTitleStyle, columnStyle,
 									exportAsExcel, true, locationMapExists))
 					.setDataSource(detailSummaryDataSource)
 					.setPrintWhenExpression(
@@ -674,8 +698,9 @@ public class Reporter {
 					.subreport(
 							new LocationSubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
-									columnTitleStyle, columnStyle, null, null,
-									exportAsExcel, true, locationMapExists, SummaryLevelEnum.Market))
+									columnTitleStyle, columnStyle,
+									exportAsExcel, true, locationMapExists,
+									SummaryLevelEnum.Market))
 					.setDataSource(locationMarketSummaryDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadLocationExpression)
@@ -689,8 +714,9 @@ public class Reporter {
 					.subreport(
 							new LocationSubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
-									columnTitleStyle, columnStyle, null, null,
-									exportAsExcel, true, locationMapExists, SummaryLevelEnum.Package))
+									columnTitleStyle, columnStyle,
+									exportAsExcel, true, locationMapExists,
+									SummaryLevelEnum.Package))
 					.setDataSource(locationPackageSummaryDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadLocationExpression)
@@ -699,12 +725,13 @@ public class Reporter {
 
 			// =================== rotary subreport: begin
 			JRXmlDataSource rotaryDataSource = new JRXmlDataSource(
-					dataSourceFileName, QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_0);
+					dataSourceFileName,
+					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_0);
 			SubreportBuilder rotarySubreport = cmp
 					.subreport(
 							new RotarySubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
-									columnTitleStyle, columnStyle, flightHeaderStyle, flightHeaderValueStyle,
+									columnTitleStyle, columnStyle,
 									exportAsExcel, false))
 					.setDataSource(rotaryDataSource)
 					.setPrintWhenExpression(
@@ -714,12 +741,13 @@ public class Reporter {
 
 			// =================== rotary summary subreport: begin
 			JRXmlDataSource rotarySummaryDataSource = new JRXmlDataSource(
-					dataSourceFileName, QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
+					dataSourceFileName,
+					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
 			SubreportBuilder rotarySummarySubreport = cmp
 					.subreport(
 							new RotarySubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
-									columnTitleStyle, columnStyle, null, null,
+									columnTitleStyle, columnStyle,
 									exportAsExcel, true))
 					.setDataSource(rotarySummaryDataSource)
 					.setPrintWhenExpression(
@@ -734,8 +762,9 @@ public class Reporter {
 					.subreport(
 							new RotarySubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
-									columnTitleStyle, columnStyle, null, null,
-									exportAsExcel, true, SummaryLevelEnum.Market))
+									columnTitleStyle, columnStyle,
+									exportAsExcel, true,
+									SummaryLevelEnum.Market))
 					.setDataSource(rotaryMarketSummaryDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadRotaryExpression)
@@ -749,8 +778,9 @@ public class Reporter {
 					.subreport(
 							new RotarySubreportExpression(
 									packageMarketFlightPreviousRecordExpression,
-									columnTitleStyle, columnStyle, null, null,
-									exportAsExcel, true, SummaryLevelEnum.Package))
+									columnTitleStyle, columnStyle,
+									exportAsExcel, true,
+									SummaryLevelEnum.Package))
 					.setDataSource(rotaryPackageSummaryDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadRotaryExpression)
@@ -759,32 +789,34 @@ public class Reporter {
 
 			// =================== network subreport: begin
 			JRXmlDataSource networkDataSource = new JRXmlDataSource(
-					dataSourceFileName, QUERY_RESULT_RECORDS_WITH_CHILD_FLIGHT_LINES);
+					dataSourceFileName,
+					QUERY_RESULT_RECORDS_WITH_CHILD_FLIGHT_LINES);
 			SubreportBuilder networkSubreport = cmp
 					.subreport(
 							new NetworkSubreportExpression(
 									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									flightLinePreviousRecordExpression,
-									columnTitleStyle, columnStyle, flightHeaderStyle, flightHeaderValueStyle,
+									columnTitleStyle, columnStyle,
 									exportAsExcel, false, excludeNetworkDetails))
-					.setPrintWhenExpression(packageMarketFlightPreviousRecordHadNetworkExpression)
-					.setDataSource(networkDataSource)
-					.removeLineWhenBlank();
+					.setPrintWhenExpression(
+							packageMarketFlightPreviousRecordHadNetworkExpression)
+					.setDataSource(networkDataSource).removeLineWhenBlank();
 			// =================== network subreport: end
 
 			// =================== network subreport: begin
 			JRXmlDataSource networkSummaryDataSource = new JRXmlDataSource(
-					dataSourceFileName, QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
+					dataSourceFileName,
+					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
 			SubreportBuilder networkSummarySubreport = cmp
 					.subreport(
 							new NetworkSubreportExpression(
 									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
-									null,
-									columnTitleStyle, columnStyle, flightHeaderStyle, flightHeaderValueStyle,
+									null, columnTitleStyle, columnStyle,
 									exportAsExcel, true, true))
-					.setPrintWhenExpression(packageMarketFlightPreviousRecordHadNetworkExpression)
+					.setPrintWhenExpression(
+							packageMarketFlightPreviousRecordHadNetworkExpression)
 					.setDataSource(networkSummaryDataSource)
 					.removeLineWhenBlank();
 			// =================== network subreport: end
@@ -797,9 +829,9 @@ public class Reporter {
 							new NetworkSubreportExpression(
 									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
-									null,
-									columnTitleStyle, columnStyle, flightHeaderStyle, flightHeaderValueStyle,
-									exportAsExcel, true, true, SummaryLevelEnum.Market))
+									null, columnTitleStyle, columnStyle,
+									exportAsExcel, true, true,
+									SummaryLevelEnum.Market))
 					.setDataSource(networkMarketSummaryDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadNetworkExpression)
@@ -814,9 +846,9 @@ public class Reporter {
 							new NetworkSubreportExpression(
 									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
-									null,
-									columnTitleStyle, columnStyle, flightHeaderStyle, flightHeaderValueStyle,
-									exportAsExcel, true, true, SummaryLevelEnum.Package))
+									null, columnTitleStyle, columnStyle,
+									exportAsExcel, true, true,
+									SummaryLevelEnum.Package))
 					.setDataSource(networkPackageSummaryDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadNetworkExpression)
@@ -825,6 +857,7 @@ public class Reporter {
 
 			// =================== subreport and summaries positioning: begin
 			if(exportAsPdf) {
+				group.footer(flighHeadersSubreport);
 				group.footer(audienceSubreport);
 				if(showIndividualFlightSummary) group.footer(audienceSummarySubreport);
 				if(showIndividualMarketSummary) group.footer(audienceMarketSummarySubreport);
@@ -1072,8 +1105,7 @@ public class Reporter {
 
 			// throw an exception if internal use fields are not set
 			if (!hasRequiredInternalUseFields(b)) {
-				throw new Exception("Required fields missing"
-						+ StringUtils.join(getRequiredMissingFieldsList(b)));
+				throw new Exception("Required fields missing" + StringUtils.join(getRequiredMissingFieldsList(b)));
 			}
 
 			// export
@@ -1180,18 +1212,6 @@ public class Reporter {
 		}
 
 		return returnValue;
-	}
-
-
-	/*
-	 * Returns the corresponding summary field name related to the specified flight line field name.
-	 */
-	private boolean isSummaryFieldNameRelatedToFlightLineFieldName(SummaryLevelEnum summaryLevel, String flightLineFieldName) {
-
-		// get mapped name
-		String summaryFieldNameRelatedToFlightLineFieldName = getSummaryFieldNameRelatedToFlightLineFieldName(summaryLevel, flightLineFieldName);
-
-		return summaryFieldNameRelatedToFlightLineFieldName != null && !summaryFieldNameRelatedToFlightLineFieldName.equals(flightLineFieldName);
 	}
 
 	/*
@@ -1341,7 +1361,7 @@ public class Reporter {
 					e.printStackTrace();
 				}
 
-				// TODO: try to get package id value (if exception is raised that's because
+				// try to get package id value (if exception is raised that's because
 				// the field doesn't exist)
 				// so in this case just continue...
 				try {
@@ -1689,20 +1709,20 @@ public class Reporter {
 	}
 
 	private void addFlightFields(JasperReportBuilder report) {
-		FieldBuilder<String> flightTypeField = field("Package_Flight__r/Type__c", String.class);
-		FieldBuilder<String> mediaCategoryField = field("Package_Flight__r/Media_Category__c", String.class);
-		FieldBuilder<String> flightCommentsField = field("Package_Flight__r/Flight_Comments__c", String.class);
-		FieldBuilder<String> flightDivisionField = field("Package_Flight__r/Division__c", String.class);
-		FieldBuilder<String> flightPackageNameField = field("Package_Flight__r/Package_Name__c", String.class);
-		FieldBuilder<String> flightMarketNameField = field("Package_Flight__r/Market_Name__c", String.class);
-		FieldBuilder<String> flightMarketTypeField = field("Package_Flight__r/Market_Type__c", String.class);
-		FieldBuilder<String> flightNameField = field("Package_Flight__r/Name", String.class);
-		FieldBuilder<String> flightStartDateField = field("Package_Flight__r/Campaign_Start_Date__c", String.class);
-		FieldBuilder<String> flightEndDateField = field("Package_Flight__r/Campaign_End_Date__c", String.class);
-		FieldBuilder<String> flightDurationField = field("Package_Flight__r/Duration_And_Type__c", String.class);
-		FieldBuilder<String> flightTargetField = field("Package_Flight__r/Target__c", String.class);
-		FieldBuilder<Integer> flightTargetPopulationField = field("Package_Flight__r/Target_Population__c", Integer.class);
-		FieldBuilder<String> flightPackageCommentsField = field("Package_Flight__r/Package_Comments__c", String.class);
+		FieldBuilder<String> flightTypeField = field("Type__c", String.class);
+		FieldBuilder<String> mediaCategoryField = field("Media_Category__c", String.class);
+		FieldBuilder<String> flightCommentsField = field("Flight_Comments__c", String.class);
+		FieldBuilder<String> flightDivisionField = field("Division__c", String.class);
+		FieldBuilder<String> flightPackageNameField = field("Package_Name__c", String.class);
+		FieldBuilder<String> flightMarketNameField = field("Market_Name__c", String.class);
+		FieldBuilder<String> flightMarketTypeField = field("Market_Type__c", String.class);
+		FieldBuilder<String> flightNameField = field("Name", String.class);
+		FieldBuilder<String> flightStartDateField = field("Campaign_Start_Date__c", String.class);
+		FieldBuilder<String> flightEndDateField = field("Campaign_End_Date__c", String.class);
+		FieldBuilder<String> flightDurationField = field("Duration_And_Type__c", String.class);
+		FieldBuilder<String> flightTargetField = field("Target__c", String.class);
+		FieldBuilder<Integer> flightTargetPopulationField = field("Target_Population__c", Integer.class);
+		FieldBuilder<String> flightPackageCommentsField = field("Package_Comments__c", String.class);
 		report.addField(flightTypeField);
 		report.addField(mediaCategoryField);
 		report.addField(flightCommentsField);
@@ -1719,7 +1739,7 @@ public class Reporter {
 		report.addField(flightPackageCommentsField);
 	}
 	
-	private void addFlightHeader(JasperReportBuilder report, ReportStyleBuilder flightHeaderStyle, ReportStyleBuilder flightHeaderValueStyle) {
+	private void addFlightHeader(JasperReportBuilder report, String packageId, ReportStyleBuilder flightHeaderStyle, ReportStyleBuilder flightHeaderValueStyle) {
 		String[] headerFieldNamesArray1 = new String[6];
 		String[] headerFieldLabelsArray1 = new String[6];
 		String[] headerFieldNamesArray2 = new String[6];
@@ -1729,57 +1749,57 @@ public class Reporter {
 		// iterate on the flight line column label hashmap (user selected and ordered fields) 
         for(String key : getFlightLineColumnLabelHashMap().keySet()) {
         	if (key.equals("Package_Flight__r/Division__c")) {
-    			headerFieldNamesArray1[arr1Idx] = "Package_Flight__r/Division__c";
+    			headerFieldNamesArray1[arr1Idx] = "Division__c";
     			headerFieldLabelsArray1[arr1Idx] = getFlightLineColumnLabelHashMap().get("Package_Flight__r/Division__c");
     			arr1Idx++;
     		}
     		if (key.equals("Package_Flight__r/Market_Name__c")) {
-    			headerFieldNamesArray1[arr1Idx] = "Package_Flight__r/Market_Name__c";
+    			headerFieldNamesArray1[arr1Idx] = "Market_Name__c";
     			headerFieldLabelsArray1[arr1Idx] = getFlightLineColumnLabelHashMap().get("Package_Flight__r/Market_Name__c");
     			arr1Idx++;
     		}
     		if (key.equals("Package_Flight__r/Market_Type__c")) {
-    			headerFieldNamesArray1[arr1Idx] = "Package_Flight__r/Market_Type__c";
+    			headerFieldNamesArray1[arr1Idx] = "Market_Type__c";
     			headerFieldLabelsArray1[arr1Idx] = getFlightLineColumnLabelHashMap().get("Package_Flight__r/Market_Type__c");
     			arr1Idx++;
     		}
     		if (key.equals("Package_Flight__r/Package_Name__c")) {
-    			headerFieldNamesArray1[arr1Idx] = "Package_Flight__r/Package_Name__c";
+    			headerFieldNamesArray1[arr1Idx] = "Package_Name__c";
     			headerFieldLabelsArray1[arr1Idx] = getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Name__c");
     			arr1Idx++;
     		}
     		if (key.equals("Package_Flight__r/Name")) {
-    			headerFieldNamesArray1[arr1Idx] = "Package_Flight__r/Name";
+    			headerFieldNamesArray1[arr1Idx] = "Name";
     			headerFieldLabelsArray1[arr1Idx] = getFlightLineColumnLabelHashMap().get("Package_Flight__r/Name");
     			arr1Idx++;
     		}
     		if (key.equals("Package_Flight__r/Type__c")) {
-    			headerFieldNamesArray1[arr1Idx] = "Package_Flight__r/Type__c";
+    			headerFieldNamesArray1[arr1Idx] = "Type__c";
     			headerFieldLabelsArray1[arr1Idx] = getFlightLineColumnLabelHashMap().get("Package_Flight__r/Type__c");
     			arr1Idx++;
     		}    		
     		if (key.equals("Package_Flight__r/Campaign_Start_Date__c")) {
-    			headerFieldNamesArray2[arr2Idx] = "Package_Flight__r/Campaign_Start_Date__c";
+    			headerFieldNamesArray2[arr2Idx] = "Campaign_Start_Date__c";
     			headerFieldLabelsArray2[arr2Idx] = getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_Start_Date__c");
     			arr2Idx++;
     		}
     		if (key.equals("Package_Flight__r/Campaign_End_Date__c")) {
-    			headerFieldNamesArray2[arr2Idx] = "Package_Flight__r/Campaign_End_Date__c";
+    			headerFieldNamesArray2[arr2Idx] = "Campaign_End_Date__c";
     			headerFieldLabelsArray2[arr2Idx] = getFlightLineColumnLabelHashMap().get("Package_Flight__r/Campaign_End_Date__c");
     			arr2Idx++;
     		}
     		if (key.equals("Package_Flight__r/Duration_And_Type__c")) {
-    			headerFieldNamesArray2[arr2Idx] = "Package_Flight__r/Duration_And_Type__c";
+    			headerFieldNamesArray2[arr2Idx] = "Duration_And_Type__c";
     			headerFieldLabelsArray2[arr2Idx] = getFlightLineColumnLabelHashMap().get("Package_Flight__r/Duration_And_Type__c");
     			arr2Idx++;
     		}
     		if (key.equals("Package_Flight__r/Target__c")) {
-    			headerFieldNamesArray2[arr2Idx] = "Package_Flight__r/Target__c";
+    			headerFieldNamesArray2[arr2Idx] = "Target__c";
     			headerFieldLabelsArray2[arr2Idx] = getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target__c");
     			arr2Idx++;
     		}
     		if (key.equals("Package_Flight__r/Target_Population__c")) {
-    			headerFieldNamesArray2[arr2Idx] = "Package_Flight__r/Target_Population__c";
+    			headerFieldNamesArray2[arr2Idx] = "Target_Population__c";
     			headerFieldLabelsArray2[arr2Idx] = getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target_Population__c");
     			arr2Idx++;
     		}
@@ -1792,9 +1812,60 @@ public class Reporter {
 			headerFieldNamesArray2[i] = "";
 			headerFieldLabelsArray2[i] = "";
 		}
-		report.title(createVerticalTable2(flightHeaderStyle, flightHeaderValueStyle,
+		report.title(createVerticalTable(flightHeaderStyle, flightHeaderValueStyle,
 				headerFieldNamesArray1, headerFieldLabelsArray1,
-				headerFieldNamesArray2, headerFieldLabelsArray2, Units.inch(2)));
+				headerFieldNamesArray2, headerFieldLabelsArray2, Units.inch(2), packageId));
+	}
+	
+	private class FlightHeadersSubreportExpression extends
+			AbstractSimpleExpression<JasperReportBuilder> {
+
+		private static final long serialVersionUID = -4488328880017058659L;
+		
+		private StyleBuilder flightHeaderStyle;
+
+		private StyleBuilder flightHeaderValueStyle;
+		
+		public FlightHeadersSubreportExpression(StyleBuilder flightHeaderStyle, StyleBuilder flightHeaderValueStyle) {
+			setFlightHeaderStyle(flightHeaderStyle);
+			setFlightHeaderValueStyle(flightHeaderValueStyle);
+		}
+
+		@Override
+		public JasperReportBuilder evaluate(ReportParameters reportParameters) {
+			JasperReportBuilder report = report();
+
+			// ======================================================== begin
+			// add flight fields
+			report.addField(field("Package_Market__r/Package__r/Id", type.stringType()));
+			String packageId = reportParameters.getValue("Package_Flight__r/Package_Market__r/Package__r/Id");
+			addFlightFields(report);
+			// add flight headers
+			addFlightHeader(report, packageId, getFlightHeaderStyle(), getFlightHeaderValueStyle());
+			// ======================================================== end
+
+			// add a blank line at the end
+			report.addLastPageFooter(cmp.text(""));
+
+			// return report
+			return report;
+		}
+
+		public StyleBuilder getFlightHeaderStyle() {
+			return flightHeaderStyle;
+		}
+
+		public void setFlightHeaderStyle(StyleBuilder flightHeaderStyle) {
+			this.flightHeaderStyle = flightHeaderStyle;
+		}
+
+		public StyleBuilder getFlightHeaderValueStyle() {
+			return flightHeaderValueStyle;
+		}
+
+		public void setFlightHeaderValueStyle(StyleBuilder flightHeaderValueStyle) {
+			this.flightHeaderValueStyle = flightHeaderValueStyle;
+		}
 	}
 
 	private class AudienceSubreportExpression extends
@@ -1812,52 +1883,33 @@ public class Reporter {
 
 		private boolean showSummaryHeaders;
 
-		private StyleBuilder flightHeaderStyle;
-
-		private StyleBuilder flightHeaderValueStyle;
-
 		private SummaryLevelEnum summaryLevel;
 
 		public AudienceSubreportExpression(
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
-				StyleBuilder flightHeaderStyle, StyleBuilder flightHeaderValueStyle, boolean exportAsExcel, boolean showSummaryHeaders) {
-			this(packageMarketFlightPreviousRecordExpression, columnTitleStyle, columnStyle, flightHeaderStyle, flightHeaderValueStyle, exportAsExcel, showSummaryHeaders, null);
+				boolean exportAsExcel, boolean showSummaryHeaders) {
+			this(packageMarketFlightPreviousRecordExpression, columnTitleStyle,
+					columnStyle, exportAsExcel, showSummaryHeaders, null);
 		}
 
 		public AudienceSubreportExpression(
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
-				StyleBuilder flightHeaderStyle, StyleBuilder flightHeaderValueStyle, boolean exportAsExcel, boolean showSummaryHeaders,
+				boolean exportAsExcel, boolean showSummaryHeaders,
 				SummaryLevelEnum summaryLevel) {
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 			setColumnTitleStyle(columnTitleStyle);
 			setColumnStyle(columnStyle);
 			setExportAsExcel(exportAsExcel);
 			setShowSummaryHeaders(showSummaryHeaders);
-			setFlightHeaderStyle(flightHeaderStyle);
-			setFlightHeaderValueStyle(flightHeaderValueStyle);
 			setSummaryLevel(summaryLevel);
 		}
 
 		@Override
-		public JasperReportBuilder evaluate(ReportParameters arg0) {
+		public JasperReportBuilder evaluate(ReportParameters reportParameters) {
 			JasperReportBuilder report = report();
 
-			// title
-			/*if(getSummaryLevel() != null) {
-				report.title(getReportTitle(this.getSummaryLevel()));
-			}*/
-
-			// ======================================================== begin
-			if(!this.isShowSummaryHeaders() && !this.isExportAsExcel()) {
-				// add flight fields
-				addFlightFields(report);
-				// add flight headers
-				addFlightHeader(report, getFlightHeaderStyle(), getFlightHeaderValueStyle());
-			}
-			// ======================================================== end
-			
 			// add columns
 			addColumns(report, getFlightLineColumnLabelHashMap());
 			
@@ -1899,8 +1951,6 @@ public class Reporter {
 			// indicates (summary mode only) that first column has been overriden with Summary column
 			boolean firstColumnOverriden = false;
 
-			// TODO: debugging Id value
-			//report.addColumn(col.column("Id", "Id", type.stringType()));
 			for(String key : fieldMap.keySet()) {
 				if (isExportAsExcel()) {
 					report.setIgnorePageWidth(true);
@@ -2608,22 +2658,6 @@ public class Reporter {
 			this.showSummaryHeaders = showSummaryHeaders;
 		}
 
-		public StyleBuilder getFlightHeaderStyle() {
-			return flightHeaderStyle;
-		}
-
-		public void setFlightHeaderStyle(StyleBuilder flightHeaderStyle) {
-			this.flightHeaderStyle = flightHeaderStyle;
-		}
-
-		public StyleBuilder getFlightHeaderValueStyle() {
-			return flightHeaderValueStyle;
-		}
-
-		public void setFlightHeaderValueStyle(StyleBuilder flightHeaderValueStyle) {
-			this.flightHeaderValueStyle = flightHeaderValueStyle;
-		}
-
 		public SummaryLevelEnum getSummaryLevel() {
 			return summaryLevel;
 		}
@@ -2649,10 +2683,6 @@ public class Reporter {
 
 		private boolean showSummaryHeaders;
 
-		private StyleBuilder flightHeaderStyle;
-
-		private StyleBuilder flightHeaderValueStyle;
-
 		private boolean locationMapExists;
 
 		private SummaryLevelEnum summaryLevel;
@@ -2660,46 +2690,31 @@ public class Reporter {
 		public LocationSubreportExpression(
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
-				StyleBuilder flightHeaderStyle,
-				StyleBuilder flightHeaderValueStyle, boolean exportAsExcel,
-				boolean showSummaryHeaders, boolean locationMapExists) {
-			this(packageMarketFlightPreviousRecordExpression, columnTitleStyle, columnStyle, flightHeaderStyle, flightHeaderValueStyle, exportAsExcel, showSummaryHeaders, locationMapExists, null);			
+				boolean exportAsExcel, boolean showSummaryHeaders,
+				boolean locationMapExists) {
+			this(packageMarketFlightPreviousRecordExpression, columnTitleStyle,
+					columnStyle, exportAsExcel, showSummaryHeaders,
+					locationMapExists, null);
 		}
 
 		public LocationSubreportExpression(
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
-				StyleBuilder flightHeaderStyle,
-				StyleBuilder flightHeaderValueStyle, boolean exportAsExcel,
-				boolean showSummaryHeaders, boolean locationMapExists, SummaryLevelEnum summaryLevel) {
+				boolean exportAsExcel, boolean showSummaryHeaders,
+				boolean locationMapExists, SummaryLevelEnum summaryLevel) {
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 			setColumnTitleStyle(columnTitleStyle);
 			setColumnStyle(columnStyle);
 			setExportAsExcel(exportAsExcel);
 			setShowSummaryHeaders(showSummaryHeaders);
-			setFlightHeaderStyle(flightHeaderStyle);
-			setFlightHeaderValueStyle(flightHeaderValueStyle);
 			setLocationMapExists(locationMapExists);
 			setSummaryLevel(summaryLevel);
 		}
 		
 		@Override
-		public JasperReportBuilder evaluate(ReportParameters arg0) {
+		public JasperReportBuilder evaluate(ReportParameters reportParameters) {
 
 			JasperReportBuilder report = report();
-
-			// title
-			/*if(getSummaryLevel() != null) {
-				report.title(getReportTitle(this.getSummaryLevel()));
-			}*/
-			// ======================================================== begin
-			if(!this.isShowSummaryHeaders() && !this.isExportAsExcel()) {
-				// add flight fields
-				addFlightFields(report);
-				// add flight headers
-				addFlightHeader(report, getFlightHeaderStyle(), getFlightHeaderValueStyle());
-			}
-			// ======================================================== end
 
 			// add columns
 			addColumns(report, getFlightLineColumnLabelHashMap());
@@ -2741,10 +2756,8 @@ public class Reporter {
 			// indicates (summary mode only) that first column has been overriden with Summary column
 			boolean firstColumnOverriden = false;
 
-			// TODO: debugging Id value
-			//report.addColumn(col.column("Id", "Id", type.stringType()));
 			for(String key : fieldMap.keySet()) {
-				if (locationMapExists) {
+				if (isLocationMapExists()) {
 					if (key.equals("MapLocation_Number__c")) {
 						if(!isShowSummaryHeaders() || firstColumnOverriden) {
 							try {
@@ -3849,22 +3862,6 @@ public class Reporter {
 			this.showSummaryHeaders = showSummaryHeaders;
 		}
 
-		public StyleBuilder getFlightHeaderStyle() {
-			return flightHeaderStyle;
-		}
-
-		public void setFlightHeaderStyle(StyleBuilder flightHeaderStyle) {
-			this.flightHeaderStyle = flightHeaderStyle;
-		}
-
-		public StyleBuilder getFlightHeaderValueStyle() {
-			return flightHeaderValueStyle;
-		}
-
-		public void setFlightHeaderValueStyle(StyleBuilder flightHeaderValueStyle) {
-			this.flightHeaderValueStyle = flightHeaderValueStyle;
-		}
-
 		public SummaryLevelEnum getSummaryLevel() {
 			return summaryLevel;
 		}
@@ -3889,55 +3886,32 @@ public class Reporter {
 
 		private boolean showSummaryHeaders;
 
-		private StyleBuilder flightHeaderStyle;
-
-		private StyleBuilder flightHeaderValueStyle;
-
 		private SummaryLevelEnum summaryLevel;
 
 		public RotarySubreportExpression(
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
-				StyleBuilder flightHeaderStyle, StyleBuilder flightHeaderValueStyle, boolean exportAsExcel,
-				boolean showSummaryHeaders) {
-			this(packageMarketFlightPreviousRecordExpression, columnTitleStyle, columnStyle,
-				flightHeaderStyle, flightHeaderValueStyle, exportAsExcel,
-				showSummaryHeaders, null);
+				boolean exportAsExcel, boolean showSummaryHeaders) {
+			this(packageMarketFlightPreviousRecordExpression, columnTitleStyle,
+					columnStyle, exportAsExcel, showSummaryHeaders, null);
 		}
 
 		public RotarySubreportExpression(
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
-				StyleBuilder flightHeaderStyle, StyleBuilder flightHeaderValueStyle, boolean exportAsExcel, boolean showSummaryHeaders, SummaryLevelEnum summaryLevel) {
+				boolean exportAsExcel, boolean showSummaryHeaders,
+				SummaryLevelEnum summaryLevel) {
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 			setColumnTitleStyle(columnTitleStyle);
 			setColumnStyle(columnStyle);
 			setExportAsExcel(exportAsExcel);
 			setShowSummaryHeaders(showSummaryHeaders);
-			setFlightHeaderStyle(flightHeaderStyle);
-			setFlightHeaderValueStyle(flightHeaderValueStyle);
 			setSummaryLevel(summaryLevel);
 		}
 
 		@Override
-		public JasperReportBuilder evaluate(ReportParameters arg0) {
+		public JasperReportBuilder evaluate(ReportParameters reportParameters) {
 			JasperReportBuilder report = report();
-
-			// ======================================================== begin
-			if(!this.isShowSummaryHeaders() && !this.isExportAsExcel()) {
-
-				// add flight fields
-				addFlightFields(report);
-
-				// report specific header
-				addFlightHeader(report, getFlightHeaderStyle(), getFlightHeaderValueStyle());
-			}
-			// ======================================================== end
-
-			// title
-			/*if(getSummaryLevel() != null) {
-				report.title(getReportTitle(this.getSummaryLevel()));
-			}*/
 
 			// add columns
 			addColumns(report, getFlightLineColumnLabelHashMap());
@@ -3955,10 +3929,10 @@ public class Reporter {
 			if(getSummaryLevel() == null) {
 				report.setFilterExpression(new FilterByFlightIdExpression(getPackageMarketFlightPreviousRecordExpression()));
 			} else if(getSummaryLevel() == SummaryLevelEnum.Market) {
-				// TODO: set filter by market
+				// set filter by market
 				report.setFilterExpression(new FilterByMarketIdExpression(getPackageMarketFlightPreviousRecordExpression()));
 			} else if(getSummaryLevel() == SummaryLevelEnum.Package) {
-				// TODO: set filter by market
+				// set filter by package
 				report.setFilterExpression(new FilterByPackageIdExpression(getPackageMarketFlightPreviousRecordExpression()));
 			}
 
@@ -3976,8 +3950,6 @@ public class Reporter {
 			// indicates (summary mode only) that first column has been overriden with Summary column
 			boolean firstColumnOverriden = false;
 
-			// TODO: debugging Id value
-			//report.addColumn(col.column("Id", "Id", type.stringType()));
 			for(String key : fieldMap.keySet()) {
 				if (isExportAsExcel()) {
 					if(key.equals("Package_Flight__r/Package_Name__c")) {
@@ -4233,22 +4205,6 @@ public class Reporter {
 			this.showSummaryHeaders = showSummaryHeaders;
 		}
 
-		public StyleBuilder getFlightHeaderStyle() {
-			return flightHeaderStyle;
-		}
-
-		public void setFlightHeaderStyle(StyleBuilder flightHeaderStyle) {
-			this.flightHeaderStyle = flightHeaderStyle;
-		}
-
-		public StyleBuilder getFlightHeaderValueStyle() {
-			return flightHeaderValueStyle;
-		}
-
-		public void setFlightHeaderValueStyle(StyleBuilder flightHeaderValueStyle) {
-			this.flightHeaderValueStyle = flightHeaderValueStyle;
-		}
-
 		public SummaryLevelEnum getSummaryLevel() {
 			return summaryLevel;
 		}
@@ -4275,10 +4231,6 @@ public class Reporter {
 
 		private boolean showSummaryHeaders;
 
-		private StyleBuilder flightHeaderStyle;
-
-		private StyleBuilder flightHeaderValueStyle;
-
 		private String dataSourceFileName;
 
 		private SummaryLevelEnum summaryLevel;
@@ -4286,36 +4238,39 @@ public class Reporter {
 		private boolean excludeNetworkDetails;
 
 		public NetworkSubreportExpression(
-				String dataSourceFileName, PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
-				FlightLinePreviousRecordExpression flightLinePreviousRecordExpression, StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
-				StyleBuilder flightHeaderStyle,
-				StyleBuilder flightHeaderValueStyle, boolean exportAsExcel, boolean showSummaryHeaders, boolean excludeNetworkDetails) {
-			this(dataSourceFileName, packageMarketFlightPreviousRecordExpression,
-					flightLinePreviousRecordExpression, columnTitleStyle, columnStyle,
-					flightHeaderStyle,
-					flightHeaderValueStyle, exportAsExcel, showSummaryHeaders, excludeNetworkDetails, null);
+				String dataSourceFileName,
+				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
+				FlightLinePreviousRecordExpression flightLinePreviousRecordExpression,
+				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
+				boolean exportAsExcel, boolean showSummaryHeaders,
+				boolean excludeNetworkDetails) {
+			this(dataSourceFileName,
+					packageMarketFlightPreviousRecordExpression,
+					flightLinePreviousRecordExpression, columnTitleStyle,
+					columnStyle, exportAsExcel, showSummaryHeaders,
+					excludeNetworkDetails, null);
 		}
 
 		public NetworkSubreportExpression(
-				String dataSourceFileName, PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
-				FlightLinePreviousRecordExpression flightLinePreviousRecordExpression, StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
-				StyleBuilder flightHeaderStyle,
-				StyleBuilder flightHeaderValueStyle, boolean exportAsExcel, boolean showSummaryHeaders, boolean excludeNetworkDetails, SummaryLevelEnum summaryLevel) {
+				String dataSourceFileName,
+				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
+				FlightLinePreviousRecordExpression flightLinePreviousRecordExpression,
+				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
+				boolean exportAsExcel, boolean showSummaryHeaders,
+				boolean excludeNetworkDetails, SummaryLevelEnum summaryLevel) {
 			setDataSourceFileName(dataSourceFileName);
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 			setFlightLinePreviousRecordExpression(flightLinePreviousRecordExpression);
 			setColumnTitleStyle(columnTitleStyle);
 			setColumnStyle(columnStyle);
 			setExportAsExcel(exportAsExcel);
-			setFlightHeaderStyle(flightHeaderStyle);
-			setFlightHeaderValueStyle(flightHeaderValueStyle);
 			setShowSummaryHeaders(showSummaryHeaders);
 			setExcludeNetworkDetails(excludeNetworkDetails);
 			setSummaryLevel(summaryLevel);
 		}
 
 		@Override
-		public JasperReportBuilder evaluate(ReportParameters arg0) {
+		public JasperReportBuilder evaluate(ReportParameters reportParameters) {
 			JasperReportBuilder report = report();
 
 			// network detail dataset
@@ -4339,15 +4294,6 @@ public class Reporter {
 			}
 
 			report.title(cmp.text(""));
-
-			// ======================================================== begin
-			if (!this.isShowSummaryHeaders() && !this.isExportAsExcel()) {
-				// add flight fields
-				addFlightFields(report);
-				// add flight headers
-				addFlightHeader(report, getFlightHeaderStyle(), getFlightHeaderValueStyle());
-			}
-			// ======================================================== end
 
 			if(!isExcludeNetworkDetails()) {
 				// attach observer to group
@@ -4374,11 +4320,6 @@ public class Reporter {
 				
 				report.columns().detailFooter(cmp.text(""), networkDetailSubreport);
 			}
-
-			// title
-			/*if(getSummaryLevel() != null) {
-				report.title(getReportTitle(this.getSummaryLevel()));
-			}*/
 
 			// add columns
 			addColumns(report, getFlightLineColumnLabelHashMap());
@@ -4420,8 +4361,6 @@ public class Reporter {
 			// indicates (summary mode only) that first column has been overriden with Summary column
 			boolean firstColumnOverriden = false;
 
-			// TODO: debugging Id value
-			//report.addColumn(col.column("Id", "Id", type.stringType()));
 			for(String key : fieldMap.keySet()) {
 				// ================================= add columns: begin
 				if (isExportAsExcel()) {
@@ -4939,23 +4878,6 @@ public class Reporter {
 			this.showSummaryHeaders = showSummaryHeaders;
 		}
 
-		public StyleBuilder getFlightHeaderStyle() {
-			return flightHeaderStyle;
-		}
-
-		public void setFlightHeaderStyle(StyleBuilder flightHeaderStyle) {
-			this.flightHeaderStyle = flightHeaderStyle;
-		}
-
-		public StyleBuilder getFlightHeaderValueStyle() {
-			return flightHeaderValueStyle;
-		}
-
-		public void setFlightHeaderValueStyle(
-				StyleBuilder flightHeaderValueStyle) {
-			this.flightHeaderValueStyle = flightHeaderValueStyle;
-		}
-
 		public String getDataSourceFileName() {
 			return dataSourceFileName;
 		}
@@ -5047,7 +4969,7 @@ public class Reporter {
 
 			for(String key : fieldMap.keySet()) {
 			// ================================= add columns: begin
-			// TODO: network detail columns (Excel)
+			// network detail columns (Excel)
 			if(this.isExportAsExcel()) {
 				report.setIgnorePageWidth(true);
 				TextColumnBuilder<Integer> mapLocNumberColumn;
@@ -5166,7 +5088,7 @@ public class Reporter {
 				}
 			}
 
-			// TODO: network detail columns (PDF)
+			// network detail columns (PDF)
 			if(!this.isExportAsExcel()) {
 				TextColumnBuilder<Integer> mapLocNumberColumn;
 				if(key.equals("MapLocation_Number__c")) {
@@ -5433,57 +5355,6 @@ public class Reporter {
 			return returnValue;
 		}
 	}
-
-	private class DateOnlyDate extends AbstractSimpleExpression<String> {
-		private static final long serialVersionUID = 1L;
-
-		private String fieldName;
-
-		public DateOnlyDate(String fieldName) {
-			setFieldName(fieldName);
-		}
-
-		@Override
-		public String evaluate(ReportParameters reportParameters) {
-
-			String value = reportParameters.getValue(getFieldName());
-			System.out.println("DateOnlyDate, evaluate(). value: " + value);
-
-			try {
-				// get current date as yyyy-mm-dd
-				SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
-				java.util.Date inputDate = parser.parse(value);
-
-				System.out.println("** date " + inputDate);
-
-
-				SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-
-				//java.util.Date inputDate = formatter.parse(inputStringDate);
-
-				System.out.println(formatter.format(inputDate));
-
-
-				System.out.println("********* InputDate " + inputDate);
-				System.out.println(" formatted date " + formatter.format(inputDate));
-
-				return formatter.format(inputDate);
-
-			} catch (ParseException e) {
-				System.out.println(" Some exception occurred formatting date " + e);
-				e.printStackTrace();
-			}
-			return null;	
-		}
-
-		public String getFieldName() {
-			return fieldName;
-		}
-
-		public void setFieldName(String fieldName) {
-			this.fieldName = fieldName;
-		}
-	}
 	
 	private class ValueFormatter extends AbstractValueFormatter<String, String> {
 		/**
@@ -5535,48 +5406,9 @@ public class Reporter {
 
 			String division = reportParameters
 					.getValue("Package_Flight__r/Division__c");
-			// System.out.println(" FlightNameReportScriptlet division "
-			// +division);
-			// packageMarketsSet.add(marketName);
-
-			String marketType = reportParameters
-					.getValue("Package_Flight__r/Market_Type__c");
-			// System.out.println(" FlightNameReportScriptlet marketType "
-			// +marketType);
-			// packageMarketTypeSet.add(marketType);
 
 			String flightName = reportParameters
 					.getValue("Package_Flight__r/Name");
-			// System.out.println(" FlightNameReportScriptlet flightName "
-			// +flightName);
-			// packageFlightNamesSet.add(flightName);
-
-			// format date
-			SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
-
-//			Date startDate = reportParameters
-//					.getValue("Package_Flight__r/Campaign_Start_Date__c");
-			// System.out.println(" FlightNameReportScriptlet startDate "
-			// +startDate);
-			// packageFlightStartDatesSet .add(dateFormatter.format(startDate));
-
-//			Date endDate = reportParameters
-//					.getValue("Package_Flight__r/Campaign_End_Date__c");
-			// System.out.println(" FlightNameReportScriptlet endDate "
-			// +endDate);
-			// packageFlightEndDatesSet.add(dateFormatter.format(endDate));
-
-			String flightDuration = reportParameters
-					.getValue("Package_Flight__r/Duration_And_Type__c");
-			// System.out.println(" FlightNameReportScriptlet flightDuration "
-			// +flightDuration);
-			// packageFlightDurationSet.add(flightDuration);
-
-			String target = reportParameters
-					.getValue("Package_Flight__r/Target__c");
-			// /System.out.println(" FlightNameReportScriptlet target "
-			// +target);
-			// packageFlightTargetValueSet.add(target);
 
 			if (reportParameters
 					.getValue("Package_Flight__r/Target_Population__c") != null) {
@@ -5584,11 +5416,6 @@ public class Reporter {
 						.getValue("Package_Flight__r/Target_Population__c");
 				System.out.println("  targetPopulation >>>> *************** "
 						+ targetPopulation);
-				DecimalFormat df = new DecimalFormat("#,###");
-				String updatedTargetPopValue = df.format(targetPopulation);
-				// System.out.println(" FlightNameReportScriptlet targetPopulation "
-				// +targetPopulation);
-				// packageFlightTargetPopulationSet.add(updatedTargetPopValue );
 			}
 			String mediaCategory = "";
 			try {
@@ -5602,14 +5429,8 @@ public class Reporter {
 			}
 
 			System.out
-					.println(" FlightNameReportScriptlet calling valid disclaimers for flight"
-							+ " division "
-							+ division
-							+ " media category "
-							+ mediaCategory);
-
-			Set<String> disclaimerSet = disclaimerStore.getValidDisclaimers(
-					flightName, division, mediaCategory);
+					.println(" FlightNameReportScriptlet calling valid disclaimers for flight division "
+							+ division + " media category " + mediaCategory);
 
 			List<DisclaimerStore.DisclaimerWrapper> validDisclaimersList =
 					disclaimerStore.getValidDisclaimers2(
@@ -5621,53 +5442,26 @@ public class Reporter {
 			Set<String> autoDisclaimerSet = disclaimerStore.getAutoDisclaimers(
 					flightName, division, mediaCategory );
 
-			//validDisclaimersSet.addAll(disclaimerSet);
 			validAllDisclaimersList.addAll(validDisclaimersList);
 			autoDisclaimersSet.addAll(autoDisclaimerSet);
-
 		}
 
 		@Override
 		public void afterGroupInit(String groupName,
 				ReportParameters reportParameters) {
 			super.afterGroupInit(groupName, reportParameters);
-			// System.out.println(" FlightNameReportScriptlet afterGroupInit packageFlightNamesSet "
-			// +packageFlightNamesSet.size());
-			/*
-			 * packageMarketsSet.clear(); packageMarketTypeSet.clear();
-			 * packageFlightNamesSet.clear();
-			 * packageFlightStartDatesSet.clear();
-			 * packageFlightEndDatesSet.clear();
-			 * packageFlightDurationSet.clear();
-			 * packageFlightTargetValueSet.clear();
-			 * packageFlightTargetPopulationSet.clear();
-			 */
-
-			//for (String discl : validDisclaimersSet) {
-				//System.out.println(" ******* valid disclaimers  " + discl);
-
-			//}
 			for (String adiscl : autoDisclaimersSet) {
 				System.out.println(" ******* auto disclaimers  " + adiscl);
 
 			}
-			// validDisclaimersSet.clear();
 
 		}
-
-		// public String getConcatenatedStr() {
-		// System.out.println(" FlightNameReportScriptlet getConcatenatedStr packageFlightNamesInGroup  "
-		// +packageFlightNamesSet .size());
-		// return StringUtils.join(packageFlightNamesSet , ',');
-		// }
 	}
 
 	@SuppressWarnings("serial")
 	private class FilterByMarketIdExpression extends AbstractSimpleExpression<Boolean> {
 
 		private PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression;
-
-		private Integer reportRowNumber;
 
 		public FilterByMarketIdExpression(PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression) {
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
@@ -5676,7 +5470,7 @@ public class Reporter {
 		@Override
 		public Boolean evaluate(ReportParameters reportParameters) {
 
-			// TODO: filter by market
+			// filter by market
 			try {
 
 				String lastMarketId = this.getPackageMarketFlightPreviousRecordExpression().getLastMarketId();
@@ -5701,17 +5495,6 @@ public class Reporter {
 			}
 		}
 
-		public Integer getReportRowNumber() {
-			if(reportRowNumber == null) {
-				reportRowNumber = 0;
-			}
-			return reportRowNumber;
-		}
-
-		public void setReportRowNumber(Integer reportRowNumber) {
-			this.reportRowNumber = reportRowNumber;
-		}
-
 		public PackageMarketFlightPreviousRecordExpression getPackageMarketFlightPreviousRecordExpression() {
 			return packageMarketFlightPreviousRecordExpression;
 		}
@@ -5728,8 +5511,6 @@ public class Reporter {
 
 		private PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression;
 
-		private Integer reportRowNumber;
-
 		public FilterByPackageIdExpression(PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression) {
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 		}
@@ -5737,7 +5518,7 @@ public class Reporter {
 		@Override
 		public Boolean evaluate(ReportParameters reportParameters) {
 
-			// TODO: filter by package
+			// filter by package
 			try {
 
 				String lastPackageId = this.getPackageMarketFlightPreviousRecordExpression().getLastPackageId();
@@ -5760,17 +5541,6 @@ public class Reporter {
 
 				return false;
 			}
-		}
-
-		public Integer getReportRowNumber() {
-			if(reportRowNumber == null) {
-				reportRowNumber = 0;
-			}
-			return reportRowNumber;
-		}
-
-		public void setReportRowNumber(Integer reportRowNumber) {
-			this.reportRowNumber = reportRowNumber;
 		}
 
 		public PackageMarketFlightPreviousRecordExpression getPackageMarketFlightPreviousRecordExpression() {
@@ -5810,6 +5580,49 @@ public class Reporter {
 			this.packageMarketFlightPreviousRecordExpression = packageMarketFlightPreviousRecordExpression;
 		}
 	}
+	
+	private class PackageChangedExpression extends AbstractSimpleExpression<Boolean> {
+		private static final long serialVersionUID = 1404325791100168070L;
+		
+		private PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression;
+		
+		private Boolean isPackageChanged = true;
+
+		public PackageChangedExpression(
+				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression) {
+			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
+		}
+
+		@Override
+		public Boolean evaluate(ReportParameters reportParameters) {
+			Boolean returnValue = isPackageChanged;
+			try {
+				String lastPackageId = this.getPackageMarketFlightPreviousRecordExpression().getLastPackageId();
+
+				String packageId = reportParameters.getValue("Package_Flight__r/Package_Market__r/Package__r/Id");
+
+				if(this.getPackageMarketFlightPreviousRecordExpression().isPackageIdChanged()) {
+					returnValue = isPackageChanged = !packageId.equals(lastPackageId);
+				} else {
+					isPackageChanged = false;
+				}
+			} catch (Exception e) {
+				System.out.println("FilterByPackageNameExpression.evaluate exception. ");
+				e.printStackTrace();
+				returnValue = false;
+			}
+			return returnValue;
+		}
+
+		public PackageMarketFlightPreviousRecordExpression getPackageMarketFlightPreviousRecordExpression() {
+			return packageMarketFlightPreviousRecordExpression;
+		}
+
+		public void setPackageMarketFlightPreviousRecordExpression(
+				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression) {
+			this.packageMarketFlightPreviousRecordExpression = packageMarketFlightPreviousRecordExpression;
+		}
+	}
 
 	private class DisclaimerSubreportExpression extends
 			AbstractSimpleExpression<JasperReportBuilder> {
@@ -5818,8 +5631,7 @@ public class Reporter {
 
 		@Override
 		public JasperReportBuilder evaluate(ReportParameters reportParameters) {
-			// PenBuilder grayThinLine =
-			// stl.penThin().setLineColor(Color.LIGHT_GRAY);
+			// PenBuilder grayThinLine = stl.penThin().setLineColor(Color.LIGHT_GRAY);
 
 			PaddingBuilder padding = stl.padding(Units.inch(0.03));
 
@@ -5833,11 +5645,8 @@ public class Reporter {
 			DisclaimerSubreportScriptlet disclaimerSubreportScriptlet = new DisclaimerSubreportScriptlet();
 			report.scriptlets(disclaimerSubreportScriptlet);
 
-			// area for showing all joined disclaimers (come from scriptlet
-			// report)
-			//report.pageFooter(cmp.text(
-				//	new DisclaimerSubreportFooterExpressionColumn())
-					//.setFixedRows(10));
+			// area for showing all joined disclaimers (come from scriptlet report)
+			//report.pageFooter(cmp.text(new DisclaimerSubreportFooterExpressionColumn()).setFixedRows(10));
 
 			// add field
 			report.addField(field("Disclaimer__c", type.stringType()));
@@ -5862,23 +5671,6 @@ public class Reporter {
 			if (item != null) {
 				disclaimerList.add(item);
 			}
-		}
-
-		// return concatenated text
-		public String getFooterNote() {
-			return StringUtils.join(disclaimerList, ",");
-		}
-	}
-
-	private class DisclaimerSubreportFooterExpressionColumn extends
-			AbstractSimpleExpression<String> {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String evaluate(ReportParameters reportParameters) {
-			return ((DisclaimerSubreportScriptlet) reportParameters
-					.getScriptlet("DisclaimerSubreportScriptlet"))
-					.getFooterNote();
 		}
 	}
 
@@ -5915,7 +5707,6 @@ public class Reporter {
 			StyleBuilder boldStyle = stl.style().bold().setFontSize(9)/*.setFontName("Arial")*/;
 			StyleBuilder pageHeaderStyle = stl.style(boldStyle).setFontSize(10);
 			StyleBuilder columnTitleStyle = stl.style().setFontSize(9)/*.setFontName("Arial")*/;
-			StyleBuilder columnStyle = stl.style(boldStyle).setFontSize(9);
 
 			// field reference
 			FieldBuilder<String> divisionField = field("Division__r/Name",
@@ -6011,164 +5802,31 @@ public class Reporter {
 		}
 	}
 
-	/**
-	 * Creates a group using fields types and labels.
-	 * 
-	 * @return a CustomGroupBuilder group
-	 */
-	private CustomGroupBuilder createGroup(PDFCombinerFile pdfCombinerFile,
-			int fieldLevel, ReportStyleBuilder groupHeaderStyle,
-			ReportStyleBuilder groupValueStyle) {
-		String[] fieldNamesArray = pdfCombinerFile.getFieldNamesPipeDelimited()
-				.get(fieldLevel - 1).split("\\|");
-		String[] fieldTypesArray = pdfCombinerFile.getFieldTypesPipeDelimited()
-				.get(fieldLevel - 1).split("\\|");
-		String[] fieldLabelsArray = pdfCombinerFile
-				.getFieldLabelsPipeDelimited().get(fieldLevel - 1).split("\\|");
-		CustomGroupBuilder group = grp.group(new GroupExpression(
-				fieldNamesArray, fieldTypesArray));
-		group.setHeaderLayout(GroupHeaderLayout.EMPTY);
-		// try removing gap statement to remove the gap from starting
-		// cmp.gap(10, Units.inch(0.25)),
-		// group.header(createHorizontalList(groupHeaderStyle, groupValueStyle,
-		// fieldNamesArray, fieldLabelsArray));
-		// group.reprintHeaderOnEachPage();
-		// group.setPadding(100);
-		group.setAddToTableOfContents(true);
-		return group;
-	}
-
-	/**
-	 * Create a horizontal list that contains a N vertical list elements inside
-	 * 
-	 * Equivalent composition that can be accomplished
-	 * 
-	 * group.header(cmp.horizontalList( cmp.verticalList(
-	 * cmp.text("header 1").setStyle(groupHeaderStyle),
-	 * cmp.text("value 1").setStyle(groupValueStyle) ), cmp.verticalList(
-	 * cmp.text("header 2").setStyle(groupHeaderStyle),
-	 * cmp.text("value 2").setStyle(groupValueStyle) ) ) );
-	 * 
-	 */
-	private HorizontalListBuilder createHorizontalList(
-			ReportStyleBuilder groupHeaderStyle,
-			ReportStyleBuilder groupValueStyle, String[] fieldNamesArray,
-			String[] fieldLabelsArray) {
-		HorizontalListBuilder horizontalList;
-		horizontalList = cmp.horizontalList();
-		for (Integer index = 0; index < fieldNamesArray.length; index++) {
-			horizontalList.add(createVerticalList(fieldLabelsArray[index],
-					new ValueExpression(fieldNamesArray[index]),
-					groupHeaderStyle, groupValueStyle));
-		}
-		return horizontalList;
-	}
-
-	//flightHeaderStyle, flightHeaderValueStyle, audienceFlightHeaderFieldList, Units.inch(2)
-	private VerticalListBuilder createVerticalFieldTable(JasperReportBuilder report, ReportStyleBuilder groupHeaderStyle,
-			ReportStyleBuilder groupValueStyle, Map<String, FieldBuilder<?>> fieldMap, Integer leftColumnWidth) {
-
-		VerticalListBuilder verticalList;
-		verticalList = cmp.verticalList();
-
-		for(String fieldName : fieldMap.keySet()) {
-			FieldBuilder<?> field = fieldMap.get(fieldName);
-			String label = getFlightLineColumnLabelHashMap().get(fieldName);
-			verticalList.add(createHorizontalKeyFieldList(
-					label, field, groupHeaderStyle,
-					groupValueStyle, leftColumnWidth));
-		}
-
-		verticalList.add(cmp.text(""));
-		return verticalList;
-	}
-
-	private VerticalListBuilder createVerticalTable(
-			ReportStyleBuilder groupHeaderStyle,
-			ReportStyleBuilder groupValueStyle, String[] fieldNamesArray,
-			String[] fieldLabelsArray, Integer leftColumnWidth) {
-		VerticalListBuilder verticalList;
-		verticalList = cmp.verticalList();
-		for (Integer index = 0; index < fieldNamesArray.length; index++) {
-			System.out.println("      creating vertical table element. label: "
-					+ fieldLabelsArray[index] + " name: "
-					+ fieldNamesArray[index]);
-			verticalList.add(createHorizontalKeyValueList(
-					fieldLabelsArray[index], new ValueExpression(
-							fieldNamesArray[index]), groupHeaderStyle,
-					groupValueStyle, leftColumnWidth));
-		}
-		verticalList.add(cmp.text(""));
-		return verticalList;
-	}
-
-	private VerticalListBuilder createVerticalTable2(ReportStyleBuilder groupHeaderStyle, ReportStyleBuilder groupValueStyle,
+	private VerticalListBuilder createVerticalTable(ReportStyleBuilder groupHeaderStyle, ReportStyleBuilder groupValueStyle,
 			String[] fieldNamesArray1, String[] fieldLabelsArray1,
-			String[] fieldNamesArray2, String[] fieldLabelsArray2, Integer leftColumnWidth) {
+			String[] fieldNamesArray2, String[] fieldLabelsArray2, Integer leftColumnWidth, String packageId) {
 		VerticalListBuilder verticalList;
 		verticalList = cmp.verticalList();
 		for (Integer index = 0; index < fieldNamesArray1.length; index++) {
 			System.out.println("      creating vertical table element. label: "
 					+ fieldLabelsArray1[index] + " name: " + fieldNamesArray1[index]);
-			verticalList.add(createHorizontalKeyValueList2(
-					fieldLabelsArray1[index], new ValueExpression(fieldNamesArray1[index]),
-					fieldLabelsArray2[index], new ValueExpression(fieldNamesArray2[index]),
+			verticalList.add(createHorizontalKeyValueList(
+					fieldLabelsArray1[index], new ValueExpression(packageId, fieldNamesArray1[index]),
+					fieldLabelsArray2[index], new ValueExpression(packageId, fieldNamesArray2[index]),
 					groupHeaderStyle, groupValueStyle, leftColumnWidth));
 		}
 		verticalList.add(cmp.text(""));
 		return verticalList;
 	}
-
-	private VerticalListBuilder createVerticalTableNew(
-			ReportStyleBuilder groupHeaderStyle,
-			ReportStyleBuilder groupValueStyle, String[] fieldNamesArray,
-			String[] fieldLabelsArray, Integer leftColumnWidth,
-			List<String> results, int fieldLevel) {
-		String result = results.get(fieldLevel - 1);
-		Set<String> fieldNamesArraySelected = new HashSet<String>(
-				Arrays.asList(result.split("\\|")));
-		if (results.size() > fieldLevel) {
-			result = results.get(fieldLevel);
-			fieldNamesArraySelected.addAll(Arrays.asList(result.split("\\|")));
-		}
-		VerticalListBuilder verticalList;
-		verticalList = cmp.verticalList();
-		for (Integer index = 0; index < fieldNamesArray.length; index++) {
-			System.out.println("      creating vertical table element. label: "
-					+ fieldLabelsArray[index] + " name: "
-					+ fieldNamesArray[index]);
-			if (fieldNamesArraySelected.contains(fieldNamesArray[index]))
-				verticalList.add(createHorizontalKeyValueList(
-						fieldLabelsArray[index], new ValueExpression(
-								fieldNamesArray[index]), groupHeaderStyle,
-						groupValueStyle, leftColumnWidth));
-			else
-				System.out.println("     Not added in field set");
-		}
-
-		/*
-		 * fieldNamesArraySelected = new
-		 * HashSet<String>(Arrays.asList(result.split("\\|"))); for(Integer
-		 * index = 0; index < fieldNamesArray.length; index++) {
-		 * System.out.println("      creating vertical table element. label: " +
-		 * fieldLabelsArray[index] + " name: " + fieldNamesArray[index]);
-		 * if(fieldNamesArraySelected.contains(fieldNamesArray[index]))
-		 * verticalList
-		 * .add(createHorizontalKeyValueList(fieldLabelsArray[index], new
-		 * ValueExpression(fieldNamesArray[index]), groupHeaderStyle,
-		 * groupValueStyle, leftColumnWidth)); else
-		 * System.out.println("     Not added in field set"); }
-		 */
-		return verticalList;
-	}
+	
 	private VerticalListBuilder createCommentTable(String packageName, String flightName, String flightCommentFieldName, String packageCommentFieldName) {
 		VerticalListBuilder verticalList;
 		verticalList = cmp.verticalList();
 		verticalList.add(cmp.text("Comments:").setStyle(stl.style().bold()).removeLineWhenBlank());
-		verticalList.add(cmp.text(new ValueExpression(packageName)).setStyle(stl.style().bold()).removeLineWhenBlank());
-		verticalList.add(cmp.text(new ValueExpression(packageCommentFieldName)).removeLineWhenBlank());
-		verticalList.add(cmp.text(new ValueExpression(flightName)).setStyle(stl.style().bold()).removeLineWhenBlank());
-		verticalList.add(cmp.text(new ValueExpression(flightCommentFieldName)).removeLineWhenBlank());
+		verticalList.add(cmp.text(new ValueExpression(null, packageName)).setStyle(stl.style().bold()).removeLineWhenBlank());
+		verticalList.add(cmp.text(new ValueExpression(null, packageCommentFieldName)).removeLineWhenBlank());
+		verticalList.add(cmp.text(new ValueExpression(null, flightName)).setStyle(stl.style().bold()).removeLineWhenBlank());
+		verticalList.add(cmp.text(new ValueExpression(null, flightCommentFieldName)).removeLineWhenBlank());
 		return verticalList;
 	}
 
@@ -6180,23 +5838,14 @@ public class Reporter {
 		}
 
 		public Object evaluate(ReportParameters reportParameters) {
-			System.out
-					.println("******** DisclaimerExpression evaluate. getFieldName():validAllDisclaimersList " +
-							validAllDisclaimersList.size() );
-			//return StringUtils.join(validDisclaimersSet, ',');
+			System.out.println("******** DisclaimerExpression evaluate. getFieldName():validAllDisclaimersList " + validAllDisclaimersList.size() );
 			
 			String str = "";
-			/*for (String disc : validDisclaimersSet) {
-				System.out.println("******** valid disc " + disc);
-				str += disc.trim();
-				str += "  ";
-			}*/
 			Collections.sort(validAllDisclaimersList);
 			  
 			for (DisclaimerStore.DisclaimerWrapper discWrapper : validAllDisclaimersList) {
 				System.out.println("******** DisclaimerExpression : valid disc " + discWrapper.sequenceInt + " disclaimer " + discWrapper.disclaimerText);
 				if(!validDisclaimersListDisplay.contains(discWrapper.disclaimerText)) {
-					//validDisclaimersSet.add(discWrapper.disclaimerText);
 					validDisclaimersListDisplay.add(discWrapper.disclaimerText);
 				}
 			}
@@ -6206,8 +5855,6 @@ public class Reporter {
 				str += disc.trim();
 				str += "  ";
 			}
-			
-			
 			System.out.println("******** disc string " + str + "  length = " + str.length());
 			//str =  str == "" ? "" : str.substring(0, str.length() - 2);
 			System.out.println("******** valid disc string " + str);
@@ -6246,96 +5893,51 @@ public class Reporter {
 
 		// store field name
 		private String m_fieldName;
+		//store package id
+		private String m_packageId;
 
-		// create value expression for getting a value by field name
-		public ValueExpression(String fieldName) {
+		// create value expression for getting a value by field name, for package id
+		public ValueExpression(String packageId, String fieldName) {
+			this.setPackageId(packageId);
 			this.setFieldName(fieldName);
 		}
 
 		public Object evaluate(ReportParameters reportParameters) {
-			System.out.println("evaluate. getFieldName(): "
-					+ this.getFieldName());
+			System.out.println("evaluate. getFieldName(): " + this.getFieldName());
 			// reportParameters.
 			Object returnValue = "";
 			try {
-				if (this.getFieldName() == "")
+				if (this.getFieldName() == null || this.getFieldName() == "") {
 					return "";
-
-				if (this.getFieldName().equals(
-						"Package_Flight__r/Campaign_Start_Date__c")
-						|| this.getFieldName().equals(
-								"Package_Flight__r/Campaign_End_Date__c")) {
-
-					// input date
-					String inputStringDate = reportParameters.getValue(this.getFieldName());
-
-					// get current date as yyyy-mm-dd
-					SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
-					java.util.Date inputDate = parser.parse(inputStringDate);
-
-					System.out.println("** date " + inputDate);
-					
-
-					SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-					System.out.println(formatter.format(inputDate));
-
-					// return
-					returnValue = formatter.format(inputDate);
-
-				} else if (this.getFieldName().equals(
-						"Package_Flight__r/Target_Population__c")) {
-					try {
-						if (this.getFieldName() != null
-								&& this.getFieldName() != "") {
-							Integer temp = (Integer) reportParameters
-									.getValue(this.getFieldName());
-							System.out
-									.println("   checking value target population "
-											+ temp);
-							if(temp != null) {
-
-							DecimalFormat df = new DecimalFormat("#,###");
-							returnValue = df.format(temp);
-							}else 
-								returnValue = "";
-						} else {
-							returnValue = "";
-						}
-					} catch (Exception ex) {
-						System.out
-								.println("   Error in target population value"
-										+ reportParameters.getValue(this
-												.getFieldName()));
-						returnValue = reportParameters.getValue(this
-								.getFieldName());
-						ex.printStackTrace();
-					}
-				}/* else if (this.getFieldName().equals("Package_Flight__r/Duration_And_Type__c")) {
-					// format this as number
-					System.out.println("   will convert " + this.getFieldName());
-					NumberFormat nf = NumberFormat.getNumberInstance(Locale.US); // Get NumberFormat
-					nf.setMaximumFractionDigits(0);// set as you need
-					String fieldValue = (String) reportParameters.getValue(this.getFieldName());
-					if(fieldValue != null) {
-						Number n = nf.parse(fieldValue); // Parse strings according to locale
-						// set value
-						//returnValue = n.intValue();
-						returnValue = nf.format(n);
-						System.out.println(" *******************************  " );
-						System.out.println(" weeks *******************************  " + returnValue);
-						System.out.println(" *******************************  " );
-					}
-				}*/ else {
-					returnValue = reportParameters
-							.getValue(this.getFieldName());
+				} else if (this.getFieldName() == "Type__c") {
+					returnValue = StringUtils.join(flightTypesMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Division__c") {
+					returnValue = StringUtils.join(flightDivisionsMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Package_Name__c") {
+					returnValue = StringUtils.join(flightPackageNamesMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Market_Name__c") {
+					returnValue = StringUtils.join(flightMarketNamesMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Market_Type__c") {
+					returnValue = StringUtils.join(flightMarketTypesMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Name") {
+					returnValue = StringUtils.join(flightNamesMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Campaign_Start_Date__c") {
+					returnValue = StringUtils.join(flightStartDatesMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Campaign_End_Date__c") {
+					returnValue = StringUtils.join(flightEndDatesMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Duration_And_Type__c") {
+					returnValue = StringUtils.join(flightDurationsMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Target__c") {
+					returnValue = StringUtils.join(flightTargetsMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Target_Population__c") {
+					returnValue = StringUtils.join(flightTargetPopulationsMap.get(getPackageId()) , ", ");
+				} else {
+					returnValue = reportParameters.getValue(this.getFieldName());
 				}
 				System.out.println(" returnValue " + returnValue);
 			} catch (Exception ex) {
-				System.out.println("   Some exception trying to get field " 
-						+ this.getFieldName()  + " message: " + ex.getMessage());
-					
+				System.out.println("   Some exception trying to get field " + this.getFieldName()  + " message: " + ex.getMessage());
 			}
-
 			return returnValue;
 		}
 
@@ -6346,59 +5948,20 @@ public class Reporter {
 		public void setFieldName(String m_fieldName) {
 			this.m_fieldName = m_fieldName;
 		}
-	}
 
-	/**
-	 * Create a vertical list
-	 */
-	private VerticalListBuilder createVerticalList(String text,
-			ValueExpression valueExpression,
-			ReportStyleBuilder groupHeaderStyle,
-			ReportStyleBuilder groupValueStyle) {
-		VerticalListBuilder verticalList = cmp.verticalList();
-		verticalList.add(cmp.text(text).setStyle(groupHeaderStyle));
-		verticalList.add(cmp.text(valueExpression).setStyle(groupValueStyle));
-		return verticalList;
+		public String getPackageId() {
+			return m_packageId;
+		}
+
+		public void setPackageId(String m_packageId) {
+			this.m_packageId = m_packageId;
+		}
 	}
 
 	/**
 	 * Create a horizontal list
 	 */
-	private HorizontalListBuilder createHorizontalKeyFieldList(String text, FieldBuilder<?> field,
-			ReportStyleBuilder groupHeaderStyle,
-			ReportStyleBuilder groupValueStyle, Integer leftColumnWidth) {
-		HorizontalListBuilder horizontalList = cmp.horizontalList();
-		horizontalList.add(cmp.text(text).setStyle(groupHeaderStyle)
-				.setFixedWidth(leftColumnWidth));
-		horizontalList.add(cmp.text(field)
-				.setStyle(groupValueStyle)
-				.setHorizontalAlignment(HorizontalAlignment.LEFT));
-		return horizontalList;
-	}
-
-	/**
-	 * Create a horizontal list
-	 */
-	private HorizontalListBuilder createHorizontalKeyValueList(String text,
-			ValueExpression valueExpression,
-			ReportStyleBuilder groupHeaderStyle,
-			ReportStyleBuilder groupValueStyle, Integer leftColumnWidth) {
-		HorizontalListBuilder horizontalList = cmp.horizontalList();
-		horizontalList.add(cmp.text(text).setStyle(groupHeaderStyle)
-				.setFixedWidth(leftColumnWidth));
-		horizontalList.add(cmp.text(valueExpression).setStyle(groupValueStyle));
-
-		horizontalList.add(cmp.text(text).setStyle(groupHeaderStyle)
-				.setFixedWidth(leftColumnWidth));
-		horizontalList.add(cmp.text(valueExpression).setStyle(groupValueStyle));
-
-		return horizontalList;
-	}
-
-	/**
-	 * Create a horizontal list
-	 */
-	private HorizontalListBuilder createHorizontalKeyValueList2(
+	private HorizontalListBuilder createHorizontalKeyValueList(
 			String text1, ValueExpression valueExpression1,
 			String text2, ValueExpression valueExpression2,
 			ReportStyleBuilder groupHeaderStyle, ReportStyleBuilder groupValueStyle, Integer leftColumnWidth) {
@@ -6434,50 +5997,201 @@ public class Reporter {
 			return null;
 		}
 	}
+	
+	private class FlightDataExpression extends AbstractSimpleExpression<Integer> {
 
-	/**
-	 * Create a custom group expression
-	 */
-	private class GroupExpression extends AbstractSimpleExpression<String> {
-		private static final long serialVersionUID = 8509711415717638519L;
-		private String[] m_fieldArray;
-		private String[] m_fieldTypeArray;
+		private static final long serialVersionUID = 5879536463855991534L;
 
-		public GroupExpression(String[] fieldArray, String[] fieldTypeArray) {
-			this.m_fieldArray = fieldArray;
-			this.m_fieldTypeArray = fieldTypeArray;
+		public FlightDataExpression(JRXmlDataSource jrXmlDataSource) throws Exception {
+			
+			String packageId = "";
+			String buyType = "";
+			String division = "";
+			String packageName = "";
+			String marketName = "";
+			String marketType = "";
+			String flightName = "";
+			String startDate = "";
+			String endDate = "";
+			String duration = "";
+			String target = "";
+			String targetPopulation = "";
+			
+			Set<String> flightDivisions = null;
+			Set<String> flightMarketNames = null;
+			Set<String> flightMarketTypes = null;
+			Set<String> flightPackageNames = null;
+			Set<String> flightNames = null;
+			Set<String> flightTypes = null;
+			Set<String> flightStartDates = null;
+			Set<String> flightEndDates = null;
+			Set<String> flightDurations = null;
+			Set<String> flightTargets = null;
+			Set<String> flightTargetPopulations = null;
+
+			while(jrXmlDataSource.next()) {
+				Document document = jrXmlDataSource.subDocument();
+				
+				// optional, but recommended read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+				document.getDocumentElement().normalize();
+	
+				System.out.println("Root element :" + document.getDocumentElement().getNodeName());
+	
+				NodeList flightRecordsList = document.getElementsByTagName("Package_Flight__r");
+	
+				// get current date as yyyy-mm-dd
+				SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+				// get current date as MM/dd/yyyy
+				SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+				
+				DecimalFormat df = new DecimalFormat("#,###");
+				
+				if (flightRecordsList != null && flightRecordsList.getLength() > 0) {
+					for (int i = 0; i < flightRecordsList.getLength(); i++) {
+						Node nNode = flightRecordsList.item(i);
+						System.out.println("\nCurrent Element :" + nNode.getNodeName());
+						
+						packageId = "";
+						buyType = "";
+						division = "";
+						packageName = "";
+						marketName = "";
+						marketType = "";
+						flightName = "";
+						startDate = "";
+						endDate = "";
+						duration = "";
+						target = "";
+						targetPopulation = "";
+						
+						if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+							
+							Element eElement = (Element) nNode;
+	
+							NodeList marketList = eElement.getElementsByTagName("Package_Market__r");
+							if (marketList != null && marketList.getLength() > 0) {
+								Node mNode = marketList.item(0);
+								System.out.println("\nCurrent Element :" + mNode.getNodeName());
+								if (mNode.getNodeType() == Node.ELEMENT_NODE) {
+									Element mElement = (Element) mNode;
+									NodeList packageList = mElement.getElementsByTagName("Package__r");
+									if (packageList != null && packageList.getLength() > 0) {
+										Node pNode = packageList.item(0);
+										System.out.println("\nCurrent Element :" + pNode.getNodeName());
+										if (pNode.getNodeType() == Node.ELEMENT_NODE) {
+											Element gElement = (Element) pNode;
+											NodeList idList = gElement.getElementsByTagName("Id");
+											if (idList != null && idList.getLength() > 0) {
+												packageId = idList.item(0).getTextContent();
+												System.out.println("\nPackage Id :" + packageId);
+											}
+										}
+									}
+								}
+							}
+							flightDivisions = flightDivisionsMap.get(packageId) != null ? flightDivisionsMap.get(packageId) : new LinkedHashSet<String>();
+							flightMarketNames = flightMarketNamesMap.get(packageId) != null ? flightMarketNamesMap.get(packageId) : new LinkedHashSet<String>();
+							flightMarketTypes = flightMarketTypesMap.get(packageId) != null ? flightMarketTypesMap.get(packageId) : new LinkedHashSet<String>();
+							flightPackageNames = flightPackageNamesMap.get(packageId) != null ? flightPackageNamesMap.get(packageId) : new LinkedHashSet<String>();
+							flightNames = flightNamesMap.get(packageId) != null ? flightNamesMap.get(packageId) : new LinkedHashSet<String>();
+							flightTypes = flightTypesMap.get(packageId) != null ? flightTypesMap.get(packageId) : new LinkedHashSet<String>();
+							flightStartDates = flightStartDatesMap.get(packageId) != null ? flightStartDatesMap.get(packageId) : new LinkedHashSet<String>();
+							flightEndDates = flightEndDatesMap.get(packageId) != null ? flightEndDatesMap.get(packageId) : new LinkedHashSet<String>();
+							flightDurations = flightDurationsMap.get(packageId) != null ? flightDurationsMap.get(packageId) : new LinkedHashSet<String>();
+							flightTargets = flightTargetsMap.get(packageId) != null ? flightTargetsMap.get(packageId) : new LinkedHashSet<String>();
+							flightTargetPopulations = flightTargetPopulationsMap.get(packageId) != null ? flightTargetPopulationsMap.get(packageId) : new LinkedHashSet<String>();
+							
+							NodeList buyTypeList = eElement.getElementsByTagName("Type__c");
+							if (buyTypeList != null && buyTypeList.getLength() > 0) {
+								buyType = buyTypeList.item(0).getTextContent();
+								flightTypes.add(buyType);
+							}
+							NodeList divisionList = eElement.getElementsByTagName("Division__c");
+							if (divisionList != null && divisionList.getLength() > 0) {
+								division = divisionList.item(0).getTextContent();
+								flightDivisions.add(division);
+							}
+							NodeList packageNameList = eElement.getElementsByTagName("Package_Name__c");
+							if (packageNameList != null && packageNameList.getLength() > 0) {
+								packageName = packageNameList.item(0).getTextContent();
+								flightPackageNames.add(packageName);
+							}
+							NodeList marketNameList = eElement.getElementsByTagName("Market_Name__c");
+							if (marketNameList != null && marketNameList.getLength() > 0) {
+								marketName = marketNameList.item(0).getTextContent();
+								flightMarketNames.add(marketName);
+							}
+							NodeList marketTypeList = eElement.getElementsByTagName("Market_Type__c");
+							if (marketTypeList != null && marketTypeList.getLength() > 0) {
+								marketType = marketTypeList.item(0).getTextContent();
+								flightMarketTypes.add(marketType);
+							}
+							NodeList flightNameList = eElement.getElementsByTagName("Name");
+							if (flightNameList != null && flightNameList.getLength() > 0) {
+								flightName = flightNameList.item(0).getTextContent();
+								flightNames.add(flightName);
+							}
+							NodeList startDateList = eElement.getElementsByTagName("Campaign_Start_Date__c");
+							if (startDateList != null && startDateList.getLength() > 0) {
+								startDate = formatter.format(parser.parse(startDateList.item(0).getTextContent()));
+								flightStartDates.add(startDate);
+							}
+							NodeList endDateList = eElement.getElementsByTagName("Campaign_End_Date__c");
+							if (endDateList != null && endDateList.getLength() > 0) {
+								endDate = formatter.format(parser.parse(endDateList.item(0).getTextContent()));
+								flightEndDates.add(endDate);
+							}
+							NodeList durationList = eElement.getElementsByTagName("Duration_And_Type__c");
+							if (durationList != null && durationList.getLength() > 0) {
+								duration = durationList.item(0).getTextContent();
+								flightDurations.add(duration);
+							}
+							NodeList targetList = eElement.getElementsByTagName("Target__c");
+							if (targetList != null && targetList.getLength() > 0) {
+								target = targetList.item(0).getTextContent();
+								flightTargets.add(target);
+							}
+							NodeList targetPopulationList = eElement.getElementsByTagName("Target_Population__c");
+							if (targetPopulationList != null && targetPopulationList.getLength() > 0) {
+								Integer temp = Integer.parseInt(targetPopulationList.item(0).getTextContent());
+								if(temp != null) {
+									flightTargetPopulations.add(df.format(temp));
+								}
+							}
+							flightDivisionsMap.put(packageId, flightDivisions);
+							flightMarketNamesMap.put(packageId, flightMarketNames);
+							flightMarketTypesMap.put(packageId, flightMarketTypes);
+							flightPackageNamesMap.put(packageId, flightPackageNames);
+							flightNamesMap.put(packageId, flightNames);
+							flightTypesMap.put(packageId, flightTypes);
+							flightStartDatesMap.put(packageId, flightStartDates);
+							flightEndDatesMap.put(packageId, flightEndDates);
+							flightDurationsMap.put(packageId, flightDurations);
+							flightTargetsMap.put(packageId, flightTargets);
+							flightTargetPopulationsMap.put(packageId, flightTargetPopulations);
+							
+							System.out.println(" ********** creating flight header object : " +
+									"buyType " + buyType + 
+									"division " + division + 
+									"packageName " + packageName + 
+									"marketName " + marketName + 
+									"marketType " + marketType + 
+									"flightName " + flightName + 
+									"startDate " + startDate + 
+									"endDate " + endDate + 
+									"duration " + duration + 
+									"target" + target + 
+									"targetPopulation " + targetPopulation);
+						}
+					}
+				}
+			}
 		}
 
 		@Override
-		public String evaluate(ReportParameters reportParameters) {
-
-			System.out.println("************ evaluate(): begin");
-			System.out.println("   ReportRowNumber: "
-					+ reportParameters.getReportRowNumber());
-
-			String groupValue = "";
-			String[] groupHeaderFieldNamesArray = new String[] {
-					"Package_Flight__r/Name",
-					"Package_Flight__r/Market_key_Name__c",
-					"Package_Flight__r/Package_Market__r/Package__r/Package_Name__c",
-					"Package_Flight__r/Package_Market__r/Market_Name__c" };
-			Set<String> groupHeaderFieldNamesSet = new HashSet<String>(
-					Arrays.asList(groupHeaderFieldNamesArray));
-
-			for (Integer fieldIndex = 0; fieldIndex < m_fieldArray.length; fieldIndex++) {
-				String fieldType = this.m_fieldTypeArray[fieldIndex];
-				if (fieldType.equals("String")) {
-					String valueName = this.m_fieldArray[fieldIndex];
-					// System.out.println("   valueName " + valueName);
-					// if(valueName.equals("Package_Flight__r/Name") ||
-					// valueName.equals("Package_Flight__r/Market_key_Name__c"))
-					if (groupHeaderFieldNamesSet.contains(valueName))
-						groupValue = groupValue + " "
-								+ reportParameters.getValue(valueName);
-				}
-			}
-
-			return groupValue;
+		public Integer evaluate(ReportParameters reportParameters) {
+			System.out.println(" DisclaimersDataExpression evaluate ");
+			return null;
 		}
 	}
 
@@ -6620,51 +6334,6 @@ public class Reporter {
 		}
 	}
 
-	private class DivisionExpressionColumn extends AbstractSimpleExpression<String> {
-		private static final long serialVersionUID = -2468924311042394628L;
-
-		// store field name
-		private String m_fieldName;
-
-		// create value expression for getting a value by field name
-		public DivisionExpressionColumn(String fieldName) {
-			this.setFieldName(fieldName);
-		}
-
-		public String evaluate(ReportParameters reportParameters) {
-			System.out.println("evaluate. getFieldName(): "
-					+ this.getFieldName());
-			// reportParameters.
-			String returnValue = "";
-			try {
-				
-				if (this.getFieldName().equals(
-						"Package_Flight__r/Division__c")) {
-
-					returnValue = reportParameters
-							.getValue(this.getFieldName());
-				}
-				System.out.println(" returnValue " + returnValue);
-			} catch (Exception ex) {
-				returnValue = "Required field " + this.getFieldName()
-						+ " not present.";
-				System.out.println("   exception trying to get field "
-						+ this.getFieldName());
-				System.out.println("   message: " + ex.getMessage());
-			}
-
-			return returnValue;
-		}
-
-		public String getFieldName() {
-			return m_fieldName;
-		}
-
-		public void setFieldName(String m_fieldName) {
-			this.m_fieldName = m_fieldName;
-		}
-	}
-
 	private class MapLocationNumberExpressionColumn extends
 			AbstractSimpleExpression<Integer> {
 
@@ -6682,9 +6351,7 @@ public class Reporter {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
 
-			// optional, but recommended
-			// read this -
-			// http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+			// optional, but recommended read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 			doc.getDocumentElement().normalize();
 
 			System.out.println("Root element :"
