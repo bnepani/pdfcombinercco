@@ -1134,12 +1134,11 @@ public class Reporter {
 	private List<String> getRequiredMissingFieldsList(JasperReportBuilder report) {
 
 		List<String> requiredFieldsList = new ArrayList<String>();
-		requiredFieldsList.add("Id");
-		requiredFieldsList.add("OB_Summ_Num__c");
 		requiredFieldsList.add("Package_Flight__r/Id");
-		requiredFieldsList.add("Parent_Flight_Line__c");
 		requiredFieldsList.add("Package_Flight__r/Name");
 		requiredFieldsList.add("Package_Flight__r/Type__c");
+		requiredFieldsList.add("Package_Flight__r/Package_Name__c");
+		requiredFieldsList.add("Package_Flight__r/Media_Category__c");
 		requiredFieldsList.add("Package_Flight__r/Package_Market__r/Id");
 		requiredFieldsList.add("Package_Flight__r/Package_Market__r/Package__r/Id");
 
@@ -2133,11 +2132,11 @@ public class Reporter {
 					}
 					report.addColumn(totalPriceColumn);
 				}
-				if(key.equals("Package_Flight__r/Media_Category__c")) {
+				if(key.equals("Media_Category__c")) {
 					if(!isShowSummaryHeaders() || firstColumnOverriden) {
 						TextColumnBuilder<String> mediaTypeColumn = col.column(
-								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Media_Category__c"), 
-								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Media_Category__c",
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Media_Category__c"), 
+								this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Media_Category__c",
 								type.stringType());
 						if (isExportAsExcel()) {
 							mediaTypeColumn.setWidth(Units.inch(1.32));
@@ -2980,11 +2979,11 @@ public class Reporter {
                         }
 					}
 				}
-				if (key.equals("Package_Flight__r/Media_Category__c")) {
+				if (key.equals("Media_Category__c")) {
 					if(!isShowSummaryHeaders() || firstColumnOverriden) {
                         TextColumnBuilder<String> mediaTypeColumn = col.column(
-                                this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Media_Category__c"), 
-                                this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Media_Category__c",
+                                this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Media_Category__c"), 
+                                this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Media_Category__c",
                                 type.stringType());
                         if (isExportAsExcel()) {
                             mediaTypeColumn.setWidth(Units.inch(1.32));
@@ -4499,6 +4498,19 @@ public class Reporter {
                             }
                         }
 					}
+					if(key.equals("Package_Flight__r/Target_Population__c")) {
+						if(!isShowSummaryHeaders() || firstColumnOverriden) {
+							report.addColumn(col.column(
+									this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Target_Population__c"),
+									this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "Package_Flight__r/Target_Population__c",
+									type.bigDecimalType()).setWidth(Units.inch(1.32)));
+						} else {
+							if(!firstColumnOverriden) {
+								addSummaryField(getSummaryLevel(), report);
+								firstColumnOverriden = true;
+							}
+						}
+					}
 					if(key.equals("Package_Flight__r/Campaign_Start_Date__c")) {
                         if(!isShowSummaryHeaders() || firstColumnOverriden) {
                             report.addColumn(col.column(
@@ -4537,11 +4549,11 @@ public class Reporter {
                             }
                         }
 					}
-					if (key.equals("Package_Flight__r/Media_Category__c")) {
+					if (key.equals("Media_Category__c")) {
                         if(!isShowSummaryHeaders() || firstColumnOverriden) {
                             report.addColumn(col.column(
-                                    this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Media_Category__c"), 
-                                    this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Media_Category__c",
+                                    this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Media_Category__c"), 
+                                    this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Media_Category__c",
                                     type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT).setWidth(Units.inch(1.32)));
                         } else {
                             if(!firstColumnOverriden) {
@@ -4746,11 +4758,11 @@ public class Reporter {
                             }
                         }
 					}
-					if (key.equals("Package_Flight__r/Media_Category__c")) {
+					if (key.equals("Media_Category__c")) {
                         if(!isShowSummaryHeaders() || firstColumnOverriden) {
                             report.addColumn(col.column(
-                                    this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Media_Category__c"), 
-                                    this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Media_Category__c",
+                                    this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Media_Category__c"), 
+                                    this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Media_Category__c",
                                     type.stringType()).setHorizontalAlignment(HorizontalAlignment.LEFT).setWidth(Units.inch(2.0)));
                         } else {
                             if(!firstColumnOverriden) {
@@ -5586,7 +5598,7 @@ public class Reporter {
 				// +mediaCategory);
 
 			} catch (Exception e) {
-				System.out.println(" exc getting Media_Category__c " + e);
+				System.out.println(" exc getting flight line Media_Category__c " + e);
 			}
 
 			System.out
