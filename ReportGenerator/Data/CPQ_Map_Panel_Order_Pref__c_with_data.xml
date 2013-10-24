@@ -41,5 +41,56 @@
     <Flight__c>a1hW0000000AnFiIAK</Flight__c>
     <Panel__c>a0sW0000000ED6DIAW</Panel__c>
   </records>
-  <totalSize>8</totalSize>
+
+  <records type="Map_Panel_Order_Pref__c" url="/services/data/v27.0/sobjects/Map_Panel_Order_Pref__c/a1MW0000000B4IuMAK">
+    <Sort_Sequence__c>1</Sort_Sequence__c>
+    <Flight__c>a1hW0000000JoGoIAK</Flight__c>
+    <Panel__c>a0sW0000000ED6D-01</Panel__c>
+  </records>
+  <records type="Map_Panel_Order_Pref__c" url="/services/data/v27.0/sobjects/Map_Panel_Order_Pref__c/a1MW0000000B4IuMAK">
+    <Sort_Sequence__c>2</Sort_Sequence__c>
+    <Flight__c>a1hW0000000JoGoIAK</Flight__c>
+    <Panel__c>a0sW0000000ED6D-02</Panel__c>
+  </records>
+  <records type="Map_Panel_Order_Pref__c" url="/services/data/v27.0/sobjects/Map_Panel_Order_Pref__c/a1MW0000000B4IuMAK">
+    <Sort_Sequence__c>3</Sort_Sequence__c>
+    <Flight__c>a1hW0000000JoGoIAK</Flight__c>
+    <Panel__c>a0sW0000000ED6D-03</Panel__c>
+  </records>
+  <records type="Map_Panel_Order_Pref__c" url="/services/data/v27.0/sobjects/Map_Panel_Order_Pref__c/a1MW0000000B4IuMAK">
+    <Sort_Sequence__c>4</Sort_Sequence__c>
+    <Flight__c>a1hW0000000JoGoIAK</Flight__c>
+    <Panel__c>a0sW0000000ED6D-04</Panel__c>
+  </records>
+  <records type="Map_Panel_Order_Pref__c" url="/services/data/v27.0/sobjects/Map_Panel_Order_Pref__c/a1MW0000000B4IuMAK">
+    <Sort_Sequence__c>5</Sort_Sequence__c>
+    <Flight__c>a1hW0000000JoGoIAK</Flight__c>
+    <Panel__c>a0sW0000000ED6D-05</Panel__c>
+  </records>
+  <records type="Map_Panel_Order_Pref__c" url="/services/data/v27.0/sobjects/Map_Panel_Order_Pref__c/a1MW0000000B4IuMAK">
+    <Sort_Sequence__c>6</Sort_Sequence__c>
+    <Flight__c>a1hW0000000JoGoIAK</Flight__c>
+    <Panel__c>a0sW0000000ED6D-06</Panel__c>
+  </records>
+  <records type="Map_Panel_Order_Pref__c" url="/services/data/v27.0/sobjects/Map_Panel_Order_Pref__c/a1MW0000000B4IuMAK">
+    <Sort_Sequence__c>7</Sort_Sequence__c>
+    <Flight__c>a1hW0000000JoGoIAK</Flight__c>
+    <Panel__c>a0sW0000000ED6D-07</Panel__c>
+  </records>
+  <records type="Map_Panel_Order_Pref__c" url="/services/data/v27.0/sobjects/Map_Panel_Order_Pref__c/a1MW0000000B4IuMAK">
+    <Sort_Sequence__c>8</Sort_Sequence__c>
+    <Flight__c>a1hW0000000JoGoIAK</Flight__c>
+    <Panel__c>a0sW0000000ED6D-08</Panel__c>
+  </records>
+  <records type="Map_Panel_Order_Pref__c" url="/services/data/v27.0/sobjects/Map_Panel_Order_Pref__c/a1MW0000000B4IuMAK">
+    <Sort_Sequence__c>9</Sort_Sequence__c>
+    <Flight__c>a1hW0000000JoGoIAK</Flight__c>
+    <Panel__c>a0sW0000000ED6D-09</Panel__c>
+  </records>
+  <records type="Map_Panel_Order_Pref__c" url="/services/data/v27.0/sobjects/Map_Panel_Order_Pref__c/a1MW0000000B4IuMAK">
+    <Sort_Sequence__c>10</Sort_Sequence__c>
+    <Flight__c>a1hW0000000JoGoIAK</Flight__c>
+    <Panel__c>a0sW0000000ED6D-10</Panel__c>
+  </records>
+  <totalSize>18</totalSize>
 </QueryResult>

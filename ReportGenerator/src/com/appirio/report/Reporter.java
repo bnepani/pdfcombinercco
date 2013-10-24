@@ -23,8 +23,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -123,17 +125,20 @@ public class Reporter {
 	private Set<String> autoDisclaimersSet = new HashSet<String>();
 	DisclaimerStore disclaimerStore = new DisclaimerStore();
 	
-	private Map<String, Set<String>> flightDivisionsMap = new HashMap<String, Set<String>>();
-	private Map<String, Set<String>> flightMarketNamesMap = new HashMap<String, Set<String>>();
-	private Map<String, Set<String>> flightMarketTypesMap = new HashMap<String, Set<String>>();
-	private Map<String, Set<String>> flightPackageNamesMap = new HashMap<String, Set<String>>();
-	private Map<String, Set<String>> flightNamesMap = new HashMap<String, Set<String>>();
+	private Set<String> packageIds = new LinkedHashSet<String>();
+	private Map<String, Set<String>> divisionsMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> marketNamesMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> marketTypesMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> packageNamesMap = new HashMap<String, Set<String>>();
+	private Map<String, List<String>> flightNamesMap = new HashMap<String, List<String>>();
 	private Map<String, Set<String>> flightTypesMap = new HashMap<String, Set<String>>();
-	private Map<String, Set<String>> flightStartDatesMap = new HashMap<String, Set<String>>();
-	private Map<String, Set<String>> flightEndDatesMap = new HashMap<String, Set<String>>();
-	private Map<String, Set<String>> flightDurationsMap = new HashMap<String, Set<String>>();
-	private Map<String, Set<String>> flightTargetsMap = new HashMap<String, Set<String>>();
-	private Map<String, Set<String>> flightTargetPopulationsMap = new HashMap<String, Set<String>>();
+	private Map<String, List<String>> startDatesMap = new HashMap<String, List<String>>();
+	private Map<String, List<String>> endDatesMap = new HashMap<String, List<String>>();
+	private Map<String, List<String>> durationsMap = new HashMap<String, List<String>>();
+	private Map<String, List<String>> targetsMap = new HashMap<String, List<String>>();
+	private Map<String, List<String>> targetPopulationsMap = new HashMap<String, List<String>>();
+	private Map<String, Set<String>> packageCommentsMap = new HashMap<String, Set<String>>();
+	private Map<String, List<String>> flightCommentsMap = new HashMap<String, List<String>>();
 
 	private StyleBuilder flightHeaderStyle;
 
@@ -519,27 +524,7 @@ public class Reporter {
   
 			// add group
 			b.addGroup(group);
-			FlightNameReportScriptlet flightNameSubreportScriptlet = new FlightNameReportScriptlet();
-			// report.scriptlets(flightNameSubreportScriptlet);
-			b.scriptlets(flightNameSubreportScriptlet);
-			// b.groupBy(group);
-			//b.summary(cmp.text(""));
-			// create a vertical list of disclaimer reports
-			if (exportAsPdf) {
-				if (commentDataSource.next() || flightCommentDataSource.next()) {
-					VerticalListBuilder flightCommentReports = cmp.verticalList();
-					// flightCommentReports.add(cmp.text("Comments:").setStyle(boldStyle).removeLineWhenBlank());
-					flightCommentReports.add(createCommentTable(
-							"Package_Flight__r/Package_Name__c",
-							"Package_Flight__r/Name",
-							"Package_Flight__r/Flight_Comments__c",
-							"Package_Flight__r/Package_Comments__c")
-							.removeLineWhenBlank());
-					flightCommentReports.add(cmp.text(""));
-					b.summary(flightCommentReports);
-					//b.summary(cmp.text(""));
-				}
-			}
+
 			// create a vertical list of Valid disclaimer reports as per rules
 			ValidDisclaimerExistsExpression validDisclaimerExistsExpression =  new ValidDisclaimerExistsExpression();
 			VerticalListBuilder validDisclaimerReports = cmp.verticalList();
@@ -858,6 +843,13 @@ public class Reporter {
 			// =================== subreport and summaries positioning: begin
 			if(exportAsPdf) {
 				group.footer(flighHeadersSubreport);
+				if (commentDataSource.next() || flightCommentDataSource.next()) {
+					VerticalListBuilder flightCommentReports = cmp.verticalList();
+					flightCommentReports.add(createCommentTable()
+							.removeLineWhenBlank());
+					flightCommentReports.add(cmp.text(""));
+					b.summary(flightCommentReports);
+				}
 				group.footer(audienceSubreport);
 				if(showIndividualFlightSummary) group.footer(audienceSummarySubreport);
 				if(showIndividualMarketSummary) group.footer(audienceMarketSummarySubreport);
@@ -1088,6 +1080,8 @@ public class Reporter {
 
 				//b.summary(cmp.text(""));
 				b.summary(shippingInstructionsSubreport);
+				b.summary(cmp.text(""));
+				b.summary(cmp.text(""));
 				System.out.println(" doesShippingInstructionsExists "  +doesShippingInstructionsExists);
 				if(doesShippingInstructionsExists) { 
 				VerticalListBuilder autoValidDisclaimerReports = cmp
@@ -1157,6 +1151,10 @@ public class Reporter {
 			e.printStackTrace();
 			throw new Exception("Exception while creating dynamic jasper report: "+e.getMessage(), e);
 		}
+	}
+
+	public Reporter() {
+		// TODO Auto-generated constructor stub
 	}
 
 	private boolean hasRequiredInternalUseFields(JasperReportBuilder report) {
@@ -4638,6 +4636,19 @@ public class Reporter {
                                 }
                             }
 						}
+						if(key.equals("Hours_of_Operation__c")) {
+                            if(!isShowSummaryHeaders() || firstColumnOverriden) {
+                                report.addColumn(col.column(
+                                        this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Hours_of_Operation__c"),
+                                        this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Hours_of_Operation__c", type.stringType())
+                                        .setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+                            } else {
+                                if(!firstColumnOverriden) {
+                                    addSummaryField(getSummaryLevel(), report);
+                                    firstColumnOverriden = true;
+                                }
+                            }
+						}
 					}
 					if (key.equals("X4_Wk_Base_Rate__c")) {
                         if(!isShowSummaryHeaders() || firstColumnOverriden) {
@@ -4817,6 +4828,19 @@ public class Reporter {
                                         this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Average_Daily_Spots__c"),
                                         this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Average_Daily_Spots__c", type.stringType())
                                         .setHorizontalAlignment(HorizontalAlignment.RIGHT));
+                            } else {
+                                if(!firstColumnOverriden) {
+                                    addSummaryField(getSummaryLevel(), report);
+                                    firstColumnOverriden = true;
+                                }
+                            }
+						}
+						if(key.equals("Hours_of_Operation__c")) {
+                            if(!isShowSummaryHeaders() || firstColumnOverriden) {
+                                report.addColumn(col.column(
+                                        this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Hours_of_Operation__c"),
+                                        this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Hours_of_Operation__c", type.stringType())
+                                        .setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
                             } else {
                                 if(!firstColumnOverriden) {
                                     addSummaryField(getSummaryLevel(), report);
@@ -5398,66 +5422,6 @@ public class Reporter {
 		}
 	}
 
-	private class FlightNameReportScriptlet extends AbstractScriptlet {
-
-		@Override
-		public void afterDetailEval(ReportParameters reportParameters) {
-			super.afterDetailEval(reportParameters);
-
-			String division = reportParameters
-					.getValue("Package_Flight__r/Division__c");
-
-			String flightName = reportParameters
-					.getValue("Package_Flight__r/Name");
-
-			if (reportParameters
-					.getValue("Package_Flight__r/Target_Population__c") != null) {
-				Integer targetPopulation = (Integer) reportParameters
-						.getValue("Package_Flight__r/Target_Population__c");
-				System.out.println("  targetPopulation >>>> *************** "
-						+ targetPopulation);
-			}
-			String mediaCategory = "";
-			try {
-				mediaCategory = reportParameters
-						.getValue("Package_Flight__r/Media_Category__c");
-				// System.out.println(" FlightNameReportScriptlet mediaCategory "
-				// +mediaCategory);
-
-			} catch (Exception e) {
-				System.out.println(" exc getting flight line Media_Category__c " + e);
-			}
-
-			System.out
-					.println(" FlightNameReportScriptlet calling valid disclaimers for flight division "
-							+ division + " media category " + mediaCategory);
-
-			List<DisclaimerStore.DisclaimerWrapper> validDisclaimersList =
-					disclaimerStore.getValidDisclaimers2(
-							flightName, division, mediaCategory);
-
-			System.out
-					.println(" FlightNameReportScriptlet calling auto disclaimers ");
-
-			Set<String> autoDisclaimerSet = disclaimerStore.getAutoDisclaimers(
-					flightName, division, mediaCategory );
-
-			validAllDisclaimersList.addAll(validDisclaimersList);
-			autoDisclaimersSet.addAll(autoDisclaimerSet);
-		}
-
-		@Override
-		public void afterGroupInit(String groupName,
-				ReportParameters reportParameters) {
-			super.afterGroupInit(groupName, reportParameters);
-			for (String adiscl : autoDisclaimersSet) {
-				System.out.println(" ******* auto disclaimers  " + adiscl);
-
-			}
-
-		}
-	}
-
 	@SuppressWarnings("serial")
 	private class FilterByMarketIdExpression extends AbstractSimpleExpression<Boolean> {
 
@@ -5709,7 +5673,7 @@ public class Reporter {
 			StyleBuilder columnTitleStyle = stl.style().setFontSize(9)/*.setFontName("Arial")*/;
 
 			// field reference
-			FieldBuilder<String> divisionField = field("Division__r/Name",
+			FieldBuilder<String> nameField = field("Name",
 					type.stringType());
 			FieldBuilder<String> addresseeField = field("Addressee__c",
 					type.stringType());
@@ -5735,7 +5699,7 @@ public class Reporter {
 
 			// header list at the top for division and addressee
 			VerticalListBuilder headerList = cmp.verticalList(cmp.text(""), cmp
-					.text(divisionField).setStyle(boldStyle), cmp
+					.text(nameField).setStyle(boldStyle), cmp
 					.text(addresseeField).setStyle(columnTitleStyle));
 
 			// rest of the fields
@@ -5819,14 +5783,36 @@ public class Reporter {
 		return verticalList;
 	}
 	
-	private VerticalListBuilder createCommentTable(String packageName, String flightName, String flightCommentFieldName, String packageCommentFieldName) {
+	private VerticalListBuilder createCommentTable() {
 		VerticalListBuilder verticalList;
 		verticalList = cmp.verticalList();
 		verticalList.add(cmp.text("Comments:").setStyle(stl.style().bold()).removeLineWhenBlank());
-		verticalList.add(cmp.text(new ValueExpression(null, packageName)).setStyle(stl.style().bold()).removeLineWhenBlank());
-		verticalList.add(cmp.text(new ValueExpression(null, packageCommentFieldName)).removeLineWhenBlank());
-		verticalList.add(cmp.text(new ValueExpression(null, flightName)).setStyle(stl.style().bold()).removeLineWhenBlank());
-		verticalList.add(cmp.text(new ValueExpression(null, flightCommentFieldName)).removeLineWhenBlank());
+		for (String packageId : packageIds) {
+			Set<String> packageNames = packageNamesMap.get(packageId);
+			Set<String> packageComments = packageCommentsMap.get(packageId);
+			List<String> flightNames = flightNamesMap.get(packageId);
+			List<String> flightComments = flightCommentsMap.get(packageId);
+			if(!(packageComments.isEmpty() || flightComments.isEmpty())) {
+				Iterator<String> packageNamesIterator = packageNames.iterator();
+				Iterator<String> packageCommentsIterator = packageComments.iterator();
+				Iterator<String> flightNamesIterator = flightNames.iterator();
+				Iterator<String> flightCommentsIterator = flightComments.iterator();
+				while (packageCommentsIterator.hasNext()) {
+					String packageName = (String) packageNamesIterator.next();
+					String packageComment = (String) packageCommentsIterator.next();
+					verticalList.add(cmp.text(packageName).setStyle(stl.style().bold()).removeLineWhenBlank());
+					verticalList.add(cmp.text(packageComment).removeLineWhenBlank());
+					while (flightCommentsIterator.hasNext()) {
+						String flightName = (String) flightNamesIterator.next();
+						String flightComment = (String) flightCommentsIterator.next();
+						if(StringUtils.isNotEmpty(flightComment)) {
+							verticalList.add(cmp.text(flightName).setStyle(stl.style().bold()).removeLineWhenBlank());
+							verticalList.add(cmp.text(flightComment).removeLineWhenBlank());
+						}
+					}
+				}
+			}
+		}
 		return verticalList;
 	}
 
@@ -5912,25 +5898,29 @@ public class Reporter {
 				} else if (this.getFieldName() == "Type__c") {
 					returnValue = StringUtils.join(flightTypesMap.get(getPackageId()) , ", ");
 				} else if (this.getFieldName() == "Division__c") {
-					returnValue = StringUtils.join(flightDivisionsMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(divisionsMap.get(getPackageId()) , ", ");
 				} else if (this.getFieldName() == "Package_Name__c") {
-					returnValue = StringUtils.join(flightPackageNamesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(packageNamesMap.get(getPackageId()) , ", ");
 				} else if (this.getFieldName() == "Market_Name__c") {
-					returnValue = StringUtils.join(flightMarketNamesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(marketNamesMap.get(getPackageId()) , ", ");
 				} else if (this.getFieldName() == "Market_Type__c") {
-					returnValue = StringUtils.join(flightMarketTypesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(marketTypesMap.get(getPackageId()) , ", ");
 				} else if (this.getFieldName() == "Name") {
 					returnValue = StringUtils.join(flightNamesMap.get(getPackageId()) , ", ");
 				} else if (this.getFieldName() == "Campaign_Start_Date__c") {
-					returnValue = StringUtils.join(flightStartDatesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(startDatesMap.get(getPackageId()) , ", ");
 				} else if (this.getFieldName() == "Campaign_End_Date__c") {
-					returnValue = StringUtils.join(flightEndDatesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(endDatesMap.get(getPackageId()) , ", ");
 				} else if (this.getFieldName() == "Duration_And_Type__c") {
-					returnValue = StringUtils.join(flightDurationsMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(durationsMap.get(getPackageId()) , ", ");
 				} else if (this.getFieldName() == "Target__c") {
-					returnValue = StringUtils.join(flightTargetsMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(targetsMap.get(getPackageId()) , ", ");
 				} else if (this.getFieldName() == "Target_Population__c") {
-					returnValue = StringUtils.join(flightTargetPopulationsMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(targetPopulationsMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Flight_Comments__c") {
+					returnValue = StringUtils.join(flightCommentsMap.get(getPackageId()) , ", ");
+				} else if (this.getFieldName() == "Package_Comments__c") {
+					returnValue = StringUtils.join(packageCommentsMap.get(getPackageId()) , ", ");
 				} else {
 					returnValue = reportParameters.getValue(this.getFieldName());
 				}
@@ -6016,18 +6006,22 @@ public class Reporter {
 			String duration = "";
 			String target = "";
 			String targetPopulation = "";
+			String flightComment = "";
+			String packageComment = "";
 			
-			Set<String> flightDivisions = null;
-			Set<String> flightMarketNames = null;
-			Set<String> flightMarketTypes = null;
-			Set<String> flightPackageNames = null;
-			Set<String> flightNames = null;
+			Set<String> divisions = null;
+			Set<String> marketNames = null;
+			Set<String> marketTypes = null;
+			Set<String> packageNames = null;
+			List<String> flightNames = null;
 			Set<String> flightTypes = null;
-			Set<String> flightStartDates = null;
-			Set<String> flightEndDates = null;
-			Set<String> flightDurations = null;
-			Set<String> flightTargets = null;
-			Set<String> flightTargetPopulations = null;
+			List<String> startDates = null;
+			List<String> endDates = null;
+			List<String> durations = null;
+			List<String> targets = null;
+			List<String> targetPopulations = null;
+			List<String> flightComments = null;
+			Set<String> packageComments = null;
 
 			while(jrXmlDataSource.next()) {
 				Document document = jrXmlDataSource.subDocument();
@@ -6063,6 +6057,8 @@ public class Reporter {
 						duration = "";
 						target = "";
 						targetPopulation = "";
+						flightComment = "";
+						packageComment = "";
 						
 						if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 							
@@ -6083,23 +6079,26 @@ public class Reporter {
 											NodeList idList = gElement.getElementsByTagName("Id");
 											if (idList != null && idList.getLength() > 0) {
 												packageId = idList.item(0).getTextContent();
+												packageIds.add(packageId);
 												System.out.println("\nPackage Id :" + packageId);
 											}
 										}
 									}
 								}
 							}
-							flightDivisions = flightDivisionsMap.get(packageId) != null ? flightDivisionsMap.get(packageId) : new LinkedHashSet<String>();
-							flightMarketNames = flightMarketNamesMap.get(packageId) != null ? flightMarketNamesMap.get(packageId) : new LinkedHashSet<String>();
-							flightMarketTypes = flightMarketTypesMap.get(packageId) != null ? flightMarketTypesMap.get(packageId) : new LinkedHashSet<String>();
-							flightPackageNames = flightPackageNamesMap.get(packageId) != null ? flightPackageNamesMap.get(packageId) : new LinkedHashSet<String>();
-							flightNames = flightNamesMap.get(packageId) != null ? flightNamesMap.get(packageId) : new LinkedHashSet<String>();
+							divisions = divisionsMap.get(packageId) != null ? divisionsMap.get(packageId) : new LinkedHashSet<String>();
+							marketNames = marketNamesMap.get(packageId) != null ? marketNamesMap.get(packageId) : new LinkedHashSet<String>();
+							marketTypes = marketTypesMap.get(packageId) != null ? marketTypesMap.get(packageId) : new LinkedHashSet<String>();
+							packageNames = packageNamesMap.get(packageId) != null ? packageNamesMap.get(packageId) : new LinkedHashSet<String>();
+							flightNames = flightNamesMap.get(packageId) != null ? flightNamesMap.get(packageId) : new LinkedList<String>();
 							flightTypes = flightTypesMap.get(packageId) != null ? flightTypesMap.get(packageId) : new LinkedHashSet<String>();
-							flightStartDates = flightStartDatesMap.get(packageId) != null ? flightStartDatesMap.get(packageId) : new LinkedHashSet<String>();
-							flightEndDates = flightEndDatesMap.get(packageId) != null ? flightEndDatesMap.get(packageId) : new LinkedHashSet<String>();
-							flightDurations = flightDurationsMap.get(packageId) != null ? flightDurationsMap.get(packageId) : new LinkedHashSet<String>();
-							flightTargets = flightTargetsMap.get(packageId) != null ? flightTargetsMap.get(packageId) : new LinkedHashSet<String>();
-							flightTargetPopulations = flightTargetPopulationsMap.get(packageId) != null ? flightTargetPopulationsMap.get(packageId) : new LinkedHashSet<String>();
+							startDates = startDatesMap.get(packageId) != null ? startDatesMap.get(packageId) : new LinkedList<String>();
+							endDates = endDatesMap.get(packageId) != null ? endDatesMap.get(packageId) : new LinkedList<String>();
+							durations = durationsMap.get(packageId) != null ? durationsMap.get(packageId) : new LinkedList<String>();
+							targets = targetsMap.get(packageId) != null ? targetsMap.get(packageId) : new LinkedList<String>();
+							targetPopulations = targetPopulationsMap.get(packageId) != null ? targetPopulationsMap.get(packageId) : new LinkedList<String>();
+							flightComments = flightCommentsMap.get(packageId) != null ? flightCommentsMap.get(packageId) : new LinkedList<String>();
+							packageComments = packageCommentsMap.get(packageId) != null ? packageCommentsMap.get(packageId) : new LinkedHashSet<String>();
 							
 							NodeList buyTypeList = eElement.getElementsByTagName("Type__c");
 							if (buyTypeList != null && buyTypeList.getLength() > 0) {
@@ -6109,22 +6108,22 @@ public class Reporter {
 							NodeList divisionList = eElement.getElementsByTagName("Division__c");
 							if (divisionList != null && divisionList.getLength() > 0) {
 								division = divisionList.item(0).getTextContent();
-								flightDivisions.add(division);
+								divisions.add(division);
 							}
 							NodeList packageNameList = eElement.getElementsByTagName("Package_Name__c");
 							if (packageNameList != null && packageNameList.getLength() > 0) {
 								packageName = packageNameList.item(0).getTextContent();
-								flightPackageNames.add(packageName);
+								packageNames.add(packageName);
 							}
 							NodeList marketNameList = eElement.getElementsByTagName("Market_Name__c");
 							if (marketNameList != null && marketNameList.getLength() > 0) {
 								marketName = marketNameList.item(0).getTextContent();
-								flightMarketNames.add(marketName);
+								marketNames.add(marketName);
 							}
 							NodeList marketTypeList = eElement.getElementsByTagName("Market_Type__c");
 							if (marketTypeList != null && marketTypeList.getLength() > 0) {
 								marketType = marketTypeList.item(0).getTextContent();
-								flightMarketTypes.add(marketType);
+								marketTypes.add(marketType);
 							}
 							NodeList flightNameList = eElement.getElementsByTagName("Name");
 							if (flightNameList != null && flightNameList.getLength() > 0) {
@@ -6134,41 +6133,53 @@ public class Reporter {
 							NodeList startDateList = eElement.getElementsByTagName("Campaign_Start_Date__c");
 							if (startDateList != null && startDateList.getLength() > 0) {
 								startDate = formatter.format(parser.parse(startDateList.item(0).getTextContent()));
-								flightStartDates.add(startDate);
+								startDates.add(startDate);
 							}
 							NodeList endDateList = eElement.getElementsByTagName("Campaign_End_Date__c");
 							if (endDateList != null && endDateList.getLength() > 0) {
 								endDate = formatter.format(parser.parse(endDateList.item(0).getTextContent()));
-								flightEndDates.add(endDate);
+								endDates.add(endDate);
 							}
 							NodeList durationList = eElement.getElementsByTagName("Duration_And_Type__c");
 							if (durationList != null && durationList.getLength() > 0) {
 								duration = durationList.item(0).getTextContent();
-								flightDurations.add(duration);
+								durations.add(duration);
 							}
 							NodeList targetList = eElement.getElementsByTagName("Target__c");
 							if (targetList != null && targetList.getLength() > 0) {
 								target = targetList.item(0).getTextContent();
-								flightTargets.add(target);
+								targets.add(target);
 							}
 							NodeList targetPopulationList = eElement.getElementsByTagName("Target_Population__c");
 							if (targetPopulationList != null && targetPopulationList.getLength() > 0) {
-								Integer temp = Integer.parseInt(targetPopulationList.item(0).getTextContent());
+								Double temp = Double.parseDouble(targetPopulationList.item(0).getTextContent());
 								if(temp != null) {
-									flightTargetPopulations.add(df.format(temp));
+									targetPopulations.add(df.format(temp));
 								}
 							}
-							flightDivisionsMap.put(packageId, flightDivisions);
-							flightMarketNamesMap.put(packageId, flightMarketNames);
-							flightMarketTypesMap.put(packageId, flightMarketTypes);
-							flightPackageNamesMap.put(packageId, flightPackageNames);
+							NodeList flightCommentsList = eElement.getElementsByTagName("Flight_Comments__c");
+							if (flightCommentsList != null && flightCommentsList.getLength() > 0) {
+								flightComment = flightCommentsList.item(0).getTextContent();
+								flightComments.add(flightComment);
+							}
+							NodeList packageCommentsList = eElement.getElementsByTagName("Package_Comments__c");
+							if (packageCommentsList != null && packageCommentsList.getLength() > 0) {
+								packageComment = packageCommentsList.item(0).getTextContent();
+								packageComments.add(packageComment);
+							}
+							divisionsMap.put(packageId, divisions);
+							marketNamesMap.put(packageId, marketNames);
+							marketTypesMap.put(packageId, marketTypes);
+							packageNamesMap.put(packageId, packageNames);
 							flightNamesMap.put(packageId, flightNames);
 							flightTypesMap.put(packageId, flightTypes);
-							flightStartDatesMap.put(packageId, flightStartDates);
-							flightEndDatesMap.put(packageId, flightEndDates);
-							flightDurationsMap.put(packageId, flightDurations);
-							flightTargetsMap.put(packageId, flightTargets);
-							flightTargetPopulationsMap.put(packageId, flightTargetPopulations);
+							startDatesMap.put(packageId, startDates);
+							endDatesMap.put(packageId, endDates);
+							durationsMap.put(packageId, durations);
+							targetsMap.put(packageId, targets);
+							targetPopulationsMap.put(packageId, targetPopulations);
+							flightCommentsMap.put(packageId, flightComments);
+							packageCommentsMap.put(packageId, packageComments);
 							
 							System.out.println(" ********** creating flight header object : " +
 									"buyType " + buyType + 
@@ -6195,7 +6206,7 @@ public class Reporter {
 		}
 	}
 
-	private class DisclaimersDataExpression extends
+	public class DisclaimersDataExpression extends
 			AbstractSimpleExpression<Integer> {
 
 		private static final long serialVersionUID = 616516564L;
@@ -6932,13 +6943,8 @@ public class Reporter {
 		if (this.doesShippingInstructionsExists) {
 			PDFCombinerContentEntry pdfCombinerContentEntry = new PDFCombinerContentEntry();
 			pdfCombinerContentEntry.setTitle("Shipping Instructions");
-			pdfCombinerContentEntry.setDescription("..........................................................................................");
-			pdfCombinerContentEntry.setPageNumber(this.getShippingInstructionsPageNumber() + 1); // page number
-																// seems
-																// zero-index
-																// based, so
-																// adding one to
-																// it.
+			pdfCombinerContentEntry.setPageNumber(this.getShippingInstructionsPageNumber() + 1);
+			// page number seems zero-index based, so adding one to it.
 			pages.add(pdfCombinerContentEntry);
 		}
 
@@ -7153,5 +7159,9 @@ public class Reporter {
 
 	public void setFlightHeaderStyle(StyleBuilder flightHeaderStyle) {
 		this.flightHeaderStyle = flightHeaderStyle;
+	}
+
+	public DisclaimerStore getDisclaimerStore() {
+		return disclaimerStore;
 	}
  }

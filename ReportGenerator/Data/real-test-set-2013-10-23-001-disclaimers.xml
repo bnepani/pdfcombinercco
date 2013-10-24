@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QueryResult>
+    <done>true</done>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGXMA0">
+        <Disclaimer__c>* Sizes are approximate and not intended for final production specifications.</Disclaimer__c>
+        <Sequence__c>1.0</Sequence__c>
+        <Name>PD-0147</Name>
+        <isShippingInstruction__c>false</isShippingInstruction__c>
+    </records>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGZMA0">
+        <Disclaimer__c>All space submitted is without reservation and subject to prior sale.  This proposal does not include the cost of production or extensions/embellishments unless stated otherwise.</Disclaimer__c>
+        <Notes__c>Do not show if no costs are shown on Plan Output.</Notes__c>
+        <Sequence__c>2.0</Sequence__c>
+        <Name>PD-0149</Name>
+        <isShippingInstruction__c>false</isShippingInstruction__c>
+    </records>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGbMAK">
+        <Disclaimer__c>This proposal does not include the cost of production or extensions/embellishments unless stated otherwise.</Disclaimer__c>
+        <Notes__c>Do not show if no costs are shown on Plan Output.</Notes__c>
+        <Sequence__c>3.0</Sequence__c>
+        <Name>PD-0151</Name>
+        <isShippingInstruction__c>false</isShippingInstruction__c>
+    </records>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGaMAK">
+        <Disclaimer__c>All space rates are quoted as gross/net.</Disclaimer__c>
+        <Notes__c>Do not show if no costs are shown on Plan Output.  Show either Gross OR Net - depending on user input on Pricing page</Notes__c>
+        <Sequence__c>4.0</Sequence__c>
+        <Name>PD-0150</Name>
+        <isShippingInstruction__c>false</isShippingInstruction__c>
+    </records>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGcMAK">
+        <Disclaimer__c>Any additional costs are not agency commissionable unless otherwise stated.</Disclaimer__c>
+        <Notes__c>Do not show if no costs are shown on Plan Output.</Notes__c>
+        <Sequence__c>5.0</Sequence__c>
+        <Name>PD-0152</Name>
+        <isShippingInstruction__c>false</isShippingInstruction__c>
+    </records>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGgMAK">
+        <Disclaimer__c>Market may be subject to sales tax, please contact your representative for details.</Disclaimer__c>
+        <Notes__c>Only show if a Philadelphia or Albuquerque market is in the proposal.</Notes__c>
+        <Sequence__c>6.0</Sequence__c>
+        <Name>PD-0156</Name>
+        <isShippingInstruction__c>false</isShippingInstruction__c>
+        <Division__c>Albuquerque;Philadelphia</Division__c>
+    </records>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGdMAK">
+        <Disclaimer__c>Be advised that the OOH Ratings reported for tri-vision or digital billboard panels represent the complete OOH Ratings for the panels. They are not adjusted to account for the number of messages displayed.</Disclaimer__c>
+        <Sequence__c>7.0</Sequence__c>
+        <Name>PD-0153</Name>
+        <isShippingInstruction__c>false</isShippingInstruction__c>
+    </records>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGWMA0">
+        <Disclaimer__c>The TAB Out of Home Ratings™ data is proprietary intellectual property owned by the Traffic Audit Bureau for Media Measurement, Inc. and is to be used only by the recipient solely and exclusively for its planning and /or buying of out-of-home media advertisements. © Copyright 2013, All Rights Reserved.</Disclaimer__c>
+        <Sequence__c>8.0</Sequence__c>
+        <Name>PD-0146</Name>
+        <isShippingInstruction__c>false</isShippingInstruction__c>
+    </records>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGeMAK">
+        <Disclaimer__c>The Spectacolor impression study has not been audited by TAB, but has been compiled from various sources, including the New York City MTA, NYC Transit Authority and the Times Square Alliance.</Disclaimer__c>
+        <Notes__c>Show if Spectacolor is on the proposal</Notes__c>
+        <Sequence__c>9.0</Sequence__c>
+        <Name>PD-0154</Name>
+        <isShippingInstruction__c>false</isShippingInstruction__c>
+        <Division__c>Spectacolor</Division__c>
+    </records>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGfMAK">
+        <Disclaimer__c>All advertising subject to approval by Clear Channel Airports and Airport Authorities.</Disclaimer__c>
+        <Notes__c>Show if Airport is in a Full Proposal with other media and also on the Airport only Program Summary.</Notes__c>
+        <Sequence__c>10.0</Sequence__c>
+        <Name>PD-0155</Name>
+        <isShippingInstruction__c>false</isShippingInstruction__c>
+        <Media_Types__c>Airport Display</Media_Types__c>
+    </records>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGhMAK">
+        <Disclaimer__c>Media Acceptance Times-Deliveries of printed materials are accepted between 8 a.m. to 2 p.m. Monday - Friday, except on holidays or unless stated otherwise.</Disclaimer__c>
+        <Notes__c>This is for the shipping page(s) only.</Notes__c>
+        <Sequence__c>44.0</Sequence__c>
+        <Name>PD-0157</Name>
+        <isShippingInstruction__c>true</isShippingInstruction__c>
+    </records>
+    <records type="Proposal_Disclaimer__c" url="/services/data/v27.0/sobjects/Proposal_Disclaimer__c/a2EW0000000MwGiMAK">
+        <Disclaimer__c>Media Delivery - All printed materials must be received five (5) days prior to contract start date to receive the CCO Service Guarantee.</Disclaimer__c>
+        <Notes__c>This is for shipping page(s) only.</Notes__c>
+        <Sequence__c>46.0</Sequence__c>
+        <Name>PD-0158</Name>
+        <isShippingInstruction__c>true</isShippingInstruction__c>
+    </records>
+    <totalSize>12</totalSize>
+</QueryResult>
