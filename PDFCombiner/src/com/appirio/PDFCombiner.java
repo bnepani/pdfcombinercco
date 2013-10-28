@@ -806,6 +806,14 @@ public class PDFCombiner {
 				String pageNumber = String.valueOf(pdfCombinerContentEntry.getPageNumber());
 				stamper.getAcroFields().setField(pageNumberFieldName, pageNumber);
 
+				// for shipping instructions page override all field values
+				if("Shipping Instructions".equals(pdfCombinerContentEntry.getTitle())) {
+					stamper.getAcroFields().setField(titleFieldName,
+						pdfCombinerContentEntry.getTitle() + "........................"	+ pageNumber);
+					stamper.getAcroFields().setField(contentDescriptionFieldName, "");
+					stamper.getAcroFields().setField(pageNumberFieldName, "");
+				}
+
 				i++;
 			}
 		}

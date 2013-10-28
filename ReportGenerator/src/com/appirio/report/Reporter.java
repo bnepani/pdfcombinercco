@@ -132,11 +132,11 @@ public class Reporter {
 	private Map<String, Set<String>> packageNamesMap = new HashMap<String, Set<String>>();
 	private Map<String, List<String>> flightNamesMap = new HashMap<String, List<String>>();
 	private Map<String, Set<String>> flightTypesMap = new HashMap<String, Set<String>>();
-	private Map<String, List<String>> startDatesMap = new HashMap<String, List<String>>();
-	private Map<String, List<String>> endDatesMap = new HashMap<String, List<String>>();
-	private Map<String, List<String>> durationsMap = new HashMap<String, List<String>>();
-	private Map<String, List<String>> targetsMap = new HashMap<String, List<String>>();
-	private Map<String, List<String>> targetPopulationsMap = new HashMap<String, List<String>>();
+	private Map<String, Set<String>> startDatesMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> endDatesMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> durationsMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> targetsMap = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> targetPopulationsMap = new HashMap<String, Set<String>>();
 	private Map<String, Set<String>> packageCommentsMap = new HashMap<String, Set<String>>();
 	private Map<String, List<String>> flightCommentsMap = new HashMap<String, List<String>>();
 
@@ -511,6 +511,8 @@ public class Reporter {
 			// headerFieldLabelsArray,
 			// Units.inch(2)).setPrintWhenGroupChanges(group));
 
+			PackageChangedExpression packageHeaderChangedExpression = new PackageChangedExpression(packageMarketFlightPreviousRecordExpression);
+			
 			// =================== previous values observers: begin
 			PackageMarketFlightPreviousRecordHadAudienceExpression packageMarketFlightPreviousRecordHadAudienceExpression = new PackageMarketFlightPreviousRecordHadAudienceExpression(
 					packageMarketFlightPreviousRecordExpression);
@@ -524,19 +526,32 @@ public class Reporter {
   
 			// add group
 			b.addGroup(group);
+			FlightNameReportScriptlet flightNameSubreportScriptlet = new FlightNameReportScriptlet();
+			b.scriptlets(flightNameSubreportScriptlet);
 
-			// create a vertical list of Valid disclaimer reports as per rules
-			ValidDisclaimerExistsExpression validDisclaimerExistsExpression =  new ValidDisclaimerExistsExpression();
-			VerticalListBuilder validDisclaimerReports = cmp.verticalList();
-			validDisclaimerReports.setPrintWhenExpression(validDisclaimerExistsExpression);
-			validDisclaimerReports.add(cmp.text("Important Notes:").setStyle(boldStyle).removeLineWhenBlank());
-			validDisclaimerReports.add(cmp.text(new DisclaimerExpression()).setStyle(summaryStyle));
-			//b.summary(cmp.text(""));
-			//group.footer(validDisclaimerReports);
-			b.summary(validDisclaimerReports);
-			//b.summary(cmp.text(""));
-			// create a vertical list of disclaimer reports
-
+			// =================== report flight headers: begin
+			JRXmlDataSource packageHeaderDataSource = new JRXmlDataSource(
+					dataSourceFileName, QUERY_RESULT_RECORDS_UNIQUE_FLIGHT);
+			new FlightDataExpression(packageHeaderDataSource);
+			SubreportBuilder packageHeaderSubreport = cmp
+					.subreport(
+							new PackageHeaderSubreportExpression(
+									flightHeaderStyle, flightHeaderValueStyle))
+					.setDataSource(packageHeaderDataSource)
+					.setPrintWhenExpression(packageHeaderChangedExpression)
+					.removeLineWhenBlank();
+			// =================== report flight headers: end
+			
+			if(exportAsExcel) {
+				// create a vertical list of Valid disclaimer reports as per rules
+				ValidDisclaimerExistsExpression validDisclaimerExistsExpression =  new ValidDisclaimerExistsExpression();
+				VerticalListBuilder validDisclaimerReports = cmp.verticalList();
+				validDisclaimerReports.setPrintWhenExpression(validDisclaimerExistsExpression);
+				validDisclaimerReports.add(cmp.text("Important Notes:").setStyle(boldStyle).removeLineWhenBlank());
+				validDisclaimerReports.add(cmp.text(new DisclaimerExpression()).setStyle(summaryStyle));
+				b.summary(validDisclaimerReports);
+			}
+			
 			VerticalListBuilder flightDisclaimerReports = cmp.verticalList();
 			flightDisclaimerReports.add(cmp.text("Important Notes:").setStyle(boldStyle));
 
@@ -551,8 +566,7 @@ public class Reporter {
 					.removeLineWhenBlank();
 
 			// set information for a previous record at market flight level
-			CustomGroupBuilder packageMarketFlightPreviousRecordCustomGroupBuilder = grp
-					.group(packageMarketFlightPreviousRecordExpression);
+			CustomGroupBuilder packageMarketFlightPreviousRecordCustomGroupBuilder = grp.group(packageMarketFlightPreviousRecordExpression);
 			b.addGroup(packageMarketFlightPreviousRecordCustomGroupBuilder);
 
 			// wrap the subreport inside horizontal list builder to control when it should be rendered/printed
@@ -564,49 +578,36 @@ public class Reporter {
 					.setPrintWhenExpression(packageMarketFlightPreviousRecordHadLocationExpression);
 			flightDisclaimerReports.add(afterLocationListPageDisclaimer.setStyle(summaryStyle));
 			// =================== end
-			
-			// =================== report flight headers: begin
-			JRXmlDataSource flightHeadersDataSource = new JRXmlDataSource(
-					dataSourceFileName, QUERY_RESULT_RECORDS_UNIQUE_FLIGHT);
-			new FlightDataExpression(flightHeadersDataSource);
-			SubreportBuilder flighHeadersSubreport = cmp
-					.subreport(
-							new FlightHeadersSubreportExpression(
-									flightHeaderStyle, flightHeaderValueStyle))
-					.setDataSource(flightHeadersDataSource)
-					.setPrintWhenExpression(
-							new PackageChangedExpression(
-									packageMarketFlightPreviousRecordExpression))
-					.removeLineWhenBlank();
-			// =================== report flight headers: end
 
 			// =================== audience subreport: begin
-			JRXmlDataSource detailDataSource = new JRXmlDataSource(
+			JRXmlDataSource audienceDataSource = new JRXmlDataSource(
 					dataSourceFileName,
 					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_0);
 			SubreportBuilder audienceSubreport = cmp
 					.subreport(
 							new AudienceSubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, false))
-					.setDataSource(detailDataSource)
+					.setDataSource(audienceDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadAudienceExpression)
 					.removeLineWhenBlank();
 			// =================== audience subreport: end
 
 			// =================== audience subreport summary: begin
-			JRXmlDataSource audienceSummaryDataSource = new JRXmlDataSource(
+			JRXmlDataSource audienceFlightSummaryDataSource = new JRXmlDataSource(
 					dataSourceFileName,
 					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
-			SubreportBuilder audienceSummarySubreport = cmp
+			SubreportBuilder audienceFlightSummarySubreport = cmp
 					.subreport(
 							new AudienceSubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, true))
-					.setDataSource(audienceSummaryDataSource)
+					.setDataSource(audienceFlightSummaryDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadAudienceExpression)
 					.removeLineWhenBlank();
@@ -618,6 +619,7 @@ public class Reporter {
 			SubreportBuilder audienceMarketSummarySubreport = cmp
 					.subreport(
 							new AudienceSubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, true,
@@ -634,6 +636,7 @@ public class Reporter {
 			SubreportBuilder audiencePackageSummarySubreport = cmp
 					.subreport(
 							new AudienceSubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, true,
@@ -645,32 +648,34 @@ public class Reporter {
 			// =================== audience subreport summary: end
 
 			// =================== location subreport: begin
-			JRXmlDataSource detailDataSource2 = new JRXmlDataSource(
+			JRXmlDataSource locationDataSource = new JRXmlDataSource(
 					dataSourceFileName,
 					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_0);
 			SubreportBuilder locationSubreport = cmp
 					.subreport(
 							new LocationSubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, false, locationMapExists))
-					.setDataSource(detailDataSource2)
+					.setDataSource(locationDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadLocationExpression)
 					.removeLineWhenBlank();
 			// =================== location subreport: end
 
 			// =================== location summary subreport: begin
-			JRXmlDataSource detailSummaryDataSource = new JRXmlDataSource(
+			JRXmlDataSource locationFlightSummaryDataSource = new JRXmlDataSource(
 					dataSourceFileName,
 					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
-			SubreportBuilder locationSummarySubreport = cmp
+			SubreportBuilder locationFlightSummarySubreport = cmp
 					.subreport(
 							new LocationSubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, true, locationMapExists))
-					.setDataSource(detailSummaryDataSource)
+					.setDataSource(locationFlightSummaryDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadLocationExpression)
 					.removeLineWhenBlank();
@@ -682,6 +687,7 @@ public class Reporter {
 			SubreportBuilder locationMarketSummarySubreport = cmp
 					.subreport(
 							new LocationSubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, true, locationMapExists,
@@ -698,6 +704,7 @@ public class Reporter {
 			SubreportBuilder locationPackageSummarySubreport = cmp
 					.subreport(
 							new LocationSubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, true, locationMapExists,
@@ -715,6 +722,7 @@ public class Reporter {
 			SubreportBuilder rotarySubreport = cmp
 					.subreport(
 							new RotarySubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, false))
@@ -725,16 +733,17 @@ public class Reporter {
 			// =================== rotary subreport: end
 
 			// =================== rotary summary subreport: begin
-			JRXmlDataSource rotarySummaryDataSource = new JRXmlDataSource(
+			JRXmlDataSource rotaryFlightSummaryDataSource = new JRXmlDataSource(
 					dataSourceFileName,
 					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
-			SubreportBuilder rotarySummarySubreport = cmp
+			SubreportBuilder rotaryFlightSummarySubreport = cmp
 					.subreport(
 							new RotarySubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, true))
-					.setDataSource(rotarySummaryDataSource)
+					.setDataSource(rotaryFlightSummaryDataSource)
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadRotaryExpression)
 					.removeLineWhenBlank();
@@ -746,6 +755,7 @@ public class Reporter {
 			SubreportBuilder rotaryMarketSummarySubreport = cmp
 					.subreport(
 							new RotarySubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, true,
@@ -762,6 +772,7 @@ public class Reporter {
 			SubreportBuilder rotaryPackageSummarySubreport = cmp
 					.subreport(
 							new RotarySubreportExpression(
+									dataSourceFileName,
 									packageMarketFlightPreviousRecordExpression,
 									columnTitleStyle, columnStyle,
 									exportAsExcel, true,
@@ -790,10 +801,10 @@ public class Reporter {
 			// =================== network subreport: end
 
 			// =================== network subreport: begin
-			JRXmlDataSource networkSummaryDataSource = new JRXmlDataSource(
+			JRXmlDataSource networkFlightSummaryDataSource = new JRXmlDataSource(
 					dataSourceFileName,
 					QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
-			SubreportBuilder networkSummarySubreport = cmp
+			SubreportBuilder networkFlightSummarySubreport = cmp
 					.subreport(
 							new NetworkSubreportExpression(
 									dataSourceFileName,
@@ -802,7 +813,7 @@ public class Reporter {
 									exportAsExcel, true, true))
 					.setPrintWhenExpression(
 							packageMarketFlightPreviousRecordHadNetworkExpression)
-					.setDataSource(networkSummaryDataSource)
+					.setDataSource(networkFlightSummaryDataSource)
 					.removeLineWhenBlank();
 			// =================== network subreport: end
 
@@ -842,46 +853,40 @@ public class Reporter {
 
 			// =================== subreport and summaries positioning: begin
 			if(exportAsPdf) {
-				group.footer(flighHeadersSubreport);
-				if (commentDataSource.next() || flightCommentDataSource.next()) {
-					VerticalListBuilder flightCommentReports = cmp.verticalList();
-					flightCommentReports.add(createCommentTable()
-							.removeLineWhenBlank());
-					flightCommentReports.add(cmp.text(""));
-					b.summary(flightCommentReports);
-				}
+				group.footer(packageHeaderSubreport);
+				
 				group.footer(audienceSubreport);
-				if(showIndividualFlightSummary) group.footer(audienceSummarySubreport);
+				if(showIndividualFlightSummary) group.footer(audienceFlightSummarySubreport);
 				if(showIndividualMarketSummary) group.footer(audienceMarketSummarySubreport);
 				if(showTotalProgramSummary) group.footer(audiencePackageSummarySubreport);
 				group.footer(locationSubreport);
-				if(showIndividualFlightSummary) group.footer(locationSummarySubreport);
+				if(showIndividualFlightSummary) group.footer(locationFlightSummarySubreport);
 				if(showIndividualMarketSummary) group.footer(locationMarketSummarySubreport);
 				if(showTotalProgramSummary) group.footer(locationPackageSummarySubreport);
 				group.footer(rotarySubreport);
-				if(showIndividualFlightSummary) group.footer(rotarySummarySubreport);
+				if(showIndividualFlightSummary) group.footer(rotaryFlightSummarySubreport);
 				if(showIndividualMarketSummary) group.footer(rotaryMarketSummarySubreport);
 				if(showTotalProgramSummary) group.footer(rotaryPackageSummarySubreport);
 				group.footer(networkSubreport);
-				if(showIndividualFlightSummary) group.footer(networkSummarySubreport);
+				if(showIndividualFlightSummary) group.footer(networkFlightSummarySubreport);
 				if(showIndividualMarketSummary) group.footer(networkMarketSummarySubreport);
 				if(showTotalProgramSummary) group.footer(networkPackageSummarySubreport);
 			} else {
 				if(showTotalProgramSummary) group.footer(audiencePackageSummarySubreport);
 				if(showIndividualMarketSummary) group.footer(audienceMarketSummarySubreport);
-				if(showIndividualFlightSummary) group.footer(audienceSummarySubreport);
+				if(showIndividualFlightSummary) group.footer(audienceFlightSummarySubreport);
 				group.footer(audienceSubreport);
 				if(showTotalProgramSummary) group.footer(locationPackageSummarySubreport);
 				if(showIndividualMarketSummary) group.footer(locationMarketSummarySubreport);
-				if(showIndividualFlightSummary) group.footer(locationSummarySubreport);
+				if(showIndividualFlightSummary) group.footer(locationFlightSummarySubreport);
 				group.footer(locationSubreport);
 				if(showTotalProgramSummary) group.footer(rotaryPackageSummarySubreport);
 				if(showIndividualMarketSummary) group.footer(rotaryMarketSummarySubreport);
-				if(showIndividualFlightSummary) group.footer(rotarySummarySubreport);
+				if(showIndividualFlightSummary) group.footer(rotaryFlightSummarySubreport);
 				group.footer(rotarySubreport);
 				if(showTotalProgramSummary) group.footer(networkPackageSummarySubreport);
 				if(showIndividualMarketSummary) group.footer(networkMarketSummarySubreport);
-				if(showIndividualFlightSummary) group.footer(networkSummarySubreport);
+				if(showIndividualFlightSummary) group.footer(networkFlightSummarySubreport);
 				group.footer(networkSubreport);
 			}
 			// =================== subreport and summaries positioning: end
@@ -1059,47 +1064,36 @@ public class Reporter {
 			b.setGroupStyle(groupHeaderStyleNew);
 
 			// =================== begin
-			// Shipping instructions is part of the Plan that is displayed after
-			// all Plan Data is rendered in PDF
+			// Shipping instructions is part of the Plan that is displayed after all Plan Data is rendered in PDF
 			JRXmlDataSource shippingInstructionsDataSource = null;
 			if (shippingInstructionsDataSourceFileName != null) {
 				shippingInstructionsDataSource = new JRXmlDataSource(
 						shippingInstructionsDataSourceFileName,
 						"/QueryResult/records");
-				this.setDoesShippingInstructionsExists(shippingInstructionsDataSource
-						.next());
+				this.setDoesShippingInstructionsExists(shippingInstructionsDataSource.next());
 				shippingInstructionsDataSource.moveFirst();
-				ShippingInstructionsSubreportExpression shippingInstructionsSubreportExpression = new ShippingInstructionsSubreportExpression(
-						this);
+				ShippingInstructionsSubreportExpression shippingInstructionsSubreportExpression = new ShippingInstructionsSubreportExpression(this);
 				SubreportBuilder shippingInstructionsSubreport = cmp
 						.subreport(shippingInstructionsSubreportExpression)
 						.setDataSource(shippingInstructionsDataSource)
 						.removeLineWhenBlank();
 
-				// .setRunToBottom(true);
-
-				//b.summary(cmp.text(""));
 				b.summary(shippingInstructionsSubreport);
-				b.summary(cmp.text(""));
-				b.summary(cmp.text(""));
-				System.out.println(" doesShippingInstructionsExists "  +doesShippingInstructionsExists);
-				if(doesShippingInstructionsExists) { 
-				VerticalListBuilder autoValidDisclaimerReports = cmp
-						.verticalList();
-				//b.summary(cmp.text(""));
-				autoValidDisclaimerReports.add(cmp.text("Important Notes:")
-						.setStyle(boldStyle).removeLineWhenBlank());
-				autoValidDisclaimerReports.add(cmp
-						.text(new AutoDisclaimerExpression()).setStyle(summaryStyle));
-				b.summary(autoValidDisclaimerReports);
+				System.out.println(" doesShippingInstructionsExists "  + doesShippingInstructionsExists);
+				if(doesShippingInstructionsExists) {
+					VerticalListBuilder autoValidDisclaimerReports = cmp.verticalList();
+					b.summary(cmp.text(""));
+					b.summary(cmp.text(""));
+					autoValidDisclaimerReports.add(cmp.text("Important Notes:").setStyle(boldStyle).removeLineWhenBlank());
+					autoValidDisclaimerReports.add(cmp.text(new AutoDisclaimerExpression()).setStyle(summaryStyle));
+					b.summary(autoValidDisclaimerReports);
 				}
-				// b.summaryOnANewPage();
 			}
 			// =================== end
 
 			// throw an exception if internal use fields are not set
 			if (!hasRequiredInternalUseFields(b)) {
-				throw new Exception("Required fields missing" + StringUtils.join(getRequiredMissingFieldsList(b)));
+				throw new Exception("Required fields missing" + StringUtils.join(getRequiredMissingFieldsList(b), ", "));
 			}
 
 			// export
@@ -1115,14 +1109,10 @@ public class Reporter {
 				b.toXls(xlsExporterBuilder);
 			}
 
-			// As DynamicReports doesn't have a method/property that return
-			// Table of Contents (TOC) entries
-			// for more info see here:
+			// As DynamicReports doesn't have a method/property that return Table of Contents (TOC) entries for more info see here:
 			// http://www.dynamicreports.org/forum/viewtopic.php?f=1&t=416&sid=25edfbfe63ade19e637c1a79f5974ee1
-			// We'll do an additional export in csv format after having exported
-			// to usual pdf/xls export formats.
-			// This way other clients can pull report as csv and grab manually
-			// the TOC entries.
+			// We'll do an additional export in csv format after having exported to usual pdf/xls export formats.
+			// This way other clients can pull report as csv and grab manually the TOC entries.
 			b.setTableOfContents(true);
 			b.rebuild();
 			b.toCsv(Exporters.csvExporter(getGeneratedReport("csv")));
@@ -1298,12 +1288,8 @@ public class Reporter {
 	
 	@Override
 	public Boolean evaluate(ReportParameters reportParameters) {
-		System.out
-		.println("******** ValidDisclaimerExistsExpression evaluate.validDisclaimersListDisplay exists "
-				+ validDisclaimersListDisplay.size() + " validAllDisclaimersList size " + 
-				validAllDisclaimersList.size());
+		System.out.println("******** ValidDisclaimerExistsExpression evaluate.validDisclaimersListDisplay exists " + validDisclaimersListDisplay.size() + " validAllDisclaimersList size " +	validAllDisclaimersList.size());
 		return validAllDisclaimersList != null && validAllDisclaimersList.size() >0;
-		
 	}
  }
 	private class PackageMarketFlightPreviousRecordExpression extends
@@ -1815,7 +1801,7 @@ public class Reporter {
 				headerFieldNamesArray2, headerFieldLabelsArray2, Units.inch(2), packageId));
 	}
 	
-	private class FlightHeadersSubreportExpression extends
+	private class PackageHeaderSubreportExpression extends
 			AbstractSimpleExpression<JasperReportBuilder> {
 
 		private static final long serialVersionUID = -4488328880017058659L;
@@ -1824,7 +1810,7 @@ public class Reporter {
 
 		private StyleBuilder flightHeaderValueStyle;
 		
-		public FlightHeadersSubreportExpression(StyleBuilder flightHeaderStyle, StyleBuilder flightHeaderValueStyle) {
+		public PackageHeaderSubreportExpression(StyleBuilder flightHeaderStyle, StyleBuilder flightHeaderValueStyle) {
 			setFlightHeaderStyle(flightHeaderStyle);
 			setFlightHeaderValueStyle(flightHeaderValueStyle);
 		}
@@ -1841,7 +1827,7 @@ public class Reporter {
 			// add flight headers
 			addFlightHeader(report, packageId, getFlightHeaderStyle(), getFlightHeaderValueStyle());
 			// ======================================================== end
-
+			
 			// add a blank line at the end
 			report.addLastPageFooter(cmp.text(""));
 
@@ -1865,6 +1851,47 @@ public class Reporter {
 			this.flightHeaderValueStyle = flightHeaderValueStyle;
 		}
 	}
+	
+	private class PackageFooterSubreportExpression extends
+			AbstractSimpleExpression<JasperReportBuilder> {
+
+		private static final long serialVersionUID = 8852584488641186565L;
+
+		public PackageFooterSubreportExpression() {
+			
+		}
+
+		@Override
+		public JasperReportBuilder evaluate(ReportParameters reportParameters) {
+			JasperReportBuilder report = report();
+			StyleBuilder boldStyle = stl.style().bold();
+			StyleBuilder summaryStyle = stl.style().setPadding(Units.inch(0.03)).setFontSize(10);
+			
+			// ======================================================== begin
+			report.addField(field("Id", type.stringType()));
+			
+			String packageId = reportParameters.getValue("Id");
+			VerticalListBuilder flightCommentReports = cmp.verticalList();
+			flightCommentReports.add(createCommentTable(packageId).removeLineWhenBlank());
+			flightCommentReports.add(cmp.text(""));
+			report.summary(flightCommentReports);
+				
+			// create a vertical list of Valid disclaimer reports as per rules
+			ValidDisclaimerExistsExpression validDisclaimerExistsExpression =  new ValidDisclaimerExistsExpression();
+			VerticalListBuilder validDisclaimerReports = cmp.verticalList();
+			validDisclaimerReports.setPrintWhenExpression(validDisclaimerExistsExpression);
+			validDisclaimerReports.add(cmp.text("Important Notes:").setStyle(boldStyle).removeLineWhenBlank());
+			validDisclaimerReports.add(cmp.text(new DisclaimerExpression()).setStyle(summaryStyle));
+			report.summary(validDisclaimerReports);
+			// ======================================================== end
+			
+			// add a blank line at the end
+			report.addLastPageFooter(cmp.text(""));
+
+			// return report
+			return report;
+		}
+	}
 
 	private class AudienceSubreportExpression extends
 			AbstractSimpleExpression<JasperReportBuilder> {
@@ -1881,21 +1908,26 @@ public class Reporter {
 
 		private boolean showSummaryHeaders;
 
+		private String dataSourceFileName;
+
 		private SummaryLevelEnum summaryLevel;
 
 		public AudienceSubreportExpression(
+				String dataSourceFileName,
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
 				boolean exportAsExcel, boolean showSummaryHeaders) {
-			this(packageMarketFlightPreviousRecordExpression, columnTitleStyle,
+			this(dataSourceFileName, packageMarketFlightPreviousRecordExpression, columnTitleStyle,
 					columnStyle, exportAsExcel, showSummaryHeaders, null);
 		}
 
 		public AudienceSubreportExpression(
+				String dataSourceFileName,
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
 				boolean exportAsExcel, boolean showSummaryHeaders,
 				SummaryLevelEnum summaryLevel) {
+			setDataSourceFileName(dataSourceFileName);
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 			setColumnTitleStyle(columnTitleStyle);
 			setColumnStyle(columnStyle);
@@ -1930,6 +1962,9 @@ public class Reporter {
 			} else if(getSummaryLevel() == SummaryLevelEnum.Package) {
 				// set filter by market
 				report.setFilterExpression(new FilterByPackageIdExpression(getPackageMarketFlightPreviousRecordExpression()));
+				if(!isExportAsExcel()) {
+					createPackageCommentsAndDisclamersFooter(getDataSourceFileName(), report);
+				}
 			}
 
 			// add a blank line at the end
@@ -2101,34 +2136,6 @@ public class Reporter {
 									this.isShowSummaryHeaders() ? "" :	getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Comments__c"),
 									this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Package_Comments__c", type.stringType())
 									.setWidth(Units.inch(1.32)));
-						} else {
-							if(!firstColumnOverriden) {
-								addSummaryField(getSummaryLevel(), report);
-								firstColumnOverriden = true;
-							}
-						}
-					}
-					if (key.equals("X4_Wk_Base_Rate__c")) {
-						if(!isShowSummaryHeaders() || firstColumnOverriden) {
-							TextColumnBuilder<BigDecimal> x4WkBaseRateColumn = col.column(
-									this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"),
-									this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Base_Rate__c", currencyWithoutFractionDecimalType)
-									.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
-							report.addColumn(x4WkBaseRateColumn);
-						} else {
-							if(!firstColumnOverriden) {
-								addSummaryField(getSummaryLevel(), report);
-								firstColumnOverriden = true;
-							}
-						}
-					}
-					if (key.equals("X4_Wk_Floor__c")) {
-						if(!isShowSummaryHeaders() || firstColumnOverriden) {
-							TextColumnBuilder<BigDecimal> x4WkFloorColumn = col.column(
-									this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"),
-									this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Floor__c", currencyWithoutFractionDecimalType)
-									.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
-							report.addColumn(x4WkFloorColumn);
 						} else {
 							if(!firstColumnOverriden) {
 								addSummaryField(getSummaryLevel(), report);
@@ -2611,6 +2618,36 @@ public class Reporter {
 					report.addColumn(discountColumn);
 				}
 			}
+			if (isExportAsExcel()) {
+				if (fieldMap.containsKey("X4_Wk_Base_Rate__c")) {
+					if(!isShowSummaryHeaders() || firstColumnOverriden) {
+						TextColumnBuilder<BigDecimal> x4WkBaseRateColumn = col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Base_Rate__c", currencyWithoutFractionDecimalType)
+								.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
+						report.addColumn(x4WkBaseRateColumn);
+					} else {
+						if(!firstColumnOverriden) {
+							addSummaryField(getSummaryLevel(), report);
+							firstColumnOverriden = true;
+						}
+					}
+				}
+				if (fieldMap.containsKey("X4_Wk_Floor__c")) {
+					if(!isShowSummaryHeaders() || firstColumnOverriden) {
+						TextColumnBuilder<BigDecimal> x4WkFloorColumn = col.column(
+								this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"),
+								this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Floor__c", currencyWithoutFractionDecimalType)
+								.setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32));
+						report.addColumn(x4WkFloorColumn);
+					} else {
+						if(!firstColumnOverriden) {
+							addSummaryField(getSummaryLevel(), report);
+							firstColumnOverriden = true;
+						}
+					}
+				}
+			}
 			// return report
 			return report;
 		}
@@ -2663,6 +2700,14 @@ public class Reporter {
 		public void setSummaryLevel(SummaryLevelEnum summaryLevel) {
 			this.summaryLevel = summaryLevel;
 		}
+
+		public void setDataSourceFileName(String dataSourceFileName) {
+			this.dataSourceFileName = dataSourceFileName;
+		}
+
+		public String getDataSourceFileName() {
+			return dataSourceFileName;
+		}
 	
 
 	}
@@ -2681,25 +2726,30 @@ public class Reporter {
 
 		private boolean showSummaryHeaders;
 
+		private String dataSourceFileName;
+
 		private boolean locationMapExists;
 
 		private SummaryLevelEnum summaryLevel;
 
 		public LocationSubreportExpression(
+				String dataSourceFileName,
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
 				boolean exportAsExcel, boolean showSummaryHeaders,
 				boolean locationMapExists) {
-			this(packageMarketFlightPreviousRecordExpression, columnTitleStyle,
+			this(dataSourceFileName, packageMarketFlightPreviousRecordExpression, columnTitleStyle,
 					columnStyle, exportAsExcel, showSummaryHeaders,
 					locationMapExists, null);
 		}
 
 		public LocationSubreportExpression(
+				String dataSourceFileName,
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
 				boolean exportAsExcel, boolean showSummaryHeaders,
 				boolean locationMapExists, SummaryLevelEnum summaryLevel) {
+			setDataSourceFileName(dataSourceFileName);
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 			setColumnTitleStyle(columnTitleStyle);
 			setColumnStyle(columnStyle);
@@ -2737,6 +2787,9 @@ public class Reporter {
 			} else if(getSummaryLevel() == SummaryLevelEnum.Package) {
 				// set filter by market
 				report.setFilterExpression(new FilterByPackageIdExpression(getPackageMarketFlightPreviousRecordExpression()));
+				if(!isExportAsExcel()) {
+					createPackageCommentsAndDisclamersFooter(getDataSourceFileName(), report);
+				}
 			}
 
 			// add a blank line at the end
@@ -2956,32 +3009,6 @@ public class Reporter {
                                     this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("Package_Flight__r/Package_Comments__c"),
                                     this.isShowSummaryHeaders() ? "Parent_Flight_Line__c" : "Package_Flight__r/Package_Comments__c",
                                     type.stringType()).setWidth(Units.inch(1.32)));
-                        } else {
-                            if(!firstColumnOverriden) {
-                                addSummaryField(getSummaryLevel(), report);
-                                firstColumnOverriden = true;
-                            }
-                        }
-					}
-					if (key.equals("X4_Wk_Base_Rate__c")) {
-						if(!isShowSummaryHeaders() || firstColumnOverriden) {
-                            report.addColumn(col.column(
-                                    this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"),
-                                    this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Base_Rate__c",
-                                    currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-                        } else {
-                            if(!firstColumnOverriden) {
-                                addSummaryField(getSummaryLevel(), report);
-                                firstColumnOverriden = true;
-                            }
-                        }
-					}
-					if (key.equals("X4_Wk_Floor__c")) {
-						if(!isShowSummaryHeaders() || firstColumnOverriden) {
-                            report.addColumn(col.column(
-                                    this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"),
-                                    this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Floor__c",
-                                    currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
                         } else {
                             if(!firstColumnOverriden) {
                                 addSummaryField(getSummaryLevel(), report);
@@ -3806,6 +3833,34 @@ public class Reporter {
 					report.addColumn(discountColumn);
 				}
 			}
+			if (isExportAsExcel()) {
+				if (fieldMap.containsKey("X4_Wk_Base_Rate__c")) {
+					if(!isShowSummaryHeaders() || firstColumnOverriden) {
+	                    report.addColumn(col.column(
+	                            this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"),
+	                            this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Base_Rate__c",
+	                            currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+	                } else {
+	                    if(!firstColumnOverriden) {
+	                        addSummaryField(getSummaryLevel(), report);
+	                        firstColumnOverriden = true;
+	                    }
+	                }
+				}
+				if (fieldMap.containsKey("X4_Wk_Floor__c")) {
+					if(!isShowSummaryHeaders() || firstColumnOverriden) {
+	                    report.addColumn(col.column(
+	                            this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"),
+	                            this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Floor__c",
+	                            currencyWithoutFractionDecimalType).setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+	                } else {
+	                    if(!firstColumnOverriden) {
+	                        addSummaryField(getSummaryLevel(), report);
+	                        firstColumnOverriden = true;
+	                    }
+	                }
+				}
+			}
 			// return report
 			return report;
 		}
@@ -3867,6 +3922,14 @@ public class Reporter {
 		public void setSummaryLevel(SummaryLevelEnum summaryLevel) {
 			this.summaryLevel = summaryLevel;
 		}
+
+		public void setDataSourceFileName(String dataSourceFileName) {
+			this.dataSourceFileName = dataSourceFileName;
+		}
+
+		public String getDataSourceFileName() {
+			return dataSourceFileName;
+		}
 	}
 
 	private class RotarySubreportExpression extends
@@ -3884,21 +3947,26 @@ public class Reporter {
 
 		private boolean showSummaryHeaders;
 
+		private String dataSourceFileName;
+
 		private SummaryLevelEnum summaryLevel;
 
 		public RotarySubreportExpression(
+				String dataSourceFileName,
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
 				boolean exportAsExcel, boolean showSummaryHeaders) {
-			this(packageMarketFlightPreviousRecordExpression, columnTitleStyle,
+			this(dataSourceFileName, packageMarketFlightPreviousRecordExpression, columnTitleStyle,
 					columnStyle, exportAsExcel, showSummaryHeaders, null);
 		}
 
 		public RotarySubreportExpression(
+				String dataSourceFileName,
 				PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression,
 				StyleBuilder columnTitleStyle, StyleBuilder columnStyle,
 				boolean exportAsExcel, boolean showSummaryHeaders,
 				SummaryLevelEnum summaryLevel) {
+			setDataSourceFileName(dataSourceFileName);
 			setPackageMarketFlightPreviousRecordExpression(packageMarketFlightPreviousRecordExpression);
 			setColumnTitleStyle(columnTitleStyle);
 			setColumnStyle(columnStyle);
@@ -3932,6 +4000,9 @@ public class Reporter {
 			} else if(getSummaryLevel() == SummaryLevelEnum.Package) {
 				// set filter by package
 				report.setFilterExpression(new FilterByPackageIdExpression(getPackageMarketFlightPreviousRecordExpression()));
+				if(!isExportAsExcel()) {
+					createPackageCommentsAndDisclamersFooter(getDataSourceFileName(), report);
+				}
 			}
 
 			// add a blank line at the end
@@ -4210,6 +4281,14 @@ public class Reporter {
 		public void setSummaryLevel(SummaryLevelEnum summaryLevel) {
 			this.summaryLevel = summaryLevel;
 		}
+
+		public void setDataSourceFileName(String dataSourceFileName) {
+			this.dataSourceFileName = dataSourceFileName;
+		}
+
+		public String getDataSourceFileName() {
+			return dataSourceFileName;
+		}
 	}
 
 	private class NetworkSubreportExpression extends
@@ -4281,16 +4360,6 @@ public class Reporter {
 				e.printStackTrace();
 			}
 
-			// summary dataset
-			JRXmlDataSource summaryDataSource = null;
-			try {
-				summaryDataSource = new JRXmlDataSource(
-						getDataSourceFileName(), QUERY_RESULT_RECORDS_RECORD_TYPE_ID_BOOLEAN_1);
-			} catch (JRException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
 			report.title(cmp.text(""));
 
 			if(!isExcludeNetworkDetails()) {
@@ -4327,6 +4396,7 @@ public class Reporter {
 			report.addField(field("Package_Flight__r/Type__c", type.stringType()));
 			report.addField(field("Id", type.stringType()));
 			report.addField(field("Parent_Flight_Line__c", type.stringType()));
+			report.addField(field("Package_Flight__r/Package_Market__r/Package__r/Id", type.stringType()));
 
 			// filter
 			if(getSummaryLevel() == null) {
@@ -4337,6 +4407,9 @@ public class Reporter {
 			} else if(getSummaryLevel() == SummaryLevelEnum.Package) {
 				// set filter by market
 				report.setFilterExpression(new FilterByPackageIdExpression(getPackageMarketFlightPreviousRecordExpression()));
+				if(!isExportAsExcel()) {
+					createPackageCommentsAndDisclamersFooter(getDataSourceFileName(), report);
+				}
 			}
 
 			// style
@@ -4650,32 +4723,6 @@ public class Reporter {
                             }
 						}
 					}
-					if (key.equals("X4_Wk_Base_Rate__c")) {
-                        if(!isShowSummaryHeaders() || firstColumnOverriden) {
-                            report.addColumn(col.column(
-                                    this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"),
-                                    this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Base_Rate__c", currencyWithoutFractionDecimalType)
-                                    .setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-                        } else {
-                            if(!firstColumnOverriden) {
-                                addSummaryField(getSummaryLevel(), report);
-                                firstColumnOverriden = true;
-                            }
-                        }
-					}
-					if (key.equals("X4_Wk_Floor__c")) {
-                        if(!isShowSummaryHeaders() || firstColumnOverriden) {
-                            report.addColumn(col.column(
-                                    this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"),
-                                    this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Floor__c", currencyWithoutFractionDecimalType)
-                                    .setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
-                        } else {
-                            if(!firstColumnOverriden) {
-                                addSummaryField(getSummaryLevel(), report);
-                                firstColumnOverriden = true;
-                            }
-                        }
-					}
 					if (key.equals("Discount__c")) {
 						report.addColumn(col.column(getFlightLineColumnLabelHashMap().get("Discount__c"),
 								getSummaryFieldNameRelatedToFlightLineFieldName(getSummaryLevel(), "Discount__c"),
@@ -4855,6 +4902,34 @@ public class Reporter {
 								type.percentageType()).setHorizontalAlignment(HorizontalAlignment.RIGHT)
 								.setWidth(Units.inch(1.5)).setPattern("##0.0"));
 					}
+				}
+			}
+			if (isExportAsExcel()) {
+				if (fieldMap.containsKey("X4_Wk_Base_Rate__c")) {
+	                if(!isShowSummaryHeaders() || firstColumnOverriden) {
+	                    report.addColumn(col.column(
+	                            this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Base_Rate__c"),
+	                            this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Base_Rate__c", currencyWithoutFractionDecimalType)
+	                            .setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+	                } else {
+	                    if(!firstColumnOverriden) {
+	                        addSummaryField(getSummaryLevel(), report);
+	                        firstColumnOverriden = true;
+	                    }
+	                }
+				}
+				if (fieldMap.containsKey("X4_Wk_Floor__c")) {
+	                if(!isShowSummaryHeaders() || firstColumnOverriden) {
+	                    report.addColumn(col.column(
+	                            this.isShowSummaryHeaders() ? "" : getFlightLineColumnLabelHashMap().get("X4_Wk_Floor__c"),
+	                            this.isShowSummaryHeaders() ? "OB_Summ_Num__c" : "X4_Wk_Floor__c", currencyWithoutFractionDecimalType)
+	                            .setHorizontalAlignment(HorizontalAlignment.RIGHT).setWidth(Units.inch(1.32)));
+	                } else {
+	                    if(!firstColumnOverriden) {
+	                        addSummaryField(getSummaryLevel(), report);
+	                        firstColumnOverriden = true;
+	                    }
+	                }
 				}
 			}
 			// ================================= add columns: end
@@ -5421,6 +5496,38 @@ public class Reporter {
 			return "$#,##0.00";
 		}
 	}
+	
+	private class FlightNameReportScriptlet extends AbstractScriptlet {
+
+		@Override
+		public void afterDetailEval(ReportParameters reportParameters) {
+			super.afterDetailEval(reportParameters);
+			String division = reportParameters.getValue("Package_Flight__r/Division__c");
+			String flightName = reportParameters.getValue("Package_Flight__r/Name");
+			String mediaCategory = "";
+			try {
+				mediaCategory = reportParameters.getValue("Package_Flight__r/Media_Category__c");
+				// System.out.println(" FlightNameReportScriptlet mediaCategory " + mediaCategory);
+			} catch (Exception e) {
+				System.out.println(" exc getting flight line Media_Category__c " + e);
+			}
+			System.out.println(" FlightNameReportScriptlet calling valid disclaimers for flight division "	+ division + " media category " + mediaCategory);
+			List<DisclaimerStore.DisclaimerWrapper> validDisclaimersList = disclaimerStore.getValidDisclaimers2(flightName, division, mediaCategory);
+			System.out.println(" FlightNameReportScriptlet calling auto disclaimers ");
+			Set<String> autoDisclaimerSet = disclaimerStore.getAutoDisclaimers(flightName, division, mediaCategory);
+			validAllDisclaimersList.addAll(validDisclaimersList);
+			autoDisclaimersSet.addAll(autoDisclaimerSet);
+		}
+
+		@Override
+		public void afterGroupInit(String groupName,
+				ReportParameters reportParameters) {
+			super.afterGroupInit(groupName, reportParameters);
+			for (String adiscl : autoDisclaimersSet) {
+				System.out.println(" ******* auto disclaimers  " + adiscl);
+			}
+		}
+	}
 
 	@SuppressWarnings("serial")
 	private class FilterByMarketIdExpression extends AbstractSimpleExpression<Boolean> {
@@ -5546,8 +5653,8 @@ public class Reporter {
 	}
 	
 	private class PackageChangedExpression extends AbstractSimpleExpression<Boolean> {
-		private static final long serialVersionUID = 1404325791100168070L;
-		
+		private static final long serialVersionUID = 2447421076494269295L;
+
 		private PackageMarketFlightPreviousRecordExpression packageMarketFlightPreviousRecordExpression;
 		
 		private Boolean isPackageChanged = true;
@@ -5566,7 +5673,8 @@ public class Reporter {
 				String packageId = reportParameters.getValue("Package_Flight__r/Package_Market__r/Package__r/Id");
 
 				if(this.getPackageMarketFlightPreviousRecordExpression().isPackageIdChanged()) {
-					returnValue = isPackageChanged = !packageId.equals(lastPackageId);
+					returnValue = isPackageChanged;
+					isPackageChanged = !packageId.equals(lastPackageId);
 				} else {
 					isPackageChanged = false;
 				}
@@ -5782,17 +5890,32 @@ public class Reporter {
 		verticalList.add(cmp.text(""));
 		return verticalList;
 	}
+
+	private void createPackageCommentsAndDisclamersFooter(String dataSourceFileName, JasperReportBuilder report) {
+		JRXmlDataSource packageFooterDataSource = null;
+		try {
+			packageFooterDataSource = new JRXmlDataSource(dataSourceFileName, QUERY_RESULT_RECORDS_UNIQUE_FLIGHT);
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		SubreportBuilder packageFooterSubreport = cmp
+				.subreport(new PackageFooterSubreportExpression())
+				.setDataSource(packageFooterDataSource)
+				.removeLineWhenBlank();
+		report.summary(packageFooterSubreport);
+	}
 	
-	private VerticalListBuilder createCommentTable() {
+	private VerticalListBuilder createCommentTable(String packageId) {
 		VerticalListBuilder verticalList;
 		verticalList = cmp.verticalList();
-		verticalList.add(cmp.text("Comments:").setStyle(stl.style().bold()).removeLineWhenBlank());
-		for (String packageId : packageIds) {
+		//for (String packageId : packageIds) {
 			Set<String> packageNames = packageNamesMap.get(packageId);
 			Set<String> packageComments = packageCommentsMap.get(packageId);
 			List<String> flightNames = flightNamesMap.get(packageId);
 			List<String> flightComments = flightCommentsMap.get(packageId);
 			if(!(packageComments.isEmpty() || flightComments.isEmpty())) {
+				verticalList.add(cmp.text("Comments:").setStyle(stl.style().bold()).removeLineWhenBlank());
 				Iterator<String> packageNamesIterator = packageNames.iterator();
 				Iterator<String> packageCommentsIterator = packageComments.iterator();
 				Iterator<String> flightNamesIterator = flightNames.iterator();
@@ -5812,7 +5935,7 @@ public class Reporter {
 					}
 				}
 			}
-		}
+		//}
 		return verticalList;
 	}
 
@@ -5896,31 +6019,31 @@ public class Reporter {
 				if (this.getFieldName() == null || this.getFieldName() == "") {
 					return "";
 				} else if (this.getFieldName() == "Type__c") {
-					returnValue = StringUtils.join(flightTypesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(flightTypesMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Division__c") {
-					returnValue = StringUtils.join(divisionsMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(divisionsMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Package_Name__c") {
-					returnValue = StringUtils.join(packageNamesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(packageNamesMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Market_Name__c") {
-					returnValue = StringUtils.join(marketNamesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(marketNamesMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Market_Type__c") {
-					returnValue = StringUtils.join(marketTypesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(marketTypesMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Name") {
-					returnValue = StringUtils.join(flightNamesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(flightNamesMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Campaign_Start_Date__c") {
-					returnValue = StringUtils.join(startDatesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(startDatesMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Campaign_End_Date__c") {
-					returnValue = StringUtils.join(endDatesMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(endDatesMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Duration_And_Type__c") {
-					returnValue = StringUtils.join(durationsMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(durationsMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Target__c") {
-					returnValue = StringUtils.join(targetsMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(targetsMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Target_Population__c") {
-					returnValue = StringUtils.join(targetPopulationsMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(targetPopulationsMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Flight_Comments__c") {
-					returnValue = StringUtils.join(flightCommentsMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(flightCommentsMap.get(getPackageId()), ", ");
 				} else if (this.getFieldName() == "Package_Comments__c") {
-					returnValue = StringUtils.join(packageCommentsMap.get(getPackageId()) , ", ");
+					returnValue = StringUtils.join(packageCommentsMap.get(getPackageId()), ", ");
 				} else {
 					returnValue = reportParameters.getValue(this.getFieldName());
 				}
@@ -6015,11 +6138,11 @@ public class Reporter {
 			Set<String> packageNames = null;
 			List<String> flightNames = null;
 			Set<String> flightTypes = null;
-			List<String> startDates = null;
-			List<String> endDates = null;
-			List<String> durations = null;
-			List<String> targets = null;
-			List<String> targetPopulations = null;
+			Set<String> startDates = null;
+			Set<String> endDates = null;
+			Set<String> durations = null;
+			Set<String> targets = null;
+			Set<String> targetPopulations = null;
 			List<String> flightComments = null;
 			Set<String> packageComments = null;
 
@@ -6092,11 +6215,11 @@ public class Reporter {
 							packageNames = packageNamesMap.get(packageId) != null ? packageNamesMap.get(packageId) : new LinkedHashSet<String>();
 							flightNames = flightNamesMap.get(packageId) != null ? flightNamesMap.get(packageId) : new LinkedList<String>();
 							flightTypes = flightTypesMap.get(packageId) != null ? flightTypesMap.get(packageId) : new LinkedHashSet<String>();
-							startDates = startDatesMap.get(packageId) != null ? startDatesMap.get(packageId) : new LinkedList<String>();
-							endDates = endDatesMap.get(packageId) != null ? endDatesMap.get(packageId) : new LinkedList<String>();
-							durations = durationsMap.get(packageId) != null ? durationsMap.get(packageId) : new LinkedList<String>();
-							targets = targetsMap.get(packageId) != null ? targetsMap.get(packageId) : new LinkedList<String>();
-							targetPopulations = targetPopulationsMap.get(packageId) != null ? targetPopulationsMap.get(packageId) : new LinkedList<String>();
+							startDates = startDatesMap.get(packageId) != null ? startDatesMap.get(packageId) : new LinkedHashSet<String>();
+							endDates = endDatesMap.get(packageId) != null ? endDatesMap.get(packageId) : new LinkedHashSet<String>();
+							durations = durationsMap.get(packageId) != null ? durationsMap.get(packageId) : new LinkedHashSet<String>();
+							targets = targetsMap.get(packageId) != null ? targetsMap.get(packageId) : new LinkedHashSet<String>();
+							targetPopulations = targetPopulationsMap.get(packageId) != null ? targetPopulationsMap.get(packageId) : new LinkedHashSet<String>();
 							flightComments = flightCommentsMap.get(packageId) != null ? flightCommentsMap.get(packageId) : new LinkedList<String>();
 							packageComments = packageCommentsMap.get(packageId) != null ? packageCommentsMap.get(packageId) : new LinkedHashSet<String>();
 							
@@ -7143,15 +7266,6 @@ public class Reporter {
 	public void setRecordCount(Integer recordCount) {
 		this.recordCount = recordCount;
 	}
-
-	/*private TextFieldBuilder<String> getReportTitle(SummaryLevelEnum summaryLevel) {
-		if(summaryLevel == SummaryLevelEnum.Market) {
-			return cmp.text("Market Summary").setStyle(columnTitleStyle);
-		} else if(summaryLevel == SummaryLevelEnum.Package) {
-			return cmp.text("Package Summary").setStyle(columnTitleStyle);
-		}
-		return null;
-	}*/
 
 	public StyleBuilder getFlightHeaderStyle() {
 		return flightHeaderStyle;
