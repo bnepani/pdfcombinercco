@@ -37,8 +37,7 @@ public class DisclaimerStore {
 					// + "  disclaimer text " + wrapper.disclaimerText);
 			//System.out.println(" getValidDisclaimers 222222222222 disclaimer " + wrapper.toString());
 			if(wrapper.isMatchingMarket(flightMarket) && wrapper.isMatchingMediaCategory(flightMediaCategory)) {
-				System.out.println(" disclaimer matched flightMarket " +flightMarket + " flightMediaCategory "
-						+ flightMediaCategory + " disclaimer " + wrapper.disclaimerText);
+				//System.out.println(" disclaimer matched flightMarket " +flightMarket + " flightMediaCategory " + flightMediaCategory + " disclaimer " + wrapper.disclaimerText);
 				//validDisclaimersTextSet.add(wrapper.disclaimerText);
 				validDisclaimersList.add(wrapper);
 			}
@@ -46,7 +45,7 @@ public class DisclaimerStore {
 		}
 		 
         Collections.sort(validDisclaimersList);
-        System.out.println(validDisclaimersList);
+        //System.out.println(validDisclaimersList);
 		
 		return validDisclaimersList ;
 		
@@ -55,16 +54,15 @@ public class DisclaimerStore {
 	public Set<String> getValidDisclaimers (String flightName,String flightMarket, String flightMediaCategory) {
 		Set<String> validDisclaimersTextSet = new HashSet<String>();
 		for(DisclaimerWrapper wrapper : disclaimerWrapperList) {
-			System.out.println(" getValidDisclaimers  sequence " + wrapper.sequence + 
+			/*System.out.println(" getValidDisclaimers  sequence " + wrapper.sequence + 
 					" wrapper.market --> " + wrapper.market + 
 					 " flightMarket : " + flightMarket + 
 					 " wrapper.mediaCategory -->" + wrapper.mediaCategory + 
 					 " flightMediaCategory --> " + flightMediaCategory 
-					 + "  disclaimer text " + wrapper.disclaimerText);
-			//System.out.println(" getValidDisclaimers 222222222222 disclaimer " + wrapper.toString());
+					 + "  disclaimer text " + wrapper.disclaimerText);*/
+			//System.out.println(" getValidDisclaimers disclaimer " + wrapper.toString());
 			if(wrapper.isMatchingMarket(flightMarket) && wrapper.isMatchingMediaCategory(flightMediaCategory)) {
-				System.out.println(" disclaimer matched flightMarket " +flightMarket + " flightMediaCategory "
-						+ flightMediaCategory + " disclaimer " + wrapper.disclaimerText);
+				//System.out.println(" disclaimer matched flightMarket " +flightMarket + " flightMediaCategory " + flightMediaCategory + " disclaimer " + wrapper.disclaimerText);
 				validDisclaimersTextSet.add(wrapper.disclaimerText);
 			}
 			
@@ -134,12 +132,12 @@ public class DisclaimerStore {
 			this.mediaCategory = mediaCategory;
 			this.notes = notes2;
 			this.sequence = sequence;
-			System.out.println(" ************ sq " + sequence);
+			//System.out.println(" ************ sq " + sequence);
 			if(sequence != null && sequence.trim() != "") {
 				sequenceInt = (int)Double.parseDouble(sequence);
 			}
 			
-			System.out.println(" ************ sequenceInt " + sequenceInt );
+			//System.out.println(" ************ sequenceInt " + sequenceInt );
 			this.shippingInstr = shippingInst;
 		}
 		public String getDisclaimerText() {
@@ -202,8 +200,7 @@ public class DisclaimerStore {
 
 		public int compareTo(DisclaimerWrapper compareDisclaimer) {
 			 
-			System.out.println(" ********** compareto this.sequenceInt " + this.sequenceInt + " compareDisclaimer "
-					+ compareDisclaimer.getSequenceInt());
+			//System.out.println(" ********** compareto this.sequenceInt " + this.sequenceInt + " compareDisclaimer " + compareDisclaimer.getSequenceInt());
 			
 			Integer sequenceNo = ((DisclaimerWrapper) compareDisclaimer).getSequenceInt(); 
 	 
@@ -216,8 +213,7 @@ public class DisclaimerStore {
 	   }	
 		public boolean isMatchingMarket(String marketName) {
 			boolean isMarketMatched = false;
-			System.out.println(" flight market to be matched " + marketName +
-					 " rule market " + this.market);
+			//System.out.println(" flight market to be matched " + marketName + " rule market " + this.market);
 			//if rule market not present it means All in disclaimer rule and is valid, no check on market required
 			//also if flight market is null then also all rules are valid;.
 			if(this.market == null || this.market.trim() == "" && (!isShippingInstruction())) {
@@ -236,42 +232,39 @@ public class DisclaimerStore {
 			}else {
 				if(this.market != null && marketName !=null ) {
 					isMarketMatched = this.market.trim().equalsIgnoreCase(marketName.trim());
-					System.out.println(" else market check ");
+					//System.out.println(" else market check ");
 				}
 				
 			}
-			System.out.println(" flight market to be matched " + marketName +
-					 " rule market " + this.market + " isMarketMatched " + isMarketMatched);
+			//System.out.println(" flight market to be matched " + marketName + " rule market " + this.market + " isMarketMatched " + isMarketMatched);
 			return isMarketMatched;
 		}
 			
 		public boolean isMatchingMediaCategory(String mediaCat) {
 			boolean isMediaCategoryMatched = false;
-			System.out.println(" flight MediaCategory to be matched " + mediaCat +
-			" rule mediaCategory " + this.mediaCategory);
+			//System.out.println(" flight MediaCategory to be matched " + mediaCat + " rule mediaCategory " + this.mediaCategory);
 			//if market not present in disclaimer rule or if All present in rule then is valid, no check on market req  
 			if(this.mediaCategory == null || this.mediaCategory.trim() == "" && (!isShippingInstruction()) )  {
-						isMediaCategoryMatched = true;
+				isMediaCategoryMatched = true;
 			//this means multiple markets
 			} else if(this.mediaCategory.contains(";")) {
 				this.mediaCategory.split(";");
 				Set<String> mediaCategorySet = new HashSet<String>(Arrays.asList(mediaCategory.split(";")));
 				if(mediaCategorySet.contains(mediaCat)) {
-					System.out.println(" flight MediaCategory matched in mediaCategorySet ");
+					//System.out.println(" flight MediaCategory matched in mediaCategorySet ");
 					isMediaCategoryMatched = true;
 				}else {
-				System.out.println(" flight MediaCategory NOT matched in mediaCategorySet ");
+					//System.out.println(" flight MediaCategory NOT matched in mediaCategorySet ");
 					isMediaCategoryMatched = false;	
 				}
 			}else {
 				if(this.mediaCategory != null && mediaCat !=null ) {
 					isMediaCategoryMatched = this.mediaCategory.trim().equalsIgnoreCase(mediaCat.trim());
-					System.out.println(" else media cat check");
+					//System.out.println(" else media cat check");
 				}
 				
 			}
-			System.out.println(" flight MediaCategory to be matched " + mediaCat +
-					 " rule mediaCategory " + this.mediaCategory + " isMediaCategoryMatched " + isMediaCategoryMatched);
+			//System.out.println(" flight MediaCategory to be matched " + mediaCat + " rule mediaCategory " + this.mediaCategory + " isMediaCategoryMatched " + isMediaCategoryMatched);
 			
 			return isMediaCategoryMatched;
 		}

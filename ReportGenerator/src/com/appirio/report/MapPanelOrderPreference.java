@@ -10,14 +10,14 @@ public class MapPanelOrderPreference {
 	private String panel;
 
 	public MapPanelOrderPreference() {
-		System.out.println("MapPanelOrderPreference()");
+		//System.out.println("MapPanelOrderPreference()");
 	}
 
 	public String getSortSequence() {
 
 		Integer returnValue = 0;
 
-		System.out.println("   getSortSequence() sortSequence: " + sortSequence);
+		//System.out.println("   getSortSequence() sortSequence: " + sortSequence);
 
 		try {
 			if(this.sortSequence != null) {
@@ -36,7 +36,7 @@ public class MapPanelOrderPreference {
 	}
 
 	public void setSortSequence(String sortSequence) {
-		System.out.println("   setSortSequence() sortSequence: " + sortSequence);
+		//System.out.println("   setSortSequence() sortSequence: " + sortSequence);
 		this.sortSequence = sortSequence;
 	}
 

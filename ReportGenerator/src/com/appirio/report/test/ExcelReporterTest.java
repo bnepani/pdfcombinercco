@@ -15,12 +15,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import net.sf.jxls.exception.ParsePropertyException;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import com.appirio.PDFCombinerFile;
 import com.appirio.report.ExcelReporter;
-import com.appirio.report.Reporter;
+import com.appirio.report.PdfReporter;
 
 public class ExcelReporterTest {
 	ExcelReporter excelReporter;
@@ -32,7 +33,7 @@ public class ExcelReporterTest {
 		String disclaimerDataSourceFileName = "Data/real-test-set-2013-10-23-001-disclaimers.xml";
 
 		// init
-		Reporter reporter = new Reporter();
+		PdfReporter reporter = new PdfReporter();
 		reporter.new DisclaimersDataExpression(disclaimerDataSourceFileName);
 
 		// simulate getting disclaimer for flight
@@ -48,7 +49,7 @@ public class ExcelReporterTest {
 		runSampleDisclaimer(reporter, flightName2, division2, mediaCategory2);
 	}
 
-	private void runSampleDisclaimer(Reporter reporter, String flightName, String division, String mediaCategory) {
+	private void runSampleDisclaimer(PdfReporter reporter, String flightName, String division, String mediaCategory) {
 
 		Set<String> disclaimerSet = reporter.getDisclaimerStore().getValidDisclaimers(flightName, division, mediaCategory);
 
@@ -119,7 +120,6 @@ public class ExcelReporterTest {
 		//String dataSourceFileName = "Data/real-data-2013-10-10.xml";
 		String disclaimerDataSourceFileName = "Data/real-test-set-2013-10-23-001-disclaimers.xml";
 		String mapPanelOrderPrefDataSourceFileName = "Data/CPQ_Map_Panel_Order_Pref__c_with_data.xml";
-		String shippingInstructionsDataSourceFileName = null;
 		Boolean excludeNetworkDetails = false;
 		Boolean showTotalProgramSummary = true;
 		Boolean showIndividualMarketSummary = true;
@@ -130,7 +130,6 @@ public class ExcelReporterTest {
 				dataSourceFileName,
 				disclaimerDataSourceFileName,
 				mapPanelOrderPrefDataSourceFileName,
-				shippingInstructionsDataSourceFileName,
 				excludeNetworkDetails,
 				showTotalProgramSummary,
 				showIndividualMarketSummary,
@@ -139,10 +138,10 @@ public class ExcelReporterTest {
 
 		// ======================= verify audience report columns
 		List<String> audienceReportColumns = excelReporter.getAudienceReportColumnNames();
-		//assertEquals(null, audienceReportColumns);
+		Assert.assertTrue(audienceReportColumns.isEmpty());
 
 		// generate report
-		excelReporter.generate();
+		excelReporter.generate(excelReporter.getGeneratedReport("xlsx"));
 	}
 	
 	private PDFCombinerFile getTestCombinerFile() {

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -29,7 +28,7 @@ import com.appirio.PDFCombinerFile;
  * @author jesus
  *
  */
-public class ExcelReporter {
+public class ExcelReporter extends Reporter {
 
 	/**
 	 * Set path to template. Create these environment variables:
@@ -37,7 +36,7 @@ public class ExcelReporter {
 	 * 		XLS_TEMPLATE_FILE: template filename
 	 */
 	private static final String XlsTemplateFileName = System.getenv("XLS_TEMPLATE_DIR") + File.separator + System.getenv("XLS_TEMPLATE_FILE");
-
+	
 	/**
 	 * XML proposal data source
 	 */
@@ -52,6 +51,11 @@ public class ExcelReporter {
 	 * XML map panel order pref file name
 	 */
 	private String mapPanelOrderPrefDataSourceFileName;
+	
+	/**
+	 * Flag to show/hide network details (true = show, false = hide)
+	 */
+	private Boolean excludeNetworkDetails;
 
 	/**
 	 * Flag to show/hide summary (true = show, false = hide)
@@ -99,6 +103,11 @@ public class ExcelReporter {
 	 * Allowed fields per report type
 	 */
 	private Map<String, String> networkDetailReportColumnMap;
+	
+	/**
+	 * Allowed fields per report type
+	 */
+	private Map<String, String> flightSummaryReportColumnMap;
 
 	/**
 	 * Allowed fields per report type
@@ -163,6 +172,16 @@ public class ExcelReporter {
 	/**
 	 * Calculated report column names and labels (from the allowed fields, this list indicates which fields/labels users should see)
 	 */
+	private List<String> flightSummaryReportColumnNames;
+
+	/**
+	 * Calculated report column names and labels (from the allowed fields, this list indicates which fields/labels users should see)
+	 */
+	private List<String> flightSummaryColumnLabels;
+
+	/**
+	 * Calculated report column names and labels (from the allowed fields, this list indicates which fields/labels users should see)
+	 */
 	private List<String> marketSummaryReportColumnNames;
 
 	/**
@@ -187,12 +206,12 @@ public class ExcelReporter {
 		Names, Labels
 	}
 
-	private Reporter reporter;
+	private PdfReporter reporter;
 
 	/**
 	 * Generate output
 	 */
-	public void generate() throws ParsePropertyException, InvalidFormatException, IOException, SAXException {
+	public void generate(String proposalOutputFileName) throws ParsePropertyException, InvalidFormatException, IOException, SAXException {
 
 		// load
 		Packages packages = XmlLoader.parseXmlPackages(getDataSourceFileName());
@@ -205,14 +224,14 @@ public class ExcelReporter {
 		packages.sortFlightLines();
 
 		// debug info
-//		dumpMapPanelOrderPreferences(mapPanelOrderPreferences);
-//		dumpPackages(packages);
+		//dumpMapPanelOrderPreferences(mapPanelOrderPreferences);
+		//dumpPackages(packages);
 
 		// TODO load disclaimers
 		//XmlLoader.parseXmlDisclaimers(disclaimerDataSourceFileName, packages, TestMode);
 
 		// render
-		render(XlsTemplateFileName, packages, "proposal-output-1.xlsx");
+		render(XlsTemplateFileName, packages, proposalOutputFileName);
 	}
 
 	/**
@@ -220,26 +239,29 @@ public class ExcelReporter {
 	 * @param dataSourceFileName						XML proposal data source
 	 * @param disclaimerDataSourceFileName
 	 * @param mapPanelOrderPrefDataSourceFileName
-	 * @param shippingInstructionsDataSourceFileName
 	 * @param excludeNetworkDetails
 	 * @param showTotalProgramSummary					Flag to show/hide summary (true = show, false = hide)
 	 * @param showIndividualMarketSummary				Flag to show/hide summary (true = show, false = hide)
 	 * @param showIndividualFlightSummary				Flag to show/hide summary (true = show, false = hide)
 	 * @param pdfCombinerFile							Parameters to specify field names and labels
+	 * @throws SAXException 
+	 * @throws IOException 
+	 * @throws InvalidFormatException 
+	 * @throws ParsePropertyException 
 	 */
 	public ExcelReporter(String dataSourceFileName,
 			String disclaimerDataSourceFileName,
 			String mapPanelOrderPrefDataSourceFileName,
-			String shippingInstructionsDataSourceFileName,
 			Boolean excludeNetworkDetails,
 			Boolean showTotalProgramSummary,
 			Boolean showIndividualMarketSummary,
 			Boolean showIndividualFlightSummary,
-			PDFCombinerFile pdfCombinerFile) {
+			PDFCombinerFile pdfCombinerFile) throws ParsePropertyException, InvalidFormatException, IOException, SAXException {
 
 		setDataSourceFileName(dataSourceFileName);
 		setDisclaimerDataSourceFileName(disclaimerDataSourceFileName);
 		setMapPanelOrderPrefDataSourceFileName(mapPanelOrderPrefDataSourceFileName);
+		setExcludeNetworkDetails(excludeNetworkDetails);
 		setShowTotalProgramSummary(showTotalProgramSummary);
 		setShowIndividualMarketSummary(showIndividualMarketSummary);
 		setShowIndividualFlightSummary(showIndividualFlightSummary);
@@ -249,7 +271,8 @@ public class ExcelReporter {
 		setFlightLineColumnLabelHashMap(getKeyValueHashMap(
 				getPdfCombinerFile().getFieldNamesPipeDelimited().get(0),
 				getPdfCombinerFile().getFieldLabelsPipeDelimited().get(0)));
-
+		
+		generate(getGeneratedReport("xlsx"));
 	}
 
 	/**
@@ -304,6 +327,38 @@ public class ExcelReporter {
 	/**
 	 * @return Calculated report column labels (from the allowed fields, this list indicates which fields/labels users should see)
 	 */
+	public List<String> getFlightSummaryColumnLabels() {
+
+		if(flightSummaryColumnLabels == null) {
+			Map<String, String> reportColumnMap = getFlightSummaryReportColumnMap();
+
+			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
+
+			flightSummaryColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap, true);
+		}
+
+		return flightSummaryColumnLabels;
+	}
+
+	/**
+	 * @return Calculated report column names (from the allowed fields, this list indicates which fields/labels users should see)
+	 */
+	public List<String> getFlightSummaryReportColumnNames() {
+
+		if(flightSummaryReportColumnNames == null) {
+			Map<String, String> reportColumnMap = getFlightSummaryReportColumnMap();
+	
+			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
+
+			flightSummaryReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap, true);
+		}
+
+		return flightSummaryReportColumnNames;
+	}
+
+	/**
+	 * @return Calculated report column labels (from the allowed fields, this list indicates which fields/labels users should see)
+	 */
 	public List<String> getMarketSummaryColumnLabels() {
 
 		if(marketSummaryColumnLabels == null) {
@@ -311,7 +366,7 @@ public class ExcelReporter {
 
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			marketSummaryColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap);
+			marketSummaryColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap, true);
 		}
 
 		return marketSummaryColumnLabels;
@@ -327,7 +382,7 @@ public class ExcelReporter {
 	
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			marketSummaryReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap);
+			marketSummaryReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap, true);
 		}
 
 		return marketSummaryReportColumnNames;
@@ -343,7 +398,7 @@ public class ExcelReporter {
 
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			packageSummaryColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap);
+			packageSummaryColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap, true);
 		}
 
 		return packageSummaryColumnLabels;
@@ -359,7 +414,7 @@ public class ExcelReporter {
 	
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			packageSummaryReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap);
+			packageSummaryReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap, true);
 		}
 
 		return packageSummaryReportColumnNames;
@@ -374,8 +429,8 @@ public class ExcelReporter {
 			Map<String, String> reportColumnMap = getAudienceReportColumnMap();
 	
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
-
-			audienceReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap);
+			
+			audienceReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap, false);
 		}
 
 		return audienceReportColumnNames;
@@ -391,7 +446,7 @@ public class ExcelReporter {
 	
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			audienceReportColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap);
+			audienceReportColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap, false);
 		}
 
 		return audienceReportColumnLabels;
@@ -407,7 +462,7 @@ public class ExcelReporter {
 	
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			locationReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap);
+			locationReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap, false);
 		}
 
 		return locationReportColumnNames;
@@ -423,7 +478,7 @@ public class ExcelReporter {
 	
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			locationReportColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap);
+			locationReportColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap, false);
 		}
 
 		return locationReportColumnLabels;
@@ -439,7 +494,7 @@ public class ExcelReporter {
 
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			rotaryReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap);
+			rotaryReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap, false);
 		}
 
 		return rotaryReportColumnNames;
@@ -455,7 +510,7 @@ public class ExcelReporter {
 	
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			rotaryReportColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap);
+			rotaryReportColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap, false);
 		}
 
 		return rotaryReportColumnLabels;
@@ -471,7 +526,7 @@ public class ExcelReporter {
 
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			networkReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap);
+			networkReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap, false);
 		}
 
 		return networkReportColumnNames;
@@ -487,7 +542,7 @@ public class ExcelReporter {
 	
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			networkReportColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap);
+			networkReportColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap, false);
 		}
 
 		return networkReportColumnLabels;
@@ -503,7 +558,7 @@ public class ExcelReporter {
 
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			networkDetailReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap);
+			networkDetailReportColumnNames = getReportColumnItems(ReportColumn.Names, reportColumnMap, userColumnMap, true);
 		}
 
 		return networkDetailReportColumnNames;
@@ -519,7 +574,7 @@ public class ExcelReporter {
 	
 			Map<String, String> userColumnMap = getFlightLineColumnLabelHashMap();
 
-			networkDetailReportColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap);
+			networkDetailReportColumnLabels = getReportColumnItems(ReportColumn.Labels, reportColumnMap, userColumnMap, true);
 		}
 
 		return networkDetailReportColumnLabels;
@@ -528,7 +583,7 @@ public class ExcelReporter {
 	/**
 	 * @return Calculate which report column names or labels (from the allowed fields, this list indicates which fields/labels users should see)
 	 */
-	public List<String> getReportColumnItems(ReportColumn reportColumn, Map<String, String> reportColumnMap, Map<String, String> userColumnMap) {
+	public List<String> getReportColumnItems(ReportColumn reportColumn, Map<String, String> reportColumnMap, Map<String, String> userColumnMap, boolean isSummary) {
 
 		// object that will be returned
 		Map<String, String> reportColumnItemMap = new LinkedHashMap<String, String>();
@@ -536,26 +591,38 @@ public class ExcelReporter {
 		// for each user column...
 		for(String userColumn : userColumnMap.keySet()) {
 			// if its selected in report columns...
-			if(reportColumnMap.containsKey(userColumn)) {
+			if(!userColumn.equals("X4_Wk_Base_Rate__c") && !userColumn.equals("X4_Wk_Floor__c") && reportColumnMap.containsKey(userColumn)) {
 				// set local field name and label set by the user
 				String buyTypeColumn = reportColumnMap.get(userColumn);
 				String value = userColumnMap.get(userColumn); 
 				reportColumnItemMap.put(buyTypeColumn, value);
 			}
 		}
-
+		// add internal use field in last is selected
+		if(!isSummary) {
+			if(userColumnMap.containsKey("X4_Wk_Base_Rate__c")) {
+				String buyTypeColumn = reportColumnMap.get("X4_Wk_Base_Rate__c");
+				String value = userColumnMap.get("X4_Wk_Base_Rate__c"); 
+				reportColumnItemMap.put(buyTypeColumn, value);
+			}
+			if(userColumnMap.containsKey("X4_Wk_Floor__c")) {
+				String buyTypeColumn = reportColumnMap.get("X4_Wk_Floor__c");
+				String value = userColumnMap.get("X4_Wk_Floor__c"); 
+				reportColumnItemMap.put(buyTypeColumn, value);
+			}
+		}
 		// if names should be returned
-		if(reportColumn == ReportColumn.Names)
+		if(reportColumn == ReportColumn.Names) {
 			// return keys
 			return new ArrayList<String>(reportColumnItemMap.keySet());
-		else {
+		} else {
 			// return values (labels)
 			return new ArrayList<String>(reportColumnItemMap.values());
 		}
 	}
 
 	public List<String> retrieveDisclaimers() {
-		System.out.println("getDisclaimers(String param1)");
+		//System.out.println("getDisclaimers(String param1)");
 
 		List<String>disclaimers = new ArrayList<String>();
 
@@ -583,10 +650,10 @@ public class ExcelReporter {
 	/**
 	 * Build Reporter object and runs its associated DisclaimersDataExpression build passing the disclaimers datasource.
 	 */
-	private Reporter getReporter() throws ParserConfigurationException, SAXException, IOException, ParseException {
+	private PdfReporter getReporter() throws ParserConfigurationException, SAXException, IOException, ParseException {
 
 		if(reporter == null) {
-			reporter = new Reporter();
+			reporter = new PdfReporter();
 			reporter.new DisclaimersDataExpression(this.getDisclaimerDataSourceFileName());
 		}
 
@@ -631,7 +698,7 @@ public class ExcelReporter {
 	 * Used for debugging map panel order pref values
 	 * @param mapPanelOrderPreferences
 	 */
-	private void dumpMapPanelOrderPreferences(MapPanelOrderPreferences mapPanelOrderPreferences) {
+	/*private void dumpMapPanelOrderPreferences(MapPanelOrderPreferences mapPanelOrderPreferences) {
 		System.out.println("***************************");
 		System.out.println("   dumpMapPanelOrderPreferences()");
 		System.out.println("   size: " + mapPanelOrderPreferences.getMapPanelOrderPreferences().size());
@@ -640,42 +707,23 @@ public class ExcelReporter {
 			System.out.println("      flight: " + mapPanelOrderPreference.getFlight());
 			System.out.println("      panel: " + mapPanelOrderPreference.getPanel());
 		}
-	}
+	}*/
 
 	/**
 	 * Used for debugging packages values
 	 * @param mapPanelOrderPreferences
 	 */
-	private void dumpPackages(Packages packages) {
+	/*private void dumpPackages(Packages packages) {
 		System.out.println("***************************");
 		System.out.println("   dumpPackages()");
 		System.out.println("   size: " + packages.getFlightLines().size());
 
 		for(FlightLine flightLine : packages.getFlightLines()) {
 			com.appirio.report.Package thePackage = flightLine.getFlight().getMarket().getPackage();
-
+			System.out.println("   package: " + thePackage.getPackageName());
 			System.out.println("   getSortKey: " + flightLine.getSortKey());
 		}
-	}
-
-	/**
-	 * Build a map joining a couple of delimited strings. It's used for matching field names with its labels.
-	 * @param fieldNames 	String of field names delimited by a pipe "|" (quotes for clarity)
-	 * @param fieldLabels	String of field labels delimited by a pipe "|" (quotes for clarity)
-	 * @return Matched field names map
-	 */
-	private HashMap<String, String> getKeyValueHashMap(String fieldNames, String fieldLabels) {
-
-		List<String> fieldNamesList = Arrays.asList(fieldNames.split("\\|"));
-		List<String> fieldLabelsList = Arrays.asList(fieldLabels.split("\\|"));
-		HashMap<String, String> keyValueHashMap = new LinkedHashMap<String, String>();
-
-		for (int i = 0; i < fieldNamesList.size(); i++) {
-			keyValueHashMap.put(fieldNamesList.get(i), fieldLabelsList.get(i));
-		}
-
-		return keyValueHashMap;
-	}
+	}*/
 
 	/**
 	 * Render output
@@ -728,7 +776,7 @@ public class ExcelReporter {
 			audienceReportColumnMap.put("Package_Flight__r/Target_Population__c", "packageFlight_TargetPopulation");
 			audienceReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
 			audienceReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
-			audienceReportColumnMap.put("PlanTRP__c", "planTRP");
+			audienceReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
 			audienceReportColumnMap.put("Production__c", "production");
 			audienceReportColumnMap.put("Target_In_Market_Imps_000__c", "targetInMarketImps000");
 			audienceReportColumnMap.put("Target_Total_Imps_000__c", "targetTotalImps000");
@@ -801,7 +849,7 @@ public class ExcelReporter {
 			locationReportColumnMap.put("Panel_Id_Label__c", "panelIdLabel");
 			locationReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
 			locationReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
-			locationReportColumnMap.put("PlanTRP__c", "planTRP");
+			locationReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
 			locationReportColumnMap.put("Production__c", "production");
 			locationReportColumnMap.put("Ride_Order__c", "rideOrder");
 			locationReportColumnMap.put("State__c", "state");
@@ -855,7 +903,7 @@ public class ExcelReporter {
 			rotaryReportColumnMap.put("Package_Flight__r/Target__c", "packageFlight_Target");
 			rotaryReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
 			rotaryReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
-			rotaryReportColumnMap.put("PlanTRP__c", "planTRP");
+			rotaryReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
 			rotaryReportColumnMap.put("Total_Imps__c", "totalImps");
 			rotaryReportColumnMap.put("Total_Price_0d__c", "totalPrice0d");
 			rotaryReportColumnMap.put("TotalInMarketCPM_0d__c", "totalInMarketCPM0d");
@@ -876,22 +924,14 @@ public class ExcelReporter {
 			networkReportColumnMap = new LinkedHashMap<String, String>();
 
 			networkReportColumnMap.put("Average_Daily_Spots__c", "averageDailySpots");
-			networkReportColumnMap.put("Average_Daily_Spots__c", "averageDailySpots");
-			networkReportColumnMap.put("CPP_0d__c", "cPP0d");
 			networkReportColumnMap.put("CPP_0d__c", "cPP0d");
 			networkReportColumnMap.put("Discount__c", "discount");
-			networkReportColumnMap.put("Discount__c", "discount");
-			networkReportColumnMap.put("In_Mkt_Imps__c", "inMktImps");
 			networkReportColumnMap.put("In_Mkt_Imps__c", "inMktImps");
 			networkReportColumnMap.put("In_Mkt_TRP__c", "inMktTRP");
-			networkReportColumnMap.put("In_Mkt_TRP__c", "inMktTRP");
-			networkReportColumnMap.put("Network_Description__c", "networkDescription");
+			networkReportColumnMap.put("In_Mkt_Perc_Comp__c", "inMktPercComp");
 			networkReportColumnMap.put("Network_Description__c", "networkDescription");
 			networkReportColumnMap.put("Network_Name__c", "networkName");
-			networkReportColumnMap.put("Network_Name__c", "networkName");
 			networkReportColumnMap.put("Network_Notes__c", "networkNotes");
-			networkReportColumnMap.put("Network_Notes__c", "networkNotes");
-			networkReportColumnMap.put("Number_of_Panels__c", "numberofPanels");
 			networkReportColumnMap.put("Number_of_Panels__c", "numberofPanels");
 			networkReportColumnMap.put("Package_Flight__r/Campaign_End_Date__c", "packageFlight_CampaignEndDate");
 			networkReportColumnMap.put("Package_Flight__r/Campaign_Start_Date__c", "packageFlight_CampaignStartDate");
@@ -899,28 +939,19 @@ public class ExcelReporter {
 			networkReportColumnMap.put("Package_Flight__r/Duration_And_Type__c", "packageFlight_DurationAndType");
 			networkReportColumnMap.put("Package_Flight__r/Flight_Comments__c", "packageFlight_FlightComments");
 			networkReportColumnMap.put("Package_Flight__r/Media_Category__c", "packageFlight_MediaCategory");
-			networkReportColumnMap.put("Package_Flight__r/Media_Category__c", "packageFlight_MediaCategory");
 			networkReportColumnMap.put("Package_Flight__r/Name", "packageFlight_Name");
 			networkReportColumnMap.put("Package_Flight__r/Package_Comments__c", "packageFlight_PackageComments");
 			networkReportColumnMap.put("Package_Flight__r/Package_Name__c", "packageFlight_PackageName");
 			networkReportColumnMap.put("Package_Flight__r/Target__c", "packageFlight_Target");
 			networkReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
-			networkReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
 			networkReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
-			networkReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
-			networkReportColumnMap.put("PlanTRP__c", "planTRP");
-			networkReportColumnMap.put("PlanTRP__c", "planTRP");
-			networkReportColumnMap.put("Total_Imps__c", "totalImps");
+			networkReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
 			networkReportColumnMap.put("Total_Imps__c", "totalImps");
 			networkReportColumnMap.put("Total_Price_0d__c", "totalPrice0d");
-			networkReportColumnMap.put("Total_Price_0d__c", "totalPrice0d");
 			networkReportColumnMap.put("TotalInMarketCPM_0d__c", "totalInMarketCPM0d");
-			networkReportColumnMap.put("TotalInMarketCPM_0d__c", "totalInMarketCPM0d");
-			networkReportColumnMap.put("Weekly_Total_18_Imps__c", "weeklyTotal18Imps");
 			networkReportColumnMap.put("Weekly_Total_18_Imps__c", "weeklyTotal18Imps");
 			networkReportColumnMap.put("X4_Wk_Base_Rate__c", "x4WkBaseRate");
 			networkReportColumnMap.put("X4_Wk_Floor__c", "x4WkFloor");
-			networkReportColumnMap.put("X4_Wk_Proposed_Price__c", "x4WkProposedPrice");
 			networkReportColumnMap.put("X4_Wk_Proposed_Price__c", "x4WkProposedPrice");
 		}
 
@@ -946,12 +977,49 @@ public class ExcelReporter {
 			networkDetailReportColumnMap.put("In_Mkt_Imps__c", "inMktImps");
 			networkDetailReportColumnMap.put("Total_Imps__c", "totalImps");
 			networkDetailReportColumnMap.put("In_Mkt_TRP__c", "inMktTRP");
-			networkDetailReportColumnMap.put("PlanTRP__c", "planTRP");
+			networkDetailReportColumnMap.put("In_Mkt_Perc_Comp__c", "inMktPercComp");
+			networkDetailReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
 			networkDetailReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
 			networkDetailReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
 		}
 
 		return networkDetailReportColumnMap;
+	}
+
+	/**
+	 * @return Map of xml field name and local bean property for this buy type
+	 */
+	private Map<String, String> getFlightSummaryReportColumnMap() {
+
+		if(flightSummaryReportColumnMap == null) {
+
+			flightSummaryReportColumnMap = new LinkedHashMap<String, String>();
+
+			flightSummaryReportColumnMap.put("Weekly_Total_18_Imps__c", "weeklyTotal18Imps");
+			flightSummaryReportColumnMap.put("Weekly_Total_18_Imps_000__c", "weeklyTotal18Imps000");
+			flightSummaryReportColumnMap.put("In_Mkt_Imps__c", "inMktImps");
+			flightSummaryReportColumnMap.put("Target_In_Market_Imps_000__c", "targetInMarketImps000");
+			flightSummaryReportColumnMap.put("Total_Imps__c", "totalImps");
+			flightSummaryReportColumnMap.put("Target_Total_Imps_000__c", "targetTotalImps000");
+			flightSummaryReportColumnMap.put("WeeklyMarketImps__c", "weeklyMarketImps");
+			flightSummaryReportColumnMap.put("Weekly_Total_Target_Imps_000__c", "weeklyTotalTargetImps000");
+			flightSummaryReportColumnMap.put("WeeklyInMarketImps__c", "weeklyInMarketImps");
+			flightSummaryReportColumnMap.put("Weekly_In_Market_Target_Imps_000__c", "weeklyInMarketTargetImps000");
+			flightSummaryReportColumnMap.put("In_Mkt_TRP__c", "inMktTRP");
+			flightSummaryReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
+			flightSummaryReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
+			flightSummaryReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
+			flightSummaryReportColumnMap.put("Net_Amount_Value__c", "netAmountValue");
+			flightSummaryReportColumnMap.put("Total_Price_0d__c", "totalPrice0d");
+			flightSummaryReportColumnMap.put("TotalInMarketCPM_0d__c", "totalInMarketCPM0d");
+			flightSummaryReportColumnMap.put("CPP_0d__c", "cPP0d");
+			flightSummaryReportColumnMap.put("Production__c", "production");
+			flightSummaryReportColumnMap.put("Additional_Cost__c", "additionalCost");
+			flightSummaryReportColumnMap.put("Tax_Amt__c", "taxAmt");
+			flightSummaryReportColumnMap.put("Discount__c", "discount");
+		}
+
+		return flightSummaryReportColumnMap;
 	}
 
 	/**
@@ -967,7 +1035,7 @@ public class ExcelReporter {
 			marketSummaryReportColumnMap.put("In_Mkt_Imps__c", "packageFlight_packageMarket_inMktImps");
 			marketSummaryReportColumnMap.put("Total_Imps__c", "packageFlight_packageMarket_targetTotalImps");
 			marketSummaryReportColumnMap.put("In_Mkt_TRP__c", "packageFlight_packageMarket_inMktTRP");
-			marketSummaryReportColumnMap.put("PlanTRP__c", "packageFlight_packageMarket_planTRP");
+			marketSummaryReportColumnMap.put("Plan_Imps_TRP_Perc__c", "packageFlight_packageMarket_planTRP");
 			marketSummaryReportColumnMap.put("Total_Price_0d__c", "packageFlight_packageMarket_totalPrice");
 			marketSummaryReportColumnMap.put("TotalInMarketCPM_0d__c", "packageFlight_packageMarket_cPM");
 			marketSummaryReportColumnMap.put("CPP_0d__c", "packageFlight_packageMarket_cPP");
@@ -989,7 +1057,7 @@ public class ExcelReporter {
 			packageSummaryReportColumnMap.put("In_Mkt_Imps__c", "packageFlight_packageMarket_package_inMktImps");
 			packageSummaryReportColumnMap.put("Total_Imps__c", "packageFlight_packageMarket_package_targetTotalImps");
 			packageSummaryReportColumnMap.put("In_Mkt_TRP__c", "packageFlight_packageMarket_package_inMktTRP");
-			packageSummaryReportColumnMap.put("PlanTRP__c", "packageFlight_packageMarket_package_planTRP");
+			packageSummaryReportColumnMap.put("Plan_Imps_TRP_Perc__c", "packageFlight_packageMarket_package_planTRP");
 			packageSummaryReportColumnMap.put("Total_Price_0d__c", "packageFlight_packageMarket_package_totalPrice");
 			packageSummaryReportColumnMap.put("TotalInMarketCPM_0d__c", "packageFlight_packageMarket_package_cPM");
 			packageSummaryReportColumnMap.put("CPP_0d__c", "packageFlight_packageMarket_package_cPP");
@@ -1055,12 +1123,32 @@ public class ExcelReporter {
 		this.mapPanelOrderPrefDataSourceFileName = mapPanelOrderPrefDataSourceFileName;
 	}
 
+	/**
+	 * Property getter/setter. Please see property doc. for more info.
+	 */
 	public String getDisclaimerDataSourceFileName() {
 		return disclaimerDataSourceFileName;
 	}
 
+	/**
+	 * Property getter/setter. Please see property doc. for more info.
+	 */
 	public void setDisclaimerDataSourceFileName(
 			String disclaimerDataSourceFileName) {
 		this.disclaimerDataSourceFileName = disclaimerDataSourceFileName;
+	}
+
+	/**
+	 * Property getter/setter. Please see property doc. for more info.
+	 */
+	public Boolean isExcludeNetworkDetails() {
+		return excludeNetworkDetails;
+	}
+
+	/**
+	 * Property getter/setter. Please see property doc. for more info.
+	 */
+	public void setExcludeNetworkDetails(Boolean excludeNetworkDetails) {
+		this.excludeNetworkDetails = excludeNetworkDetails;
 	}
 }

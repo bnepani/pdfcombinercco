@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -92,7 +91,6 @@ public class PDFCombiner {
 	public String getGeneratedPDFDir() throws Exception {
 		if(generatedPDFDir == null) {
 			generatedPDFDir = System.getenv("GENERATED_PDFS_DIR") + File.separator + this.getUniqueId();
-
 			if(!new File(generatedPDFDir).mkdirs())
 			{
 				throw new Exception("Could not create working directory " + generatedPDFDir);
@@ -200,7 +198,7 @@ public class PDFCombiner {
             deleteTempFiles(temporaryFilesToBeDeleted);
 
             combinedFileName = this.getCombinedFileName();
-            System.out.println("   combinedFileName: " + combinedFileName);
+            //System.out.println("   combinedFileName: " + combinedFileName);
         }
 
         // return combined pdf filename
@@ -300,14 +298,14 @@ public class PDFCombiner {
 
        handler = process(file, extractor, false);
 
-       System.out.println("   result... ");
-       System.out.println(result);
+       //System.out.println("   result... ");
+       //System.out.println(result);
 
 	   String directory = new File(this.getGeneratedPDFDir()).getAbsolutePath() + File.separator;
 	   result = result.replace("embedded:", directory);
 
 	   if(handler.filenames.size() > 0) {
-		   System.out.println("   result (after): " + result);
+		   //System.out.println("   result (after): " + result);
 	   }
 
 
@@ -379,7 +377,7 @@ public class PDFCombiner {
                     throw new IOException("unable to create directory \"" + parent + "\"");
                 }
             }
-            System.out.println("Extracting '"+name+"' ("+contentType+") to " + outputFile);
+            //System.out.println("Extracting '"+name+"' ("+contentType+") to " + outputFile);
 
             // copy tika files to outputFile location
             FileOutputStream os = new FileOutputStream(outputFile);
@@ -468,7 +466,7 @@ public class PDFCombiner {
             Rectangle rect = writer.getPageSize();
 
             int contentPage = writer.getPageNumber() - this.startPageNumber;
-            System.out.println("AE Name->"+ aeName);
+            //System.out.println("AE Name->"+ aeName);
             if(contentPage > 0) {
 	            ColumnText.showTextAligned(writer.getDirectContent(),
 	                    Element.ALIGN_CENTER, 
@@ -496,7 +494,7 @@ public class PDFCombiner {
 
             int contentPage = writer.getPageNumber() - this.startPageNumber;
             if(contentPage > 0) {
-            	System.out.println("   getDateTimeStamp(): " + getDateTimeStamp() + " contentPage: " + contentPage);
+            	//System.out.println("   getDateTimeStamp(): " + getDateTimeStamp() + " contentPage: " + contentPage);
 	            ColumnText.showTextAligned(writer.getDirectContent(),
 	                    Element.ALIGN_RIGHT, new Phrase(0.0F, String.format("%s", getDateTimeStamp()), new Font(FontFamily.HELVETICA, 7)),
 	                    rect.getRight() - 20, rect.getBottom() + 18, 0);
@@ -637,23 +635,6 @@ public class PDFCombiner {
 		}
 	}
 
-	// return page numbers for pdfFiles
-	private static List<Integer> getPageNumbers(List<String> pdfFileNamesList, int startPage) throws IOException {
-
-		List<Integer> pageNumbers = new ArrayList<Integer>();
-
-		Integer pageNumber = startPage;
-
-        for (String pdfFileName : pdfFileNamesList) {
-        	InputStream in = new FileInputStream(pdfFileName);
-            PdfReader reader = new PdfReader(in);
-            pageNumber = pageNumber + reader.getNumberOfPages();
-            pageNumbers.add(pageNumber);
-        }
-
-		return pageNumbers;
-	}
-
 	private static int getStartPageNumber(PDFCombinerArguments pdfCombinerArguments) {
 		int start = 0;
 		if(pdfCombinerArguments.isShowCoverPage()) start++;
@@ -700,7 +681,7 @@ public class PDFCombiner {
         PdfContentByte cb = writer.getDirectContent();
         for (Map.Entry<String, PDFCombinerFile> entry : pdfFileList.entrySet()) {
         	String pdfFileName = entry.getKey();
-        	System.out.println("   key: " + pdfFileName);
+        	//System.out.println("   key: " + pdfFileName);
         	InputStream in = new FileInputStream(pdfFileName);
 
         	// get pdf combiner file
@@ -715,7 +696,7 @@ public class PDFCombiner {
 
                 // set page size
                 if(pdfCombinerFile != null && pdfCombinerFile.isProposalReport()) {
-                	System.out.println("   setting proposal page size");
+                	//System.out.println("   setting proposal page size");
                 	// if file is a proposal report, set a page size
                 	float width = page.getWidth();
                 	float height = page.getHeight();
@@ -725,10 +706,10 @@ public class PDFCombiner {
                     document.newPage();
                     float factor = .9f; // scale factor
                     float offsetY = (page.getHeight() - (page.getHeight() * factor));
-                    System.out.println("      offsetY: " + offsetY);
+                    //System.out.println("      offsetY: " + offsetY);
                     float scaledWidth = page.getWidth() * factor;
                     float positionX = (page.getWidth() - scaledWidth) / 2;
-                    System.out.println("      positionX: " + positionX);
+                    //System.out.println("      positionX: " + positionX);
                     cb.addTemplate(page, factor, 0, 0, factor, positionX, offsetY);
                 } else {
                 	document.setPageSize(page.getBoundingBox());
@@ -751,12 +732,10 @@ public class PDFCombiner {
 
 	private String getGeneratedCoverpagePdfPath(PDFCombinerArguments pdfCombinerArguments) throws IOException, Exception {
 		String pdfTemplate = PDFS_TEMPLATES_DIR + File.separator + "coverpage.pdf";
-
         File tempFile = File.createTempFile("temp_", ".pdf", new File(this.getGeneratedPDFDir()));
 
         PdfReader pdfTemplatePdfReader = new PdfReader(pdfTemplate);
 		FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		PdfStamper stamper = new PdfStamper(pdfTemplatePdfReader, fileOutputStream);
 		stamper.setFormFlattening(true);
 
@@ -773,7 +752,7 @@ public class PDFCombiner {
 		stamper.close();
 		pdfTemplatePdfReader.close();
 
-		System.out.println(tempFile.getAbsolutePath());
+		//System.out.println(tempFile.getAbsolutePath());
 
 		return tempFile.getAbsolutePath();
 	}
@@ -861,7 +840,7 @@ public class PDFCombiner {
 		stamper.close();
 		pdfTemplatePdfReader.close();
 
-		System.out.println(tempFile.getAbsolutePath());
+		//System.out.println(tempFile.getAbsolutePath());
 
 		return tempFile.getAbsolutePath();
 	}

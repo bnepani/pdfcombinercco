@@ -126,12 +126,12 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
-		System.out.println("********** title "+title);
+		//System.out.println("********** title "+title);
 	}
 
 	public void setSubTitle(String subTitle) {
 		this.subTitle = subTitle;
-		System.out.println("********** subTitle "+subTitle);
+		//System.out.println("********** subTitle "+subTitle);
 	}
 
 	public String getClientCompanyName() {
@@ -140,7 +140,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setClientCompanyName(String clientCompanyName) {
 		this.clientCompanyName = clientCompanyName;
-		System.out.println("********** clientCompanyName "+clientCompanyName);
+		//System.out.println("********** clientCompanyName "+clientCompanyName);
 	}
 
 	public String getClientContactInformation() {
@@ -165,27 +165,27 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setClientContactInformation(String clientContactInformation) {
 		this.clientContactInformation = clientContactInformation;
-		System.out.println("********** clientContactInformation "+clientContactInformation);
+		//System.out.println("********** clientContactInformation "+clientContactInformation);
 	}
 
 	public void setAgencyName(String agencyName) {
 		this.agencyName = agencyName;
-		System.out.println("********** agencyName "+agencyName);
+		//System.out.println("********** agencyName "+agencyName);
 	}
 
 	public void setAgencyContactInformation(String agencyContactInformation) {
 		this.agencyContactInformation = agencyContactInformation;
-		System.out.println("********** agencyContactInformation "+agencyContactInformation);
+		//System.out.println("********** agencyContactInformation "+agencyContactInformation);
 	}
 
 	public void setMarketName(String marketName) {
 		this.marketName = marketName;
-		System.out.println("********** marketName "+marketName);
+		//System.out.println("********** marketName "+marketName);
 	}
 
 	public void setMarketContactInformation(String marketContactInformation) {
 		this.marketContactInformation = marketContactInformation;
-		System.out.println("********** marketContactInformation "+marketContactInformation);
+		//System.out.println("********** marketContactInformation "+marketContactInformation);
 	}
 
 	public boolean isShowTableOfContents() {
@@ -202,17 +202,17 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setShowTableOfContents(boolean showTableOfContents) {
 		this.showTableOfContents = showTableOfContents;
-		System.out.println("********** showTableOfContents "+showTableOfContents);
+		//System.out.println("********** showTableOfContents "+showTableOfContents);
 	}
 
 	public void setShowPageNumbering(boolean showPageNumbering) {
 		this.showPageNumbering = showPageNumbering;
-		System.out.println("********** showPageNumbering "+showPageNumbering);
+		//System.out.println("********** showPageNumbering "+showPageNumbering);
 	}
 
 	public void setShowTimeAndDateStamp(boolean showTimeAndDateStamp) {
 		this.showTimeAndDateStamp = showTimeAndDateStamp;
-		System.out.println("********** setShowTimeAndDateStamp "+showTimeAndDateStamp);
+		//System.out.println("********** setShowTimeAndDateStamp "+showTimeAndDateStamp);
 	}
 
 	public List<PDFCombinerFile> getAppendixes() {
@@ -225,7 +225,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
-		System.out.println("********** sessionId "+sessionId);
+		//System.out.println("********** sessionId "+sessionId);
 	}
 
 	public String getAttachmentsUrl() {
@@ -234,7 +234,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setAttachmentsUrl(String attachmentsUrl) {
 		this.attachmentsUrl = attachmentsUrl;
-		System.out.println("********** attachmentsUrl "+attachmentsUrl);
+		//System.out.println("********** attachmentsUrl "+attachmentsUrl);
 	}
 
 	public String getOutputFileName() {
@@ -251,17 +251,17 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-		System.out.println("********** email "+email);
+		//System.out.println("********** email "+email);
 	}
 
 	public void setContents(List<PDFCombinerFile> contents) {
 		this.contents = contents;
-		System.out.println("********** contents "+contents);
+		//System.out.println("********** contents "+contents);
 	}
 
 	public void setAppendixes(List<PDFCombinerFile> appendixes) {
 		this.appendixes = appendixes;
-		System.out.println("********** appendixes "+appendixes);
+		//System.out.println("********** appendixes "+appendixes);
 	}
 
 	public String getInsertContentVersionUrl() {
@@ -270,7 +270,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setInsertContentVersionUrl(String insertContentVersionUrl) {
 		this.insertContentVersionUrl = insertContentVersionUrl;
-		System.out.println("********** insertContentVersionUrl "+insertContentVersionUrl);
+		//System.out.println("********** insertContentVersionUrl "+insertContentVersionUrl);
 	}
 
 	public String getContentDocumentId() {
@@ -279,7 +279,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setContentDocumentId(String contentDocumentId) {
 		this.contentDocumentId = contentDocumentId;
-		System.out.println("********** contentDocumentId "+contentDocumentId);
+		//System.out.println("********** contentDocumentId "+contentDocumentId);
 	}
 
 	public boolean isIncludeOutdoorVocabularyTermsDoc() {
@@ -289,7 +289,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 	public void setIncludeOutdoorVocabularyTermsDoc(
 			boolean includeOutdoorVocabularyTermsDoc) {
 		this.includeOutdoorVocabularyTermsDoc = includeOutdoorVocabularyTermsDoc;
-		System.out.println("********** includeOutdoorVocabularyTermsDoc "+includeOutdoorVocabularyTermsDoc);
+		//System.out.println("********** includeOutdoorVocabularyTermsDoc "+includeOutdoorVocabularyTermsDoc);
 	}
 
 	public boolean isIncludeResearchToolsDoc() {
@@ -298,7 +298,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setIncludeResearchToolsDoc(boolean includeResearchToolsDoc) {
 		this.includeResearchToolsDoc = includeResearchToolsDoc;
-		System.out.println("********** includeResearchToolsDoc "+includeResearchToolsDoc);
+		//System.out.println("********** includeResearchToolsDoc "+includeResearchToolsDoc);
 	}
 
 	public boolean isIncludeServiceGuaranteeDoc() {
@@ -307,7 +307,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setIncludeServiceGuaranteeDoc(boolean includeServiceGuaranteeDoc) {
 		this.includeServiceGuaranteeDoc = includeServiceGuaranteeDoc;
-		System.out.println("********** includeServiceGuaranteeDoc "+includeServiceGuaranteeDoc);
+		//System.out.println("********** includeServiceGuaranteeDoc "+includeServiceGuaranteeDoc);
 	}
 
 	public boolean isIncludeProductionSpecificationDoc() {
@@ -317,7 +317,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 	public void setIncludeProductionSpecificationDoc(
 			boolean includeProductionSpecificationDoc) {
 		this.includeProductionSpecificationDoc = includeProductionSpecificationDoc;
-		System.out.println("********** includeProductionSpecificationDoc "+includeProductionSpecificationDoc);
+		//System.out.println("********** includeProductionSpecificationDoc "+includeProductionSpecificationDoc);
 	}
 
 	public PDFCombinerCallback getPdfCombinerCallback() {
@@ -326,7 +326,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setPdfCombinerCallback(PDFCombinerCallback pdfCombinerCallback) {
 		this.pdfCombinerCallback = pdfCombinerCallback;
-		System.out.println("********** pdfCombinerCallback "+pdfCombinerCallback);
+		//System.out.println("********** pdfCombinerCallback "+pdfCombinerCallback);
 	}
 
 	public boolean isShowTotalProgramSummary() {
@@ -335,7 +335,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setShowTotalProgramSummary(boolean showTotalProgramSummary) {
 		this.showTotalProgramSummary = showTotalProgramSummary;
-		System.out.println("********** showTotalProgramSummary "+showTotalProgramSummary);
+		//System.out.println("********** showTotalProgramSummary "+showTotalProgramSummary);
 	}
 
 	public boolean isShowIndividualMarketSummary() {
@@ -344,7 +344,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setShowIndividualMarketSummary(boolean showIndividualMarketSummary) {
 		this.showIndividualMarketSummary = showIndividualMarketSummary;
-		System.out.println("********** showIndividualMarketSummary "+showIndividualMarketSummary);
+		//System.out.println("********** showIndividualMarketSummary "+showIndividualMarketSummary);
 	}
 
 	public boolean isShowIndividualFlightSummary() {
@@ -353,7 +353,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setShowIndividualFlightSummary(boolean showIndividualFlightSummary) {
 		this.showIndividualFlightSummary = showIndividualFlightSummary;
-		System.out.println("********** showIndividualFlightSummary "+showIndividualFlightSummary);
+		//System.out.println("********** showIndividualFlightSummary "+showIndividualFlightSummary);
 	}
 
 	public boolean isExportToPdf() {
@@ -362,7 +362,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setExportToPdf(boolean exportToPdf) {
 		this.exportToPdf = exportToPdf;
-		System.out.println("********** exportToPdf "+exportToPdf);
+		//System.out.println("********** exportToPdf "+exportToPdf);
 	}
 
 	public boolean isExportToXls() {
@@ -371,7 +371,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setExportToXls(boolean exportToXls) {
 		this.exportToXls = exportToXls;
-		System.out.println("********** exportToXls "+exportToXls);
+		//System.out.println("********** exportToXls "+exportToXls);
 	}
 
 	/*
@@ -398,7 +398,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setDisclaimerUrl(String disclaimerUrl) {
 		this.disclaimerUrl = disclaimerUrl;
-		System.out.println("********** disclaimerUrl "+disclaimerUrl);
+		//System.out.println("********** disclaimerUrl "+disclaimerUrl);
 	}
 
 	public List<PDFCombinerContentEntry> getPdfCombinerContentEntryList() {
@@ -408,7 +408,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 	public void setPdfCombinerContentEntryList(
 			List<PDFCombinerContentEntry> pdfCombinerContentEntryList) {
 		this.pdfCombinerContentEntryList = pdfCombinerContentEntryList;
-		System.out.println("********** pdfCombinerContentEntryList "+pdfCombinerContentEntryList);
+		//System.out.println("********** pdfCombinerContentEntryList "+pdfCombinerContentEntryList);
 	}
 
 	public String getMapPanelOrderPrefUrl() {
@@ -417,7 +417,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setMapPanelOrderPrefUrl(String mapPanelOrderPrefUrl) {
 		this.mapPanelOrderPrefUrl = mapPanelOrderPrefUrl;
-		System.out.println("********** shippingInstructionsUrl "+shippingInstructionsUrl);
+		//System.out.println("********** shippingInstructionsUrl "+shippingInstructionsUrl);
 	}
 
 	public String getShippingInstructionsUrl() {
@@ -426,7 +426,7 @@ public class PDFCombinerArguments implements java.io.Serializable {
 
 	public void setShippingInstructionsUrl(String shippingInstructionsUrl) {
 		this.shippingInstructionsUrl = shippingInstructionsUrl;
-		System.out.println("********** shippingInstructionsUrl "+shippingInstructionsUrl);
+		//System.out.println("********** shippingInstructionsUrl "+shippingInstructionsUrl);
 	}
 
 	public String getVersionNumber() {
