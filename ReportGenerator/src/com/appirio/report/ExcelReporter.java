@@ -55,22 +55,22 @@ public class ExcelReporter extends Reporter {
 	/**
 	 * Flag to show/hide network details (true = show, false = hide)
 	 */
-	private Boolean excludeNetworkDetails;
+	private boolean excludeNetworkDetails;
 
 	/**
 	 * Flag to show/hide summary (true = show, false = hide)
 	 */
-	private Boolean showTotalProgramSummary;
+	private boolean showTotalProgramSummary;
 
 	/**
 	 * Flag to show/hide summary (true = show, false = hide)
 	 */
-	private Boolean showIndividualMarketSummary;
+	private boolean showIndividualMarketSummary;
 
 	/**
 	 * Flag to show/hide summary (true = show, false = hide)
 	 */
-	private Boolean showIndividualFlightSummary;
+	private boolean showIndividualFlightSummary;
 
 	/**
 	 * Parameters to specify field names and labels
@@ -278,26 +278,21 @@ public class ExcelReporter extends Reporter {
 	/**
 	 * @return Flag to show/hide summary (true = show, false = hide)
 	 */
-	public Boolean getShowTotalProgramSummary() {
-
-		if(showTotalProgramSummary == null) {
-			setShowTotalProgramSummary(false);
-		}
-
+	public boolean getShowTotalProgramSummary() {
 		return showTotalProgramSummary;
 	}
 
 	/**
 	 * Set flag to show/hide summary (true = show, false = hide)
 	 */
-	public void setShowTotalProgramSummary(Boolean showTotalProgramSummary) {
+	public void setShowTotalProgramSummary(boolean showTotalProgramSummary) {
 		this.showTotalProgramSummary = showTotalProgramSummary;
 	}
 
 	/**
 	 * @return Flag to show/hide summary (true = show, false = hide)
 	 */
-	public Boolean getShowIndividualMarketSummary() {
+	public boolean getShowIndividualMarketSummary() {
 		return showIndividualMarketSummary;
 	}
 
@@ -305,14 +300,14 @@ public class ExcelReporter extends Reporter {
 	 * Set flag to show/hide summary (true = show, false = hide)
 	 */
 	public void setShowIndividualMarketSummary(
-			Boolean showIndividualMarketSummary) {
+			boolean showIndividualMarketSummary) {
 		this.showIndividualMarketSummary = showIndividualMarketSummary;
 	}
 
 	/**
 	 * @return Flag to show/hide summary (true = show, false = hide)
 	 */
-	public Boolean getShowIndividualFlightSummary() {
+	public boolean getShowIndividualFlightSummary() {
 		return showIndividualFlightSummary;
 	}
 
@@ -320,7 +315,7 @@ public class ExcelReporter extends Reporter {
 	 * Set flag to show/hide summary (true = show, false = hide)
 	 */
 	public void setShowIndividualFlightSummary(
-			Boolean showIndividualFlightSummary) {
+			boolean showIndividualFlightSummary) {
 		this.showIndividualFlightSummary = showIndividualFlightSummary;
 	}
 
@@ -667,7 +662,8 @@ public class ExcelReporter extends Reporter {
 	 */
 	private void setMapPanelSortSequence(Packages packages, MapPanelOrderPreferences mapPanelOrderPreferences) {
 
-//		System.out.println("setMapPanelSortSequence(): begin");
+		//System.out.println("setMapPanelSortSequence(): begin");
+		//System.out.println("MapPanelOrderPreferences: size" + mapPanelOrderPreferences.getMapPanelOrderPreferences().size());
 
 		// for each flight line...
 		for(FlightLine flightLine : packages.getFlightLines()) {
@@ -675,9 +671,9 @@ public class ExcelReporter extends Reporter {
 			// find object by key
 			MapPanelOrderPreference mapPanelOrderPreference = mapPanelOrderPreferences.getMapPanelOrderPreferences().get(flightLine.getMapLocationNumber());
 
-			Boolean mapLocationExists = mapPanelOrderPreference != null;
+			boolean mapLocationExists = mapPanelOrderPreference != null;
 
-//			System.out.println("   mapLocationExists: " + mapLocationExists);
+			//System.out.println("   mapLocationExists: " + mapLocationExists);
 
 			// if it exists...
 			if(mapLocationExists) {
@@ -685,13 +681,13 @@ public class ExcelReporter extends Reporter {
 				// get map location in integer type and set value in flight line
 				Integer mapLocationNumberSort = mapPanelOrderPreference.getSortSequence() == null ? 0 : Integer.parseInt(mapPanelOrderPreference.getSortSequence());
 
-//				System.out.println("   mapLocationNumberSort: " + mapLocationNumberSort);
+				//System.out.println("   mapLocationNumberSort: " + mapLocationNumberSort);
 
 				flightLine.setMapLocationNumberSort(mapLocationNumberSort);
 			}
 		}
 
-//		System.out.println("setMapPanelSortSequence(): end");
+		//System.out.println("setMapPanelSortSequence(): end");
 	}
 
 	/**
@@ -776,7 +772,7 @@ public class ExcelReporter extends Reporter {
 			audienceReportColumnMap.put("Package_Flight__r/Target_Population__c", "packageFlight_TargetPopulation");
 			audienceReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
 			audienceReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
-			audienceReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
+			audienceReportColumnMap.put("PlanTRP__c", "planTRP");
 			audienceReportColumnMap.put("Production__c", "production");
 			audienceReportColumnMap.put("Target_In_Market_Imps_000__c", "targetInMarketImps000");
 			audienceReportColumnMap.put("Target_Total_Imps_000__c", "targetTotalImps000");
@@ -849,7 +845,7 @@ public class ExcelReporter extends Reporter {
 			locationReportColumnMap.put("Panel_Id_Label__c", "panelIdLabel");
 			locationReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
 			locationReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
-			locationReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
+			locationReportColumnMap.put("PlanTRP__c", "planTRP");
 			locationReportColumnMap.put("Production__c", "production");
 			locationReportColumnMap.put("Ride_Order__c", "rideOrder");
 			locationReportColumnMap.put("State__c", "state");
@@ -903,7 +899,7 @@ public class ExcelReporter extends Reporter {
 			rotaryReportColumnMap.put("Package_Flight__r/Target__c", "packageFlight_Target");
 			rotaryReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
 			rotaryReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
-			rotaryReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
+			rotaryReportColumnMap.put("PlanTRP__c", "planTRP");
 			rotaryReportColumnMap.put("Total_Imps__c", "totalImps");
 			rotaryReportColumnMap.put("Total_Price_0d__c", "totalPrice0d");
 			rotaryReportColumnMap.put("TotalInMarketCPM_0d__c", "totalInMarketCPM0d");
@@ -929,6 +925,7 @@ public class ExcelReporter extends Reporter {
 			networkReportColumnMap.put("In_Mkt_Imps__c", "inMktImps");
 			networkReportColumnMap.put("In_Mkt_TRP__c", "inMktTRP");
 			networkReportColumnMap.put("In_Mkt_Perc_Comp__c", "inMktPercComp");
+			networkReportColumnMap.put("Additional_Cost__c", "additionalCost");
 			networkReportColumnMap.put("Network_Description__c", "networkDescription");
 			networkReportColumnMap.put("Network_Name__c", "networkName");
 			networkReportColumnMap.put("Network_Notes__c", "networkNotes");
@@ -943,9 +940,10 @@ public class ExcelReporter extends Reporter {
 			networkReportColumnMap.put("Package_Flight__r/Package_Comments__c", "packageFlight_PackageComments");
 			networkReportColumnMap.put("Package_Flight__r/Package_Name__c", "packageFlight_PackageName");
 			networkReportColumnMap.put("Package_Flight__r/Target__c", "packageFlight_Target");
+			networkReportColumnMap.put("Package_Flight__r/Target_Population__c", "packageFlight_TargetPopulation");
 			networkReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
 			networkReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
-			networkReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
+			networkReportColumnMap.put("PlanTRP__c", "planTRP");
 			networkReportColumnMap.put("Total_Imps__c", "totalImps");
 			networkReportColumnMap.put("Total_Price_0d__c", "totalPrice0d");
 			networkReportColumnMap.put("TotalInMarketCPM_0d__c", "totalInMarketCPM0d");
@@ -978,7 +976,7 @@ public class ExcelReporter extends Reporter {
 			networkDetailReportColumnMap.put("Total_Imps__c", "totalImps");
 			networkDetailReportColumnMap.put("In_Mkt_TRP__c", "inMktTRP");
 			networkDetailReportColumnMap.put("In_Mkt_Perc_Comp__c", "inMktPercComp");
-			networkDetailReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
+			networkDetailReportColumnMap.put("PlanTRP__c", "planTRP");
 			networkDetailReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
 			networkDetailReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
 		}
@@ -1006,7 +1004,7 @@ public class ExcelReporter extends Reporter {
 			flightSummaryReportColumnMap.put("WeeklyInMarketImps__c", "weeklyInMarketImps");
 			flightSummaryReportColumnMap.put("Weekly_In_Market_Target_Imps_000__c", "weeklyInMarketTargetImps000");
 			flightSummaryReportColumnMap.put("In_Mkt_TRP__c", "inMktTRP");
-			flightSummaryReportColumnMap.put("Plan_Imps_TRP_Perc__c", "planTRP");
+			flightSummaryReportColumnMap.put("PlanTRP__c", "planTRP");
 			flightSummaryReportColumnMap.put("Plan_Imps_Reach_Perc__c", "planImpsReachPerc");
 			flightSummaryReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "planImpsAvgFrequency");
 			flightSummaryReportColumnMap.put("Net_Amount_Value__c", "netAmountValue");
@@ -1035,10 +1033,13 @@ public class ExcelReporter extends Reporter {
 			marketSummaryReportColumnMap.put("In_Mkt_Imps__c", "packageFlight_packageMarket_inMktImps");
 			marketSummaryReportColumnMap.put("Total_Imps__c", "packageFlight_packageMarket_targetTotalImps");
 			marketSummaryReportColumnMap.put("In_Mkt_TRP__c", "packageFlight_packageMarket_inMktTRP");
-			marketSummaryReportColumnMap.put("Plan_Imps_TRP_Perc__c", "packageFlight_packageMarket_planTRP");
+			marketSummaryReportColumnMap.put("Plan_TRP__c", "packageFlight_packageMarket_planTRP");
 			marketSummaryReportColumnMap.put("Total_Price_0d__c", "packageFlight_packageMarket_totalPrice");
 			marketSummaryReportColumnMap.put("TotalInMarketCPM_0d__c", "packageFlight_packageMarket_cPM");
 			marketSummaryReportColumnMap.put("CPP_0d__c", "packageFlight_packageMarket_cPP");
+			marketSummaryReportColumnMap.put("Plan_Imps_Reach_Perc__c", "packageFlight_packageMarket_reach");
+			marketSummaryReportColumnMap.put("Plan_Imps_Avg_Frequency__c", "packageFlight_packageMarket_freq");
+			
 		}
 
 		return marketSummaryReportColumnMap;
@@ -1057,7 +1058,7 @@ public class ExcelReporter extends Reporter {
 			packageSummaryReportColumnMap.put("In_Mkt_Imps__c", "packageFlight_packageMarket_package_inMktImps");
 			packageSummaryReportColumnMap.put("Total_Imps__c", "packageFlight_packageMarket_package_targetTotalImps");
 			packageSummaryReportColumnMap.put("In_Mkt_TRP__c", "packageFlight_packageMarket_package_inMktTRP");
-			packageSummaryReportColumnMap.put("Plan_Imps_TRP_Perc__c", "packageFlight_packageMarket_package_planTRP");
+			packageSummaryReportColumnMap.put("Plan_TRP__c", "packageFlight_packageMarket_package_planTRP");
 			packageSummaryReportColumnMap.put("Total_Price_0d__c", "packageFlight_packageMarket_package_totalPrice");
 			packageSummaryReportColumnMap.put("TotalInMarketCPM_0d__c", "packageFlight_packageMarket_package_cPM");
 			packageSummaryReportColumnMap.put("CPP_0d__c", "packageFlight_packageMarket_package_cPP");
@@ -1141,14 +1142,14 @@ public class ExcelReporter extends Reporter {
 	/**
 	 * Property getter/setter. Please see property doc. for more info.
 	 */
-	public Boolean isExcludeNetworkDetails() {
+	public boolean isExcludeNetworkDetails() {
 		return excludeNetworkDetails;
 	}
 
 	/**
 	 * Property getter/setter. Please see property doc. for more info.
 	 */
-	public void setExcludeNetworkDetails(Boolean excludeNetworkDetails) {
+	public void setExcludeNetworkDetails(boolean excludeNetworkDetails) {
 		this.excludeNetworkDetails = excludeNetworkDetails;
 	}
 }

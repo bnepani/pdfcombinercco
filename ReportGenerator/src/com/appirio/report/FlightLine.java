@@ -168,6 +168,9 @@ public class FlightLine {
 		if(key.equals("packageFlight_packageMarket_totalPrice")) return this.getFlight().getMarket().getTotalPrice();
 		if(key.equals("packageFlight_packageMarket_cPM")) return this.getFlight().getMarket().getcPM();
 		if(key.equals("packageFlight_packageMarket_cPP")) return this.getFlight().getMarket().getcPP();
+		if(key.equals("packageFlight_packageMarket_reach")) return this.getFlight().getMarket().getReach();
+		if(key.equals("packageFlight_packageMarket_freq")) return this.getFlight().getMarket().getFreq();
+		
 
 		// -- package
 		if(key.equals("packageFlight_packageMarket_package_id")) return this.getFlight().getMarket().getPackage().getId();
@@ -375,7 +378,7 @@ public class FlightLine {
 	}
 
 	public String getInMktTRP() {
-		return inMktTRP;
+		return ValueFormatters.formatNumber(NumberFormatEnum.NumberWithOneDecimalType, inMktTRP);
 	}
 
 	public void setInMktTRP(String inMktTRP) {
@@ -455,7 +458,7 @@ public class FlightLine {
 	}
 
 	public String getPlanTRP() {
-		return planTRP;
+		return ValueFormatters.formatNumber(NumberFormatEnum.NumberWithOneDecimalType, planTRP);
 	}
 
 	public void setPlanTRP(String planTRP) {

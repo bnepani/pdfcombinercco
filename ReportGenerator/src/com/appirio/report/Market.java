@@ -16,6 +16,8 @@ public class Market {
 	private String totalPrice;
 	private String cPM;
 	private String cPP;
+	private String reach;
+	private String freq;
 
 	private Package thePackage;
 
@@ -107,6 +109,22 @@ public class Market {
 		this.cPP = cPP;
 	}
 
+	public String getReach() {
+		return ValueFormatters.formatNumber(NumberFormatEnum.NumberWithOneDecimalType, reach);
+	}
+
+	public void setReach(String reach) {
+		this.reach = reach;
+	}
+	
+	public String getFreq() {
+		return ValueFormatters.formatNumber(NumberFormatEnum.NumberWithOneDecimalType, freq);
+	}
+
+	public void setFreq(String freq) {
+		this.freq = freq;
+	}
+	
 	public Package getThePackage() {
 		return thePackage;
 	}

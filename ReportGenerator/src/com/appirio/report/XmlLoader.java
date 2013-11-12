@@ -122,7 +122,9 @@ public class XmlLoader {
 		digester.addBeanPropertySetter("QueryResult/records/Package_Flight__r/Package_Market__r/Total_Price__c", "totalPrice");
 		digester.addBeanPropertySetter("QueryResult/records/Package_Flight__r/Package_Market__r/CPM__c", "cPM");
 		digester.addBeanPropertySetter("QueryResult/records/Package_Flight__r/Package_Market__r/CPP__c", "cPP");
-
+		digester.addBeanPropertySetter("QueryResult/records/Package_Flight__r/Package_Market__r/Reach__c", "reach");
+		digester.addBeanPropertySetter("QueryResult/records/Package_Flight__r/Package_Market__r/Frequency__c", "freq");
+		
 		digester.addObjectCreate("QueryResult/records/Package_Flight__r/Package_Market__r/Package__r", com.appirio.report.Package.class);
 		digester.addBeanPropertySetter("QueryResult/records/Package_Flight__r/Package_Market__r/Package__r/Id", "id");
 		digester.addBeanPropertySetter("QueryResult/records/Package_Flight__r/Package_Market__r/Package__r/Package_Name__c", "packageName");

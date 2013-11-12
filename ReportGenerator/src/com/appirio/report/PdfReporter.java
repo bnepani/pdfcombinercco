@@ -133,8 +133,6 @@ public class PdfReporter extends Reporter {
 
 	private StyleBuilder columnTitleStyle;
 
-	private boolean locationMapExists = false;
-
 	// record count (flight lines in total)
 	private Integer recordCount = 0;
 
@@ -181,7 +179,7 @@ public class PdfReporter extends Reporter {
 		System.out.println("   getFieldTypesPipeDelimited : "
 				+ pdfCombinerFile.getFieldTypesPipeDelimited());*/
 
-		locationMapExists = hasLocationMapAttachments(appendixes);
+		boolean locationMapExists = hasLocationMapAttachments(appendixes);
 
 		// set flight line column - label
 		setFlightLineColumnLabelHashMap(getKeyValueHashMap(pdfCombinerFile
@@ -305,6 +303,10 @@ public class PdfReporter extends Reporter {
 					"Package_Flight__r/Target_Population__c", Integer.class);
 			FieldBuilder<String> flightPackageCommentsField = field(
 					"Package_Flight__r/Package_Comments__c", String.class);
+			FieldBuilder<String> additionalCostTypeField = field(
+					"Additional_Cost_Type__c", String.class);
+			FieldBuilder<String> additionalCostField = field(
+					"Additional_Cost__c", String.class);
 			b.addField(marketIdField);
 			b.addField(packageIdField);
 			b.addField(flightIdField);
@@ -322,6 +324,8 @@ public class PdfReporter extends Reporter {
 			b.addField(flightTargetField);
 			b.addField(flightTargetPopulationField);
 			b.addField(flightPackageCommentsField);
+			b.addField(additionalCostTypeField);
+			b.addField(additionalCostField);
 
 			// group by flight
 			//System.out.println("   creating group");
@@ -842,7 +846,7 @@ public class PdfReporter extends Reporter {
 				summaryFieldName = "Target_Total_Imps__c";
 			} else if (flightLineFieldName.equals("In_Mkt_TRP__c")) {
 				summaryFieldName = "In_Mkt_TRP__c";
-			} else if (flightLineFieldName.equals("Plan_Imps_TRP_Perc__c")) {
+			} else if (flightLineFieldName.equals("PlanTRP__c")) {  
 				summaryFieldName = "Plan_TRP__c";
 			} else if (flightLineFieldName.equals("Discount__c")) { // this
 																	// field
@@ -862,6 +866,10 @@ public class PdfReporter extends Reporter {
 				summaryFieldName = "CPM__c";
 			} else if (flightLineFieldName.equals("CPP_0d__c")) {
 				summaryFieldName = "CPP__c";
+			} else if (flightLineFieldName.equals("Plan_Imps_Reach_Perc__c")) {
+				summaryFieldName = "Reach__c";
+			} else if (flightLineFieldName.equals("Plan_Imps_Avg_Frequency__c")) {
+				summaryFieldName = "Frequency__c";
 			}
 		} else if (summaryLevel.equals(SummaryLevelEnum.Package)) {
 			if (flightLineFieldName.equals("Weekly_Total_18_Imps__c")) {
@@ -872,7 +880,7 @@ public class PdfReporter extends Reporter {
 				summaryFieldName = "Target_Total_Imps__c";
 			} else if (flightLineFieldName.equals("In_Mkt_TRP__c")) {
 				summaryFieldName = "In_Mkt_TRP__c";
-			} else if (flightLineFieldName.equals("Plan_Imps_TRP_Perc__c")) {
+			} else if (flightLineFieldName.equals("PlanTRP__c")) {
 				summaryFieldName = "Plan_TRP__c";
 			} else if (flightLineFieldName.equals("Discount__c")) { // this
 																	// field
@@ -930,11 +938,11 @@ public class PdfReporter extends Reporter {
 
 		@Override
 		public Boolean evaluate(ReportParameters reportParameters) {
-			System.out
+			/*System.out
 					.println("******** ValidDisclaimerExistsExpression evaluate.validDisclaimersListDisplay exists "
 							+ validDisclaimersListDisplay.size()
 							+ " validAllDisclaimersList size "
-							+ validAllDisclaimersList.size());
+							+ validAllDisclaimersList.size());*/
 			return validAllDisclaimersList != null
 					&& validAllDisclaimersList.size() > 0;
 		}
@@ -975,11 +983,7 @@ public class PdfReporter extends Reporter {
 
 			if (!eof) {
 				eof = reportRowNumber == getRecordCount() - 1;
-				System.out
-						.println("   check eof: reportRowNumber, this.m_reportRowNumber, eof "
-								+ reportRowNumber
-								+ " "
-								+ this.m_reportRowNumber + " " + eof);
+				//System.out.println("   check eof: reportRowNumber, this.m_reportRowNumber, eof " + reportRowNumber	+ " " + this.m_reportRowNumber + " " + eof);
 			}
 
 			if (reportRowNumber > this.m_reportRowNumber) {
@@ -1048,9 +1052,7 @@ public class PdfReporter extends Reporter {
 					this.m_lastMediaCategoryValue = mediaCategoryValue;
 					//System.out.println("mediaCategoryValue->"	+ m_lastMediaCategoryValue);
 				} catch (Exception e) {
-					System.out
-							.println("PackageMarketFlightPreviousRecordExpression  mediaCategoryValue excep "
-									+ e);
+					e.printStackTrace();
 				}
 			} else {
 				try {
@@ -1645,12 +1647,12 @@ public class PdfReporter extends Reporter {
 					weekklyTRPColumn.setWidth(Units.inch(3));
 					report.addColumn(weekklyTRPColumn);
 				}
-				if (key.equals("Plan_Imps_TRP_Perc__c")) {
+				if (key.equals("PlanTRP__c")) {
 					TextColumnBuilder<Double> planTRPColumn = col
 							.column(getFlightLineColumnLabelHashMap().get(
-									"Plan_Imps_TRP_Perc__c"),
+									"PlanTRP__c"),
 									getSummaryFieldNameRelatedToFlightLineFieldName(
-											getSummaryLevel(), "Plan_Imps_TRP_Perc__c"),
+											getSummaryLevel(), "PlanTRP__c"),
 									type.doubleType())
 							.setHorizontalAlignment(HorizontalAlignment.RIGHT)
 							.setPattern("##0.0");
@@ -1658,42 +1660,39 @@ public class PdfReporter extends Reporter {
 					report.addColumn(planTRPColumn);
 				}
 				if (key.equals("Plan_Imps_Reach_Perc__c")) {
-					if (!isShowSummaryHeaders() || firstColumnOverriden) {
+					//if (!isShowSummaryHeaders() || firstColumnOverriden) 
 						TextColumnBuilder<Double> planImpsReachPercColumn = col
 								.column(getFlightLineColumnLabelHashMap().get(
 										"Plan_Imps_Reach_Perc__c"),
-										"Plan_Imps_Reach_Perc__c",
+										getSummaryFieldNameRelatedToFlightLineFieldName(
+											getSummaryLevel(), "Plan_Imps_Reach_Perc__c"),
 										type.percentageType())
 								.setHorizontalAlignment(
 										HorizontalAlignment.RIGHT)
 								.setPattern("##0.0");
 						planImpsReachPercColumn.setWidth(Units.inch(1.5));
 						report.addColumn(planImpsReachPercColumn);
-					} else {
-						if (!firstColumnOverriden) {
-							addSummaryField(getSummaryLevel(), report);
-							firstColumnOverriden = true;
-						}
-					}
-				}
+				} 
 				if (key.equals("Plan_Imps_Avg_Frequency__c")) {
-					if (!isShowSummaryHeaders() || firstColumnOverriden) {
+					//if (!isShowSummaryHeaders() || firstColumnOverriden) 
 						TextColumnBuilder<Double> frequencyColumn = col
 								.column(getFlightLineColumnLabelHashMap().get(
 										"Plan_Imps_Avg_Frequency__c"),
-										"Plan_Imps_Avg_Frequency__c",
+										getSummaryFieldNameRelatedToFlightLineFieldName(
+											getSummaryLevel(), "Plan_Imps_Avg_Frequency__c"),
 										type.doubleType())
 								.setHorizontalAlignment(
 										HorizontalAlignment.RIGHT)
 								.setPattern("##0.0");
+						frequencyColumn.setWidth(Units.inch(1.5));
 						report.addColumn(frequencyColumn);
-					} else {
+					} 
+						/*else {
 						if (!firstColumnOverriden) {
 							addSummaryField(getSummaryLevel(), report);
 							firstColumnOverriden = true;
 						}
-					}
-				}
+						}*/
 				if (key.equals("X4_Wk_Proposed_Price__c")) {
 					if (!isShowSummaryHeaders() || firstColumnOverriden) {
 						TextColumnBuilder<BigDecimal> X4WkProposedPriceColumn = col
@@ -2502,12 +2501,12 @@ public class PdfReporter extends Reporter {
 					weekklyTRPColumn.setWidth(Units.inch(3));
 					report.addColumn(weekklyTRPColumn);
 				}
-				if (key.equals("Plan_Imps_TRP_Perc__c")) {
+				if (key.equals("PlanTRP__c")) {
 					TextColumnBuilder<Double> planTRPColumn = col
 							.column(getFlightLineColumnLabelHashMap().get(
-									"Plan_Imps_TRP_Perc__c"),
+									"PlanTRP__c"),
 									getSummaryFieldNameRelatedToFlightLineFieldName(
-											getSummaryLevel(), "Plan_Imps_TRP_Perc__c"),
+											getSummaryLevel(), "PlanTRP__c"),
 									type.doubleType())
 							.setHorizontalAlignment(HorizontalAlignment.RIGHT)
 							.setPattern("##0.0");
@@ -2515,42 +2514,34 @@ public class PdfReporter extends Reporter {
 					report.addColumn(planTRPColumn);
 				}
 				if (key.equals("Plan_Imps_Reach_Perc__c")) {
-					if (!isShowSummaryHeaders() || firstColumnOverriden) {
+					//if (!isShowSummaryHeaders() || firstColumnOverriden) 
 						TextColumnBuilder<Double> planImpsReachPercColumn = col
 								.column(getFlightLineColumnLabelHashMap().get(
 										"Plan_Imps_Reach_Perc__c"),
-										"Plan_Imps_Reach_Perc__c",
+										getSummaryFieldNameRelatedToFlightLineFieldName(
+											getSummaryLevel(), "Plan_Imps_Reach_Perc__c"),
 										type.percentageType())
 								.setHorizontalAlignment(
 										HorizontalAlignment.RIGHT)
 								.setPattern("##0.0");
 						planImpsReachPercColumn.setWidth(Units.inch(1.5));
 						report.addColumn(planImpsReachPercColumn);
-					} else {
-						if (!firstColumnOverriden) {
-							addSummaryField(getSummaryLevel(), report);
-							firstColumnOverriden = true;
-						}
-					}
-				}
+				} 
 				if (key.equals("Plan_Imps_Avg_Frequency__c")) {
-					if (!isShowSummaryHeaders() || firstColumnOverriden) {
+					//if (!isShowSummaryHeaders() || firstColumnOverriden) 
 						TextColumnBuilder<Double> frequencyColumn = col
 								.column(getFlightLineColumnLabelHashMap().get(
 										"Plan_Imps_Avg_Frequency__c"),
-										"Plan_Imps_Avg_Frequency__c",
+										getSummaryFieldNameRelatedToFlightLineFieldName(
+											getSummaryLevel(), "Plan_Imps_Avg_Frequency__c"),
 										type.doubleType())
 								.setHorizontalAlignment(
 										HorizontalAlignment.RIGHT)
 								.setPattern("##0.0");
+						frequencyColumn.setWidth(Units.inch(1.5));
 						report.addColumn(frequencyColumn);
-					} else {
-						if (!firstColumnOverriden) {
-							addSummaryField(getSummaryLevel(), report);
-							firstColumnOverriden = true;
-						}
-					}
-				}
+					} 
+				
 				if (key.equals("X4_Wk_Proposed_Price__c")) {
 					if (!isShowSummaryHeaders() || firstColumnOverriden) {
 						TextColumnBuilder<BigDecimal> X4WkProposedPriceColumn = col
@@ -3294,43 +3285,44 @@ public class PdfReporter extends Reporter {
 							type.doubleType()).setHorizontalAlignment(
 							HorizontalAlignment.CENTER));
 				}
-				if (key.equals("Plan_Imps_TRP_Perc__c")) {
+				if (key.equals("PlanTRP__c")) {
 					report.addColumn(col.column(
 							this.isShowSummaryHeaders() ? ""
 									: getFlightLineColumnLabelHashMap().get(
-											"Plan_Imps_TRP_Perc__c"),
+											"PlanTRP__c"),
 							getSummaryFieldNameRelatedToFlightLineFieldName(
-									getSummaryLevel(), "Plan_Imps_TRP_Perc__c"),
+									getSummaryLevel(), "PlanTRP__c"),
 							type.doubleType()).setHorizontalAlignment(
 							HorizontalAlignment.CENTER));
 				}
 				if (key.equals("Plan_Imps_Reach_Perc__c")) {
-					report.addColumn(col
-							.column(this.isShowSummaryHeaders() ? ""
-									: getFlightLineColumnLabelHashMap().get(
-											"Plan_Imps_Reach_Perc__c"),
-									"Plan_Imps_Reach_Perc__c",
-									type.percentageType())
-							.setHorizontalAlignment(HorizontalAlignment.CENTER)
-							.setPattern("##0.0"));
-				}
+					//if (!isShowSummaryHeaders() || firstColumnOverriden) 
+						TextColumnBuilder<Double> planImpsReachPercColumn = col
+								.column(getFlightLineColumnLabelHashMap().get(
+										"Plan_Imps_Reach_Perc__c"),
+										getSummaryFieldNameRelatedToFlightLineFieldName(
+											getSummaryLevel(), "Plan_Imps_Reach_Perc__c"),
+										type.percentageType())
+								.setHorizontalAlignment(
+										HorizontalAlignment.RIGHT)
+								.setPattern("##0.0");
+						planImpsReachPercColumn.setWidth(Units.inch(1.5));
+						report.addColumn(planImpsReachPercColumn);
+				} 
 				if (key.equals("Plan_Imps_Avg_Frequency__c")) {
-					if (!isShowSummaryHeaders() || firstColumnOverriden) {
-						report.addColumn(col
-								.column(this.isShowSummaryHeaders() ? ""
-										: getFlightLineColumnLabelHashMap()
-												.get("Plan_Imps_Avg_Frequency__c"),
-										"Plan_Imps_Avg_Frequency__c",
+					//if (!isShowSummaryHeaders() || firstColumnOverriden) 
+						TextColumnBuilder<Double> frequencyColumn = col
+								.column(getFlightLineColumnLabelHashMap().get(
+										"Plan_Imps_Avg_Frequency__c"),
+										getSummaryFieldNameRelatedToFlightLineFieldName(
+											getSummaryLevel(), "Plan_Imps_Avg_Frequency__c"),
 										type.doubleType())
 								.setHorizontalAlignment(
-										HorizontalAlignment.CENTER));
-					} else {
-						if (!firstColumnOverriden) {
-							addSummaryField(getSummaryLevel(), report);
-							firstColumnOverriden = true;
-						}
-					}
-				}
+										HorizontalAlignment.RIGHT)
+								.setPattern("##0.0");
+						frequencyColumn.setWidth(Units.inch(1.5));
+						report.addColumn(frequencyColumn);
+					} 
 				if (key.equals("X4_Wk_Proposed_Price__c")) {
 					if (!isShowSummaryHeaders() || firstColumnOverriden) {
 						report.addColumn(col
@@ -3532,7 +3524,7 @@ public class PdfReporter extends Reporter {
 				flightLineCurrentRecordColumnGroupBuilder
 						.setHeaderLayout(GroupHeaderLayout.EMPTY);
 				flightLineCurrentRecordColumnGroupBuilder
-						.showColumnHeaderAndFooter();
+						.showColumnHeaderAndFooter().setKeepTogether(true);
 				flightLineCurrentRecordColumnGroupBuilder.setPadding(0);
 				report.groupBy(flightLineCurrentRecordColumnGroupBuilder)
 						.setShowColumnTitle(false);
@@ -3690,48 +3682,43 @@ public class PdfReporter extends Reporter {
 									type.doubleType()).setPattern("##0.0")
 							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
 				}
-				if (key.equals("Plan_Imps_TRP_Perc__c")) {
+				if (key.equals("PlanTRP__c")) {
 					report.addColumn(col
 							.column(getFlightLineColumnLabelHashMap().get(
-									"Plan_Imps_TRP_Perc__c"),
+									"PlanTRP__c"),
 									getSummaryFieldNameRelatedToFlightLineFieldName(
-											getSummaryLevel(), "Plan_Imps_TRP_Perc__c"),
+											getSummaryLevel(), "PlanTRP__c"),
 									type.doubleType()).setPattern("##0.0")
 							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
 				}
 				if (key.equals("Plan_Imps_Reach_Perc__c")) {
-					if (!isShowSummaryHeaders() || firstColumnOverriden) {
-						report.addColumn(col
+					//if (!isShowSummaryHeaders() || firstColumnOverriden) 
+						TextColumnBuilder<Double> planImpsReachPercColumn = col
 								.column(getFlightLineColumnLabelHashMap().get(
 										"Plan_Imps_Reach_Perc__c"),
-										"Plan_Imps_Reach_Perc__c",
+										getSummaryFieldNameRelatedToFlightLineFieldName(
+											getSummaryLevel(), "Plan_Imps_Reach_Perc__c"),
 										type.percentageType())
-								.setPattern("##0.0")
 								.setHorizontalAlignment(
-										HorizontalAlignment.RIGHT));
-					} else {
-						if (!firstColumnOverriden) {
-							addSummaryField(getSummaryLevel(), report);
-							firstColumnOverriden = true;
-						}
-					}
-				}
+										HorizontalAlignment.RIGHT)
+								.setPattern("##0.0");
+						planImpsReachPercColumn.setWidth(Units.inch(1.5));
+						report.addColumn(planImpsReachPercColumn);
+				} 
 				if (key.equals("Plan_Imps_Avg_Frequency__c")) {
-					if (!isShowSummaryHeaders() || firstColumnOverriden) {
-						report.addColumn(col
+					//if (!isShowSummaryHeaders() || firstColumnOverriden) 
+						TextColumnBuilder<Double> frequencyColumn = col
 								.column(getFlightLineColumnLabelHashMap().get(
 										"Plan_Imps_Avg_Frequency__c"),
-										"Plan_Imps_Avg_Frequency__c",
+										getSummaryFieldNameRelatedToFlightLineFieldName(
+											getSummaryLevel(), "Plan_Imps_Avg_Frequency__c"),
 										type.doubleType())
 								.setHorizontalAlignment(
-										HorizontalAlignment.RIGHT));
-					} else {
-						if (!firstColumnOverriden) {
-							addSummaryField(getSummaryLevel(), report);
-							firstColumnOverriden = true;
-						}
-					}
-				}
+										HorizontalAlignment.RIGHT)
+								.setPattern("##0.0");
+						frequencyColumn.setWidth(Units.inch(1.5));
+						report.addColumn(frequencyColumn);
+					} 
 				if (key.equals("X4_Wk_Proposed_Price__c")) {
 					if (!isShowSummaryHeaders() || firstColumnOverriden) {
 						report.addColumn(col
@@ -3879,6 +3866,25 @@ public class PdfReporter extends Reporter {
 									type.percentageType())
 							.setHorizontalAlignment(HorizontalAlignment.RIGHT)
 							.setWidth(Units.inch(1.5)).setPattern("##0.0"));
+				}
+				
+				if (key.equals("Additional_Cost__c")) {
+					if (!isShowSummaryHeaders() || firstColumnOverriden) {
+						TextColumnBuilder<BigDecimal> additionalCostColumn = col
+								.column(getFlightLineColumnLabelHashMap().get(
+										"Additional_Cost__c"),
+										"Additional_Cost__c",
+										currencyWithFractionDecimalType)
+								.setHorizontalAlignment(
+										HorizontalAlignment.RIGHT);
+						additionalCostColumn.setWidth(Units.inch(1.5));
+						report.addColumn(additionalCostColumn);
+					} else {
+						if (!firstColumnOverriden) {
+							addSummaryField(getSummaryLevel(), report);
+							firstColumnOverriden = true;
+						}
+					}
 				}
 			}
 			// ================================= add columns: end
@@ -4130,11 +4136,11 @@ public class PdfReporter extends Reporter {
 									type.doubleType()).setPattern("##0.0")
 							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
 				}
-				if (key.equals("Plan_Imps_TRP_Perc__c")) {
+				if (key.equals("PlanTRP__c")) {
 					report.addColumn(col
 							.column(this.isShowSummaryHeaders() ? ""
 									: getFlightLineColumnLabelHashMap().get(
-											"Plan_Imps_TRP_Perc__c"), "Plan_Imps_TRP_Perc__c",
+											"PlanTRP__c"), "PlanTRP__c",
 									type.doubleType()).setPattern("##0.0")
 							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
 				}
@@ -4144,7 +4150,7 @@ public class PdfReporter extends Reporter {
 									: getFlightLineColumnLabelHashMap().get(
 											"Plan_Imps_Reach_Perc__c"),
 									"Plan_Imps_Reach_Perc__c",
-									type.percentageType()).setPattern("##0.0")
+									type.percentageType()).setPattern("##0.0").setWidth(Units.inch(1.5))
 							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
 				}
 				if (key.equals("Plan_Imps_Avg_Frequency__c")) {
@@ -4153,7 +4159,7 @@ public class PdfReporter extends Reporter {
 									: getFlightLineColumnLabelHashMap().get(
 											"Plan_Imps_Avg_Frequency__c"),
 									"Plan_Imps_Avg_Frequency__c",
-									type.doubleType()).setPattern("##0.0")
+									type.doubleType()).setPattern("##0.0").setWidth(Units.inch(1.5))
 							.setHorizontalAlignment(HorizontalAlignment.RIGHT));
 				}
 				if (key.equals("Illumination__c")) {
@@ -4235,8 +4241,7 @@ public class PdfReporter extends Reporter {
 
 		@Override
 		public Boolean evaluate(ReportParameters reportParameters) {
-			System.out
-					.println("   FilterByDetailFlightLineIdExpression evaluate begin");
+			//System.out.println("   FilterByDetailFlightLineIdExpression evaluate begin");
 
 			String flightLineIdValue = getFlightLinePreviousRecordExpression()
 					.getId();
@@ -4246,16 +4251,9 @@ public class PdfReporter extends Reporter {
 
 			Boolean returnValue = parentIdValue.equals(flightLineIdValue);
 
-			System.out
-					.println("   FilterByDetailFlightLineIdExpression returnValue, flightLineIdValue, parentIdValue: "
-							+ returnValue
-							+ ", "
-							+ flightLineIdValue
-							+ ", "
-							+ parentIdValue);
+			//System.out.println("   FilterByDetailFlightLineIdExpression returnValue, flightLineIdValue, parentIdValue: " + returnValue + ", " + flightLineIdValue + ", " + parentIdValue);
 
-			System.out
-					.println("   FilterByDetailFlightLineIdExpression evaluate: end");
+			//System.out.println("   FilterByDetailFlightLineIdExpression evaluate: end");
 
 			return returnValue;
 		}
@@ -4295,8 +4293,7 @@ public class PdfReporter extends Reporter {
 				// the field doesn't exist)
 				// so in this case just continue...
 				try {
-					System.out
-							.println("in FlightLinePreviousRecordExpression.evaluate ... get Id field value.");
+					//System.out.println("in FlightLinePreviousRecordExpression.evaluate ... get Id field value.");
 					String idValue = reportParameters.getValue("Id");
 					this.m_lastIdValue = idValue;
 					//System.out.println("Id -> " + idValue);
@@ -4343,23 +4340,34 @@ public class PdfReporter extends Reporter {
 			String flightName = reportParameters
 					.getValue("Package_Flight__r/Name");
 			String mediaCategory = "";
+			String additionalCostType = reportParameters
+					.getValue("Additional_Cost_Type__c");
+			/*String isAdditionalCostRelated = reportParameters
+					.getValue("IsAdditionalCostRelated__c");*/
+				
 			try {
 				mediaCategory = reportParameters
 						.getValue("Package_Flight__r/Media_Category__c");
-				// System.out.println(" FlightNameReportScriptlet mediaCategory "
-				// + mediaCategory);
+				// System.out.println(" FlightNameReportScriptlet mediaCategory " + mediaCategory);
 			} catch (Exception e) {
-				System.out
-						.println(" exc getting flight line Media_Category__c "
-								+ e);
+				//System.out.println(" exc getting flight line Media_Category__c " + e);
 			}
-			System.out
-					.println(" FlightNameReportScriptlet calling valid disclaimers for flight division "
-							+ division + " media category " + mediaCategory);
-			List<DisclaimerStore.DisclaimerWrapper> validDisclaimersList = disclaimerStore
-					.getValidDisclaimers2(flightName, division, mediaCategory);
-			System.out
-					.println(" FlightNameReportScriptlet calling auto disclaimers ");
+			//System.out.println(" FlightNameReportScriptlet calling valid disclaimers for flight division " + division + " media category " + mediaCategory + " isAdditionalCostRelated " + isAdditionalCostRelated + " additionalCostType " + additionalCostType);
+
+			List<DisclaimerStore.DisclaimerWrapper> validDisclaimersList = new ArrayList<DisclaimerStore.DisclaimerWrapper>();
+			
+			boolean isAdditionalCostFieldSelected = false;
+			String flightLineAdditionalCostValue = "";	
+			isAdditionalCostFieldSelected  = getFlightLineColumnLabelHashMap().containsKey("Additional_Cost__c");
+			if(isAdditionalCostFieldSelected) {
+				flightLineAdditionalCostValue =  reportParameters.getValue("Additional_Cost__c");
+			}
+			validDisclaimersList = disclaimerStore.getValidDisclaimers_Cost(
+					flightName, division, mediaCategory,
+					isAdditionalCostFieldSelected,
+					flightLineAdditionalCostValue, additionalCostType);
+			//System.out.println(" FlightNameReportScriptlet calling auto disclaimers ");
+			
 			Set<String> autoDisclaimerSet = disclaimerStore.getAutoDisclaimers(
 					flightName, division, mediaCategory);
 			validAllDisclaimersList.addAll(validDisclaimersList);
@@ -4397,19 +4405,13 @@ public class PdfReporter extends Reporter {
 						.getPackageMarketFlightPreviousRecordExpression()
 						.getLastMarketId();
 
-				String lastFlightId = this
+				/*String lastFlightId = this
 						.getPackageMarketFlightPreviousRecordExpression()
-						.getId();
+						.getId();*/
 
 				String marketId = reportParameters.getValue("Id");
 
-				System.out
-						.println("FilterByMarketIdExpression.evaluate marketId, lastMarketId, lastFlightId = "
-								+ marketId
-								+ " "
-								+ lastMarketId
-								+ " "
-								+ lastFlightId);
+				//System.out.println("FilterByMarketIdExpression.evaluate marketId, lastMarketId, lastFlightId = " + marketId	+ " " + lastMarketId + " " + lastFlightId);
 
 				if (this.getPackageMarketFlightPreviousRecordExpression()
 						.isMarketIdChanged()) {
@@ -4419,8 +4421,7 @@ public class PdfReporter extends Reporter {
 				}
 
 			} catch (Exception e) {
-				System.out
-						.println("FilterByMarketIdExpression.evaluate exception. ");
+				//System.out.println("FilterByMarketIdExpression.evaluate exception. ");
 				e.printStackTrace();
 
 				return false;
@@ -4459,19 +4460,13 @@ public class PdfReporter extends Reporter {
 						.getPackageMarketFlightPreviousRecordExpression()
 						.getLastPackageId();
 
-				String lastFlightId = this
+				/*String lastFlightId = this
 						.getPackageMarketFlightPreviousRecordExpression()
-						.getId();
+						.getId();*/
 
 				String packageId = reportParameters.getValue("Id");
 
-				System.out
-						.println("FilterByPackageIdExpression.evaluate packageId, lastPackageId, lastFlightId = "
-								+ packageId
-								+ " "
-								+ lastPackageId
-								+ " "
-								+ lastFlightId);
+				//System.out.println("FilterByPackageIdExpression.evaluate packageId, lastPackageId, lastFlightId = "	+ packageId	+ " " + lastPackageId + " "	+ lastFlightId);
 
 				if (this.getPackageMarketFlightPreviousRecordExpression()
 						.isPackageIdChanged()) {
@@ -4481,8 +4476,7 @@ public class PdfReporter extends Reporter {
 				}
 
 			} catch (Exception e) {
-				System.out
-						.println("FilterByPackageIdExpression.evaluate exception. ");
+				//System.out.println("FilterByPackageIdExpression.evaluate exception. ");
 				e.printStackTrace();
 
 				return false;
@@ -4559,8 +4553,7 @@ public class PdfReporter extends Reporter {
 					isPackageChanged = false;
 				}
 			} catch (Exception e) {
-				System.out
-						.println("FilterByPackageNameExpression.evaluate exception. ");
+				//System.out.println("FilterByPackageNameExpression.evaluate exception. ");
 				e.printStackTrace();
 				returnValue = false;
 			}
@@ -4592,9 +4585,7 @@ public class PdfReporter extends Reporter {
 		@Override
 		public JasperReportBuilder evaluate(ReportParameters reportParameters) {
 
-			System.out
-					.println("   ShippingInstructionsSubreportExpression... getPageNumber(): "
-							+ reportParameters.getPageNumber());
+			//System.out.println("   ShippingInstructionsSubreportExpression... getPageNumber(): " + reportParameters.getPageNumber());
             // We record the entries here. It goes here for shipping instructions.
             List<Integer> toc = PdfReporter.this.tocEntries;
             if (toc.isEmpty() || toc.get(toc.size() - 1) <= reportParameters.getPageNumber()) {
@@ -4700,9 +4691,7 @@ public class PdfReporter extends Reporter {
 						.addDetailHeader(headerList)
 						.columns(nameColumn, valueColumn);
 			} catch (Exception ex) {
-				System.out
-						.println(" Some error occurred while creating shipping instructions sub report "
-								+ ex.getMessage());
+				//System.out.println(" Some error occurred while creating shipping instructions sub report " + ex.getMessage());
 				ex.printStackTrace();
 			}
 
@@ -4802,18 +4791,13 @@ public class PdfReporter extends Reporter {
 		}
 
 		public Object evaluate(ReportParameters reportParameters) {
-			System.out
-					.println("******** DisclaimerExpression evaluate. getFieldName():validAllDisclaimersList "
-							+ validAllDisclaimersList.size());
+			//System.out.println("******** DisclaimerExpression evaluate. getFieldName():validAllDisclaimersList " + validAllDisclaimersList.size());
 
 			String str = "";
 			Collections.sort(validAllDisclaimersList);
 
 			for (DisclaimerStore.DisclaimerWrapper discWrapper : validAllDisclaimersList) {
-				System.out
-						.println("******** DisclaimerExpression : valid disc "
-								+ discWrapper.sequenceInt + " disclaimer "
-								+ discWrapper.disclaimerText);
+				//System.out.println("******** DisclaimerExpression : valid disc " + discWrapper.sequenceInt + " disclaimer "	+ discWrapper.disclaimerText);
 				if (!validDisclaimersListDisplay
 						.contains(discWrapper.disclaimerText)) {
 					validDisclaimersListDisplay.add(discWrapper.disclaimerText);
@@ -4841,9 +4825,7 @@ public class PdfReporter extends Reporter {
 		}
 
 		public Object evaluate(ReportParameters reportParameters) {
-			System.out
-					.println("******** AutoDisclaimerExpression evaluate. getFieldName():autoDisclaimersSet  "
-							+ autoDisclaimersSet.size());
+			//System.out.println("******** AutoDisclaimerExpression evaluate. getFieldName():autoDisclaimersSet  " + autoDisclaimersSet.size());
 			String str = "";
 			for (String disc : autoDisclaimersSet) {
 				//System.out.println("******** Auto disc " + disc);
@@ -5016,7 +4998,6 @@ public class PdfReporter extends Reporter {
 			String endDate = "";
 			String duration = "";
 			String target = "";
-			String targetPopulation = "";
 			String flightComment = "";
 			String packageComment = "";
 
@@ -5070,7 +5051,6 @@ public class PdfReporter extends Reporter {
 						endDate = "";
 						duration = "";
 						target = "";
-						targetPopulation = "";
 						flightComment = "";
 						packageComment = "";
 
@@ -5091,9 +5071,7 @@ public class PdfReporter extends Reporter {
 									if (packageList != null
 											&& packageList.getLength() > 0) {
 										Node pNode = packageList.item(0);
-										System.out
-												.println("\nCurrent Element :"
-														+ pNode.getNodeName());
+										//System.out.println("\nCurrent Element :" + pNode.getNodeName());
 										if (pNode.getNodeType() == Node.ELEMENT_NODE) {
 											Element gElement = (Element) pNode;
 											NodeList idList = gElement
@@ -5102,9 +5080,7 @@ public class PdfReporter extends Reporter {
 													&& idList.getLength() > 0) {
 												packageId = idList.item(0)
 														.getTextContent();
-												System.out
-														.println("\nPackage Id :"
-																+ packageId);
+												//System.out.println("\nPackage Id :"	+ packageId);
 											}
 										}
 									}
@@ -5271,7 +5247,7 @@ public class PdfReporter extends Reporter {
 							flightCommentsMap.put(packageId, flightComments);
 							packageCommentsMap.put(packageId, packageComments);
 
-							System.out
+							/*System.out
 									.println(" ********** creating flight header object : "
 											+ "buyType "
 											+ buyType
@@ -5294,7 +5270,7 @@ public class PdfReporter extends Reporter {
 											+ "target"
 											+ target
 											+ "targetPopulation "
-											+ targetPopulation);
+											+ targetPopulation);*/
 						}
 					}
 				}
@@ -5336,6 +5312,8 @@ public class PdfReporter extends Reporter {
 			String notes = "";
 			String sequence = "";
 			String shippingInstr = "";
+			String additionalCostType = "";
+			boolean isAdditionalCostRelated = false;
 
 			// optional, but recommended
 			// read this -
@@ -5365,6 +5343,9 @@ public class PdfReporter extends Reporter {
 					notes = "";
 					sequence = "";
 					shippingInstr = "";
+					additionalCostType = "";
+					isAdditionalCostRelated = false;
+					
 					// System.out.println("\nCurrent Element :" +
 					// nNode.getNodeName());
 
@@ -5416,6 +5397,27 @@ public class PdfReporter extends Reporter {
 							shippingInstr = shippingInstList.item(0)
 									.getTextContent();
 						}
+						NodeList isAdditionalCostRelatedLst = eElement
+								.getElementsByTagName("IsAdditionalCostRelated__c");
+						if (isAdditionalCostRelatedLst != null
+								&& isAdditionalCostRelatedLst.getLength() > 0) {
+								String costVal =  isAdditionalCostRelatedLst.item(0).getTextContent() ;
+								if(costVal != null && costVal.equalsIgnoreCase("false")) {
+									isAdditionalCostRelated = false;
+								}else {
+									isAdditionalCostRelated = true;
+								}
+							
+						}
+						
+						NodeList additionalCostTypeLst = eElement
+								.getElementsByTagName("Additional_Cost_Type__c");
+						if (additionalCostTypeLst != null
+								&& additionalCostTypeLst.getLength() > 0) {
+							additionalCostType = additionalCostTypeLst.item(0)
+									.getTextContent();
+						}
+						
 						/*System.out
 								.println(" ********** creating disclaimer wrapper object: "
 										+ " Seq "
@@ -5426,17 +5428,18 @@ public class PdfReporter extends Reporter {
 										+ mediaType
 										+ " division "
 										+ division
-										+ " shippingInstr " + shippingInstr);*/
+										+ " shippingInstr " + shippingInstr
+										+ " isAdditionalCostRelated " + isAdditionalCostRelated
+										+ "  additionalCostType " +additionalCostType );*/
 
 						disclaimerStore.createDisclaimerWrapper(disclaimerText,
 								outputLocation, proposalType, division,
-								mediaType, notes, sequence, shippingInstr);
+								mediaType, notes, sequence, shippingInstr,
+								isAdditionalCostRelated, additionalCostType);
 
 					}
 				}
-				System.out
-						.println(" ************  disclaimerStore disclaimerlist length "
-								+ disclaimerStore.getDisclaimersList().size());
+				//System.out.println(" ************  disclaimerStore disclaimerlist length " + disclaimerStore.getDisclaimersList().size());
 			}
 		}
 
@@ -5486,8 +5489,7 @@ public class PdfReporter extends Reporter {
 
 					Element eElement = (Element) nNode;
 
-					// System.out.println("Staff id : " +
-					// eElement.getAttribute("id"));
+					//System.out.println("Staff id : " + eElement.getAttribute("id"));
 					//System.out.println("Sort_Sequence__c: " + eElement.getElementsByTagName("Sort_Sequence__c").item(0).getTextContent());
 					//System.out.println("Flight__c: " + eElement.getElementsByTagName("Flight__c").item(0).getTextContent());
 					//System.out.println("Panel__c: " + eElement.getElementsByTagName("Panel__c").item(0).getTextContent());
@@ -5528,7 +5530,6 @@ public class PdfReporter extends Reporter {
 
 			if (integerValue != null) {
 				//System.out.println("      found integerValue: " + integerValue);
-				// return String.valueOf(integerValue);
 				return integerValue;
 			}
 

@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 
 public class DisclaimerStore {
 	
@@ -16,13 +18,17 @@ public class DisclaimerStore {
 	
 	public void createDisclaimerWrapper(String disclaimerText,
 			String outputLocation, String proposalType, String marketName,
-			String mediaType, String notes, String sequence, String shippingInstruction) {
-		
-		DisclaimerWrapper wrapper = new DisclaimerWrapper(disclaimerText,outputLocation,
-				proposalType,marketName,mediaType,notes, sequence,shippingInstruction);
-		
+			String mediaType, String notes, String sequence,
+			String shippingInstruction, boolean isAdditionalCostRelated,
+			String additionalCostType) {
+
+		DisclaimerWrapper wrapper = new DisclaimerWrapper(disclaimerText,
+				outputLocation, proposalType, marketName, mediaType, notes,
+				sequence, shippingInstruction, isAdditionalCostRelated,
+				additionalCostType);
+
 		disclaimerWrapperList.add(wrapper);
-		
+
 	}
 
 	public List<DisclaimerWrapper> getValidDisclaimers2 (String flightName,String flightMarket, String flightMediaCategory) {
@@ -49,6 +55,56 @@ public class DisclaimerStore {
 		
 		return validDisclaimersList ;
 		
+	}
+	
+	public List<DisclaimerWrapper> getValidDisclaimers_Cost(String flightName,String flightMarket, String flightMediaCategory, boolean isAdditionalCostFieldSelected,
+			String flightLineAdditonalCostFieldValue,  String flightLineAdditionalCostType) {
+		//Set<String> validDisclaimersTextSet = new HashSet<String>();
+		List<DisclaimerWrapper> validDisclaimersList = new ArrayList<DisclaimerWrapper>();
+		for(DisclaimerWrapper wrapper : disclaimerWrapperList) {
+			//System.out.println(" getValidDisclaimers  sequence " + wrapper.sequence + 
+					//" wrapper.market --> " + wrapper.market + 
+					 //" flightMarket : " + flightMarket + 
+					// " wrapper.mediaCategory -->" + wrapper.mediaCategory + 
+					// " flightMediaCategory --> " + flightMediaCategory 
+					// + "  disclaimer text " + wrapper.disclaimerText);
+			//System.out.println(" getValidDisclaimers disclaimer " + wrapper.toString());
+			
+			boolean includeDisclaimer = false;
+			if(wrapper.isMatchingMarket(flightMarket) && wrapper.isMatchingMediaCategory(flightMediaCategory)) {
+				// disclaimer is cost related
+				includeDisclaimer = true;
+				/*System.out.println(" disclaimer matched flightMarket " +flightMarket + " flightMediaCategory "
+						+ flightMediaCategory + " disclaimer " + wrapper.disclaimerText + "  isDisclaimerAdditionalCostRelated  " +wrapper.isAdditionalCostRelated() 
+						+ " isAdditionalCostFieldSelected  " +isAdditionalCostFieldSelected + " AdditionalCostType " +wrapper.getAdditionalCostType() + 
+						"  flightLineAdditonalCostFieldValue " + flightLineAdditonalCostFieldValue + " flightLineAdditionalCostType " +flightLineAdditionalCostType);*/						 
+				if(wrapper.isAdditionalCostRelated()) {
+					//check if flight line additional cost field is selected
+					if(isAdditionalCostFieldSelected){
+							//check flight line additional cost value
+						if (flightLineAdditonalCostFieldValue != null && flightLineAdditonalCostFieldValue != "0.0" 
+								&& StringUtils.isNotEmpty(flightLineAdditionalCostType)
+								&& flightLineAdditionalCostType.equals(wrapper.getAdditionalCostType())) {
+							  	includeDisclaimer = true;
+							}else {
+								includeDisclaimer = false;
+							}
+						}
+						//do not show the disclaimer
+						else {
+							includeDisclaimer = false;
+						}
+				}
+			}
+			if(includeDisclaimer) {
+				System.out.println(" disclaimer included ::::::::::::::::::::: " + wrapper);
+				validDisclaimersList.add(wrapper);
+			}
+		}
+        Collections.sort(validDisclaimersList);
+        //System.out.println(validDisclaimersList);
+		
+		return validDisclaimersList ;
 	}
 	
 	public Set<String> getValidDisclaimers (String flightName,String flightMarket, String flightMediaCategory) {
@@ -108,6 +164,8 @@ public class DisclaimerStore {
 		public String sequence; 
 		public Integer sequenceInt;
 		public String shippingInstr;
+		public boolean additionalCostRelated;
+		public String additionalCostType;
 		
 		public DisclaimerWrapper() {
 			this.disclaimerText = "";	
@@ -119,12 +177,16 @@ public class DisclaimerStore {
 			this.sequence = "";
 			this.sequenceInt = null;
 			this.shippingInstr = "";
+			this.additionalCostRelated = false;
+			this.additionalCostType = "";
 			
 		}
+
 		public DisclaimerWrapper(String disclaimerText, String outputLocation,
 				String proposalType, String marketName, String mediaCategory,
-				String notes2, String sequence, String shippingInst) {
-			
+				String notes2, String sequence, String shippingInst,
+				boolean isAdditionalCostRelated, String additionalCostType) {
+
 			this.disclaimerText = disclaimerText;	
 			this.outputLocation = outputLocation;
 			this.proposalType = proposalType;
@@ -139,6 +201,8 @@ public class DisclaimerStore {
 			
 			//System.out.println(" ************ sequenceInt " + sequenceInt );
 			this.shippingInstr = shippingInst;
+			this.additionalCostRelated = isAdditionalCostRelated;
+			this.additionalCostType = additionalCostType;
 		}
 		public String getDisclaimerText() {
 			return disclaimerText;
@@ -193,6 +257,20 @@ public class DisclaimerStore {
 		}
 		public void setShippingInstr(String shippingInstr) {
 			this.shippingInstr = shippingInstr;
+		}
+		
+		public String getAdditionalCostType() {
+			return additionalCostType;
+		}
+		public void setAdditionalCostType(String additionalCostType) {
+			this.additionalCostType = additionalCostType;
+		}
+		
+		public boolean isAdditionalCostRelated() {
+			return additionalCostRelated;
+		}
+		public void setAdditionalCostRelated(boolean isAdditionalCostRelated) {
+			this.additionalCostRelated = isAdditionalCostRelated;
 		}
 		public boolean isShippingInstruction() {
 			return this.shippingInstr != null && this.shippingInstr != "" && this.shippingInstr.equalsIgnoreCase("true");
@@ -282,7 +360,7 @@ public class DisclaimerStore {
 		public String toString() {
 			return " Disclaimer : Sequence " + this.sequenceInt +  " Disclaimer :" + this.disclaimerText 
 					+ " Market " + this.market + " Media Category " + this.mediaCategory 
-					+ " Shipping Instr " + this.shippingInstr;
+					+ " additionalCostType " + additionalCostType + " additionalCostRelated " +  additionalCostRelated ;
 					 
 		}
 		}

@@ -60,9 +60,9 @@ public class ValueFormatters {
 		// Use NumberFormat to format and parse numbers for the US locale
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.US); // Get a NumberFormat instance for US locale
 
-		// set return value to be as int value
+		// set return value to be as formatted double value
 		try {
-			double doubleValue = nf.parse(value).intValue();
+			double doubleValue = nf.parse(value).doubleValue();
 
 			returnValue = decimalFormat.format(doubleValue);
 
